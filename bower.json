@@ -1,0 +1,14 @@
+{
+  "name": "datepicker",
+  "version": "0.1.0",
+  "authors": [
+    "Philippe Penissou <ppenissou@voyages-sncf.com>"
+  ],
+  "_source": "git@gitlab.socrate.vsct.fr:VSH/datepicker.git",
+  "_target": "*",
+  "_originalSource": "git@gitlab.socrate.vsct.fr:VSH/datepicker.git",
+  "main": [
+    "dist/datepicker.css",
+    "dist/datepicker.js"
+  ]
+}
