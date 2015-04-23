@@ -3,3 +3,4 @@ src/vendors
 .idea
 build
 npm-debug.log
+/*.iml
