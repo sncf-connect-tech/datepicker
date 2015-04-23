@@ -4,3 +4,4 @@ src/vendors
 build
 npm-debug.log
 /*.iml
+src/.sass-cache/

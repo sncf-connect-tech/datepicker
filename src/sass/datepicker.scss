@@ -1,6 +1,7 @@
 @import "../vendors/bourbon/dist/_bourbon.scss";
 @import "vars";
 @import "extends";
+@import "animation";
 
 .datepicker-wrapper {
   font-family: Arial, Helvetica, sans-serif;
@@ -15,6 +16,8 @@
     padding: em(10);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
     border-radius: 3px;
+    @include animation(scale 0.12s ease-in);
+    @extend %noSelect;
     &:after {
       content: "";
       position: absolute;
@@ -45,23 +48,37 @@
     padding: em(8) em(10) em(10) em(10);
     @extend %clearFloat;
     z-index: 1;
+    color: $blueVSC;
   }
   .button {
     $thin: 3px;
     $size: em(12);
     $color: #000;
     position: absolute;
-    top: em(7);
+    top: em(-2);
     display: block;
     overflow: hidden;
-    text-indent: em(-999);
+    line-height: em(100);
     width:$size; height:$size;
-    border-top:$thin solid $color;
-    border-left:$thin solid $color;
+    padding: em(14);
+    border-radius: 50%;
     cursor:pointer;
-    &.prev { @include transform(rotate(-45deg)); left: em(10); }
-    &.next { @include transform(rotate(135deg)); right: em(10); }
     z-index: 1;
+    &:before {
+      content: "";
+      display: block;
+      width:$size; height:$size;
+      border-top:$thin solid $blueVSC;
+      border-left:$thin solid $blueVSC;
+    }
+    &.prev { @include transform(rotate(-45deg)); left: em(-6); }
+    &.next { @include transform(rotate(135deg)); right: em(-6); }
+    &:hover {
+      &:before {
+        border-top:$thin solid $border-light;
+        border-left:$thin solid $border-light;
+      }
+    }
   }
   .month-head {
     position: relative;
@@ -69,33 +86,25 @@
     width: 50%;
     text-align: center;
     font-size: 0.95em;
-    font-width: bold;
-    color: $txt-dark;
-    &-0 {
-      &:before {
-        content: "";
-        position: absolute;
-        display: block;
-        border-right: 1px solid $border-dark;
-        top: -0.55em;
-        bottom: -1.875em;
-        right: 0;
-      }
-    }
   }
   table {
-    border-collapse: collapse;
-    border-spacing: 0;
+    &.month-wrapper {
+      border-collapse: separate;
+      border-spacing: em(15);
+      margin: em(-10);
+    }
+    &.month-cal {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-top: em(-20);
+    }
   }
   .table-month-wrapper {
     vertical-align: top;
-    &:first-child {
-      border-right: 1px solid $border-dark;
-    }
     td {
-      border: 1px solid rgba(6, 6, 6, 0.02);
+      border: 1px solid $border-light;
       padding: em(11);
-      text-align: right;
+      text-align: center;
     }
     th {
       padding: em(11);
@@ -104,11 +113,38 @@
     }
     .selectable_day {
       cursor: pointer;
+      &.selected {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+          background: $blueVSC;
+          z-index: -1;
+        }
+      }
+      &.today {
+        font-weight: bold;
+      }
+      &:hover {
+        @extend .selected;
+        color:#000;
+        &:before { background: $border-light; }
+      }
     }
     .unselected_month {
       color: #D3D3D3;
-      background: #FCFCFC;
     }
+    .off_month {
+      color:rgba(255,255,255,0);
+    }
+
   }
   .today-date {
     display: none;

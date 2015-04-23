@@ -270,8 +270,11 @@ jdPicker = (function($) {
         if ((this.select_week == 0 && currentDay.getMonth() == date.getMonth() && this.isNewDateAllowed(currentDay) && !this.isHoliday(currentDay)) || (this.select_week == 1 && currentDay.getMonth() == date.getMonth() && this.isNewDateAllowed(firstDayOfWeek))) {
           tableCells += '<td id="day' + i + '" class="selectable_day" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjust_day_names[firstDay] + '">' + currentDay.getDate() + '</td>';
         }
-        else {
+        else if (currentDay.getMonth() == date.getMonth()) {
           tableCells += '<td id="day' + i + '" class="unselected_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjust_day_names[firstDay] + '">' + currentDay.getDate() + '</td>';
+        }
+        else {
+          tableCells += '<td id="day' + i + '" class="unselected_month off_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjust_day_names[firstDay] + '">' + currentDay.getDate() + '</td>';
         }
 
         firstDay++;
