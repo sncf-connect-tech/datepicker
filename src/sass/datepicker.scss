@@ -1,0 +1,116 @@
+@import "../vendors/bourbon/dist/_bourbon.scss";
+@import "vars";
+@import "extends";
+
+.datepicker-wrapper {
+  font-family: Arial, Helvetica, sans-serif;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+  }
+  .date-selector {
+    position: absolute;
+    background: #FFF;
+    padding: em(10);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
+    border-radius: 3px;
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1em;
+      height: 1em;
+      background: #FFF;
+      top: em(-6);
+      left: em(14);
+      @include transform(rotate(45deg));
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
+      z-index:0;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 2em;
+      height: 1em;
+      background: #FFF;
+      top: 0;
+      left: em(4);
+      z-index: 1;
+    }
+  }
+  .nav {
+    position: relative;
+    padding: em(8) em(10) em(10) em(10);
+    @extend %clearFloat;
+    z-index: 1;
+  }
+  .button {
+    $thin: 3px;
+    $size: em(12);
+    $color: #000;
+    position: absolute;
+    top: em(7);
+    display: block;
+    overflow: hidden;
+    text-indent: em(-999);
+    width:$size; height:$size;
+    border-top:$thin solid $color;
+    border-left:$thin solid $color;
+    cursor:pointer;
+    &.prev { @include transform(rotate(-45deg)); left: em(10); }
+    &.next { @include transform(rotate(135deg)); right: em(10); }
+    z-index: 1;
+  }
+  .month-head {
+    position: relative;
+    float:left;
+    width: 50%;
+    text-align: center;
+    font-size: 0.95em;
+    font-width: bold;
+    color: $txt-dark;
+    &-0 {
+      &:before {
+        content: "";
+        position: absolute;
+        display: block;
+        border-right: 1px solid $border-dark;
+        top: -0.55em;
+        bottom: -1.875em;
+        right: 0;
+      }
+    }
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  .table-month-wrapper {
+    vertical-align: top;
+    &:first-child {
+      border-right: 1px solid $border-dark;
+    }
+    td {
+      border: 1px solid rgba(6, 6, 6, 0.02);
+      padding: em(11);
+      text-align: right;
+    }
+    th {
+      padding: em(11);
+      font-weight: normal;
+      font-size: 0.8em;
+    }
+    .selectable_day {
+      cursor: pointer;
+    }
+    .unselected_month {
+      color: #D3D3D3;
+      background: #FCFCFC;
+    }
+  }
+  .today-date {
+    display: none;
+  }
+}
