@@ -1,6 +1,13 @@
 $(document).ready(function() {
 
-  $lang = $('html').attr('lang').split('-');
+  var lang;
+  //verify if datepicker is called from the booking, get language from global variable defined in booking context
+  if (typeof BookingWidgetState !== 'undefined') {
+    lang = BookingWidgetState.userCountry.split('_')[1];
+  } else {
+    //get language variable from lang attribute of html
+    lang = $('html').attr('lang').split('-')[0];
+  }
 
   /**
    * Return the current date
@@ -114,7 +121,7 @@ $(document).ready(function() {
     }
   }
 
-  switch ($lang[0]) {
+  switch (lang) {
     case 'fr':
       options = {
         month_names: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
