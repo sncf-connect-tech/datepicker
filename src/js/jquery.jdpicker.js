@@ -500,7 +500,7 @@ jdPicker = (function($) {
       var win = $(window),
           input_position = this.input.position(),
           input_offset = this.input.offset(),
-          date_selector_height = 210;
+        date_selector_height = this.rootLayers.outerHeight();
 
       // Define viewport
       var viewport = { top : win.scrollTop() };
