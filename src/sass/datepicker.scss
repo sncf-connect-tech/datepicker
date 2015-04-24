@@ -41,6 +41,17 @@
       left: em(4);
       z-index: 1;
     }
+    &.on-top {
+      &:after {
+        bottom: -0.54em;
+        top: auto;
+      }
+      &:before {
+        top: auto;
+        bottom: 0;
+        height: 0.9em;
+      }
+    }
   }
   .nav {
     position: relative;

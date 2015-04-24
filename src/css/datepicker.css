@@ -90,6 +90,13 @@
       top: 0;
       left: 0.25em;
       z-index: 1; }
+    .datepicker-wrapper .date-selector.on-top:after {
+      bottom: -0.54em;
+      top: auto; }
+    .datepicker-wrapper .date-selector.on-top:before {
+      top: auto;
+      bottom: 0;
+      height: 0.9em; }
   .datepicker-wrapper .nav {
     position: relative;
     padding: 0.5em 0.625em 0.625em 0.625em;
