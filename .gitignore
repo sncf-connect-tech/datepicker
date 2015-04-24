@@ -5,3 +5,4 @@ build
 npm-debug.log
 /*.iml
 src/.sass-cache/
+.sass-cache/

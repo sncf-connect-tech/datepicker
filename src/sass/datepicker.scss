@@ -18,6 +18,7 @@
     border-radius: 3px;
     @include animation(scale 0.12s ease-in);
     @extend %noSelect;
+    z-index: 9000;
     &:after {
       content: "";
       position: absolute;
@@ -55,7 +56,7 @@
     $size: em(12);
     $color: #000;
     position: absolute;
-    top: em(-2);
+    top: em(-3);
     display: block;
     overflow: hidden;
     line-height: em(100);
@@ -75,8 +76,8 @@
     &.next { @include transform(rotate(135deg)); right: em(-6); }
     &:hover {
       &:before {
-        border-top:$thin solid $border-light;
-        border-left:$thin solid $border-light;
+        border-top:$thin solid #A8A8A8;
+        border-left:$thin solid #A8A8A8;
       }
     }
   }

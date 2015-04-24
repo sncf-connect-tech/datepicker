@@ -64,7 +64,8 @@
     border-radius: 3px;
     -webkit-animation: scale 0.12s ease-in;
     -moz-animation: scale 0.12s ease-in;
-    animation: scale 0.12s ease-in; }
+    animation: scale 0.12s ease-in;
+    z-index: 9000; }
     .datepicker-wrapper .date-selector:after {
       content: "";
       position: absolute;
@@ -98,7 +99,7 @@
     color: #0088CE; }
   .datepicker-wrapper .button {
     position: absolute;
-    top: -0.125em;
+    top: -0.1875em;
     display: block;
     overflow: hidden;
     line-height: 6.25em;
@@ -130,8 +131,8 @@
       transform: rotate(135deg);
       right: -0.375em; }
     .datepicker-wrapper .button:hover:before {
-      border-top: 3px solid #E8E8E8;
-      border-left: 3px solid #E8E8E8; }
+      border-top: 3px solid #A8A8A8;
+      border-left: 3px solid #A8A8A8; }
   .datepicker-wrapper .month-head {
     position: relative;
     float: left;
