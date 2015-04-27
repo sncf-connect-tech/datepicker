@@ -123,18 +123,18 @@
       border-top: 3px solid #0088CE;
       border-left: 3px solid #0088CE; }
     .datepicker-wrapper .button.prev {
-      -webkit-transform: rotate(-45deg);
-      -moz-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      -o-transform: rotate(-45deg);
-      transform: rotate(-45deg);
+      -webkit-transform: rotate3d(0, 0, -1, 45deg);
+      -moz-transform: rotate3d(0, 0, -1, 45deg);
+      -ms-transform: rotate3d(0, 0, -1, 45deg);
+      -o-transform: rotate3d(0, 0, -1, 45deg);
+      transform: rotate3d(0, 0, -1, 45deg);
       left: -0.375em; }
     .datepicker-wrapper .button.next {
-      -webkit-transform: rotate(135deg);
-      -moz-transform: rotate(135deg);
-      -ms-transform: rotate(135deg);
-      -o-transform: rotate(135deg);
-      transform: rotate(135deg);
+      -webkit-transform: rotate3d(0, 0, -1, -135deg);
+      -moz-transform: rotate3d(0, 0, -1, -135deg);
+      -ms-transform: rotate3d(0, 0, -1, -135deg);
+      -o-transform: rotate3d(0, 0, -1, -135deg);
+      transform: rotate3d(0, 0, -1, -135deg);
       right: -0.375em; }
     .datepicker-wrapper .button:hover:before {
       border-top: 3px solid #A8A8A8;
@@ -156,7 +156,7 @@
     vertical-align: top; }
     .datepicker-wrapper .table-month-wrapper td {
       border: 1px solid #E8E8E8;
-      padding: 0.85em;
+      padding: 0.6875em;
       text-align: center; }
     .datepicker-wrapper .table-month-wrapper th {
       padding: 0.6875em;
