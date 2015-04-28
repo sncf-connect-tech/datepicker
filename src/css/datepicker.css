@@ -149,8 +149,8 @@
     border-spacing: 0.9375em;
     margin: -0.625em; }
   .datepicker-wrapper table.month-cal {
-    border-collapse: collapse;
-    border-spacing: 0;
+    border-collapse: separate;
+    border-spacing: 2px;
     margin-top: -1.25em; }
   .datepicker-wrapper .table-month-wrapper {
     vertical-align: top; }
@@ -164,11 +164,11 @@
       font-size: 0.9em; }
     .datepicker-wrapper .table-month-wrapper .selectable_day {
       cursor: pointer; }
-      .datepicker-wrapper .table-month-wrapper .selectable_day.selected, .datepicker-wrapper .table-month-wrapper .selectable_day:hover {
+      .datepicker-wrapper .table-month-wrapper .selectable_day.selected, .datepicker-wrapper .table-month-wrapper .selectable_day.hover {
         position: relative;
         z-index: 1;
-        color: #fff; }
-        .datepicker-wrapper .table-month-wrapper .selectable_day.selected:before, .datepicker-wrapper .table-month-wrapper .selectable_day:hover:before {
+        color: #0088CE; }
+        .datepicker-wrapper .table-month-wrapper .selectable_day.selected:before, .datepicker-wrapper .table-month-wrapper .selectable_day.hover:before {
           content: "";
           display: block;
           position: absolute;
@@ -176,16 +176,13 @@
           right: 0;
           left: 0;
           bottom: 0;
-          background: #0088CE;
+          border: 1px solid #0088CE;
           z-index: -1; }
       .datepicker-wrapper .table-month-wrapper .selectable_day.today {
         font-weight: bold; }
-      .datepicker-wrapper .table-month-wrapper .selectable_day:hover {
-        color: #000; }
-        .datepicker-wrapper .table-month-wrapper .selectable_day:hover:before {
-          background: #E8E8E8; }
     .datepicker-wrapper .table-month-wrapper .unselected_month {
-      color: #D3D3D3; }
+      color: #D3D3D3;
+      border: 0; }
     .datepicker-wrapper .table-month-wrapper .off_month {
       color: rgba(255, 255, 255, 0); }
   .datepicker-wrapper .today-date {

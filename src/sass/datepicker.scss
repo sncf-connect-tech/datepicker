@@ -104,8 +104,8 @@
       margin: em(-10);
     }
     &.month-cal {
-      border-collapse: collapse;
-      border-spacing: 0;
+      border-collapse: separate;
+      border-spacing: 2px;
       margin-top: em(-20);
     }
   }
@@ -123,10 +123,10 @@
     }
     .selectable_day {
       cursor: pointer;
-      &.selected {
+      &.selected, &.hover {
         position: relative;
         z-index: 1;
-        color: #fff;
+        color: $blueVSC;
         &:before {
           content: "";
           display: block;
@@ -135,21 +135,17 @@
           right: 0;
           left: 0;
           bottom: 0;
-          background: $blueVSC;
+          border:1px solid $blueVSC;
           z-index: -1;
         }
       }
       &.today {
         font-weight: bold;
       }
-      &:hover {
-        @extend .selected;
-        color:#000;
-        &:before { background: $border-light; }
-      }
     }
     .unselected_month {
       color: #D3D3D3;
+      border: 0;
     }
     .off_month {
       color:rgba(255,255,255,0);
