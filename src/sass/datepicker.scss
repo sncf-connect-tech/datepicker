@@ -123,7 +123,7 @@
     }
     .selectable_day {
       cursor: pointer;
-      &.selected, &.hover {
+      &.hover {
         position: relative;
         z-index: 1;
         color: $blueVSC;
@@ -141,6 +141,12 @@
       }
       &.today {
         font-weight: bold;
+        color:$blueVSC;
+        border:1px solid $blueVSC;
+      }
+      &.selected {
+        color: #FFF;
+        background: $blueVSC;
       }
     }
     .unselected_month {
