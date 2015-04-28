@@ -168,10 +168,12 @@ jdPicker = (function($) {
         this.yearNameSpan[i] = $(".year-name-" + i, monthNav);
       }
 
-      $(".prev", monthNav).click(this.bindToObj(function(e) {
+      $(".prev", monthNav).click(this.bindToObj(function (e) {
         this.moveMonthBy(Number('-1')); // Always go 1 month backward, even if 2 months or more are displayed
         e.preventDefault();
         e.stopPropagation();
+        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), - 1);
+        this.firstMonthAllowed(newMonth);
       }));
 
       $(".next", monthNav).click(this.bindToObj(function(e) {
@@ -303,6 +305,7 @@ jdPicker = (function($) {
 
           this.monthNameSpan[0].empty().append(this.month_names[firstMonth.getMonth()]);
           this.yearNameSpan[0].empty().append(this.currentMonth.getFullYear());
+          this.firstMonthAllowed(firstMonth);
 
           // Iterate to render next months
           if (this.nb_calendar > 1) {
@@ -348,9 +351,6 @@ jdPicker = (function($) {
 
         $('.selected', this.tbody).removeClass("selected").attr('aria-selected','false');
         $('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]', this.tbody).addClass("selected").attr('aria-selected','true');
-      }
-      else {
-        this.show_error(this.error_out_of_range);
       }
     },
 
@@ -551,6 +551,15 @@ jdPicker = (function($) {
         var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount, 1);
       }
       this.selectMonth(newMonth);
+    },
+
+    firstMonthAllowed: function(firstMonth) {
+      if (this.isNewDateAllowed(firstMonth)) {
+        $(".button.prev").removeClass("stop");
+      }
+      else {
+        $(".button.prev").addClass("stop");
+      }
     },
 
     monthName: function (date) {

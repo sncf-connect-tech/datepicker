@@ -82,7 +82,13 @@
       border-top:$thin solid $blueVSC;
       border-left:$thin solid $blueVSC;
     }
-    &.prev { @include transform(rotate3d(0,0,-1,45deg)); left: em(-6); }
+    &.stop, &.stop:hover {
+      cursor: default;
+      &:before { border-color:#DDD; }
+    }
+    &.prev {
+      @include transform(rotate3d(0,0,-1,45deg)); left: em(-6);
+    }
     &.next { @include transform(rotate3d(0,0,-1,-135deg)); right: em(-6); }
     &:hover {
       &:before {

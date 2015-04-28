@@ -122,6 +122,10 @@
       height: 0.75em;
       border-top: 3px solid #0088CE;
       border-left: 3px solid #0088CE; }
+    .datepicker-wrapper .button.stop, .datepicker-wrapper .button.stop:hover {
+      cursor: default; }
+      .datepicker-wrapper .button.stop:before, .datepicker-wrapper .button.stop:hover:before {
+        border-color: #DDD; }
     .datepicker-wrapper .button.prev {
       -webkit-transform: rotate3d(0, 0, -1, 45deg);
       -moz-transform: rotate3d(0, 0, -1, 45deg);
