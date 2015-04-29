@@ -506,8 +506,8 @@ jdPicker = (function ($) {
       var input_offset = this.input.offset();
       input_offset.bottom = input_offset.top + this.input.outerHeight();
 
-      // Enough available space under the input
-      if ((viewport.bottom - input_offset.bottom) >= date_selector_height) {
+      // Enough available space under the input or no place above
+      if (((viewport.bottom - input_offset.bottom) >= date_selector_height) || ((typeof BookingWidgetState !== 'undefined') && (input_offset.bottom - $(window).scrollTop() - 80 < date_selector_height))) {
         this.rootLayers.css({
           top: input_position.top + this.input.outerHeight() + 15,
           bottom: 'auto'
