@@ -1,34 +1,34 @@
 /**
-  jdPicker 1.0
-  Requires jQuery version: >= 1.2.6
+ jdPicker 1.0
+ Requires jQuery version: >= 1.2.6
 
-  2010 - ? -- Paul Da Silva, AMJ Groupe
+ 2010 - ? -- Paul Da Silva, AMJ Groupe
 
-  Copyright (c) 2007-2008 Jonathan Leighton & Torchbox Ltd
+ Copyright (c) 2007-2008 Jonathan Leighton & Torchbox Ltd
 
-  Permission is hereby granted, free of charge, to any person
-  obtaining a copy of this software and associated documentation
-  files (the "Software"), to deal in the Software without
-  restriction, including without limitation the rights to use,
-  copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the
-  Software is furnished to do so, subject to the following
-  conditions:
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without
+ restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following
+ conditions:
 
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
 
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-  OTHER DEALINGS IN THE SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
+ */
 
-jdPicker = (function($) {
+jdPicker = (function ($) {
 
   function jdPicker(el, opts) {
     if (typeof (opts) != "object") {
@@ -41,18 +41,17 @@ jdPicker = (function($) {
 
     this.build();
     this.selectDate();
-
     this.hide();
-  };
+  }
 
   /**
-  * Return the current date
-  */
-  jdPicker.currentDate = function() {
+   * Return the current date
+   */
+  jdPicker.currentDate = function () {
     var today = new Date(),
-    dd = today.getDate(),
-    mm = today.getMonth() + 1,
-    yyyy = today.getFullYear();
+      dd = today.getDate(),
+      mm = today.getMonth() + 1,
+      yyyy = today.getFullYear();
 
     if (dd < 10) {
       dd = '0' + dd;
@@ -69,7 +68,7 @@ jdPicker = (function($) {
    * Default options
    * @type {Object}
    */
-   //JdPicker i18n
+    //JdPicker i18n
   jdPicker.DEFAULT_OPTS = {
     month_names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     short_month_names: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -92,7 +91,7 @@ jdPicker = (function($) {
 
 
   jdPicker.prototype = {
-    build: function() {
+    build: function () {
       var self = this;
 
       this.wrapp = this.input.wrap('<div class="datepicker-wrapper">');
@@ -158,7 +157,7 @@ jdPicker = (function($) {
       this.yearNameSpan = [];
 
       for (var i = 0; i < this.nb_calendar; i++) {
-        monthHead += '<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '">' + '<span class="month-name month-name-' + i + '"></span> ' + ' <span class="year-name year-name-' + i +'"></span>' + '</span> ';
+        monthHead += '<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '">' + '<span class="month-name month-name-' + i + '"></span> ' + ' <span class="year-name year-name-' + i + '"></span>' + '</span> ';
       }
 
       var monthNav = $('<p class="month-nav">' + '<span class="button prev" title="Précédent [Page-Up]" role="button">Précédent</span>' + '<span class="button next" title="Suivant [Page-Down]" role="button">Suivant</span>' + monthHead + '</p>');
@@ -172,19 +171,19 @@ jdPicker = (function($) {
         this.moveMonthBy(Number('-1')); // Always go 1 month backward, even if 2 months or more are displayed
         e.preventDefault();
         e.stopPropagation();
-        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), - 1);
+        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), -1);
         this.firstMonthAllowed(newMonth);
       }));
 
-      $(".next", monthNav).click(this.bindToObj(function(e) {
+      $(".next", monthNav).click(this.bindToObj(function (e) {
         this.moveMonthBy(1); // Always go 1 month forward, even if 2 months or more are displayed
         e.preventDefault();
         e.stopPropagation();
       }));
 
       var error_msg = $('<div class="error_msg" />'),
-          nav = $('<div class="nav" />').append(error_msg, monthNav),
-          tableShell = '<table role="grid" aria-labelledby="month-name" class="month-wrapper"><thead><tr>';
+        nav = $('<div class="nav" />').append(error_msg, monthNav),
+        tableShell = '<table role="grid" aria-labelledby="month-name" class="month-wrapper"><thead><tr>';
 
       if (this.show_week == 1) {
         tableShell += '<th class="week_label">' + (this.week_label) + '</th>';
@@ -193,22 +192,22 @@ jdPicker = (function($) {
       tableShell += "</tr></thead><tbody><tr><td></td></tr></tbody></table>";
 
       var today_date = $('<div class="today-date" role="button">' + this.today_string + '</div>'),
-          style = (this.input.context.type == "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
+        style = (this.input.context.type == "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
 
       this.dateSelector = this.rootLayers = $('<div class="date-selector" aria-hidden="true"' + style + '></div>').append(nav, tableShell, today_date).insertAfter(this.input);
 
-      $(".today-date", this.dateSelector).click(this.bindToObj(function() {
+      $(".today-date", this.dateSelector).click(this.bindToObj(function () {
         this.changeInput(jdPicker.currentDate());
       }));
 
       this.tbody = $("tbody tr ", this.dateSelector);
 
-      this.input.change(this.bindToObj(function() {
+      this.input.change(this.bindToObj(function () {
         this.selectDate();
       }));
 
       // Fill inwardDate with outwardDate
-      this.wrapp.bind('click focus', function() {
+      this.wrapp.bind('click focus', function () {
         if ($(this).hasClass('inward')) {
           $(this).val($(this).parents('form').find('input.outward').val());
           self.selectDate();
@@ -230,15 +229,15 @@ jdPicker = (function($) {
       this.selectDate();
     },
 
-    renderDatepicker: function(date) {
+    renderDatepicker: function (date) {
 
       var rangeStart = this.rangeStart(date),
-          rangeEnd = this.rangeEnd(date),
-          numDays = this.daysBetween(rangeStart, rangeEnd),
-          tableCells = "",
-          weekRow = 0,
-          adjust_short_day_names = this.adjustDays(this.short_day_names),
-          adjust_day_names = this.adjustDays(this.day_names);
+        rangeEnd = this.rangeEnd(date),
+        numDays = this.daysBetween(rangeStart, rangeEnd),
+        tableCells = "",
+        weekRow = 0,
+        adjust_short_day_names = this.adjustDays(this.short_day_names),
+        adjust_day_names = this.adjustDays(this.day_names);
 
       tableCells += '<td class="table-month-wrapper"><table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
 
@@ -252,8 +251,8 @@ jdPicker = (function($) {
         if (this.isFirstDayOfWeek(currentDay)) {
 
           var firstDayOfWeek = currentDay,
-              lastDayOfWeek = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate() + 6, 12, 00),
-              firstDay = 0;
+            lastDayOfWeek = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate() + 6, 12, 00),
+            firstDay = 0;
 
           if (this.select_week && this.isNewDateAllowed(firstDayOfWeek)) {
             tableCells += '<tr id="row' + weekRow + '" date="' + this.dateToString(currentDay) + '" class="selectable_week">';
@@ -291,7 +290,12 @@ jdPicker = (function($) {
       return tableCells;
     },
 
-    selectMonth: function(date) {
+    clickEvent: function () {
+      var clickEvent = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false ) ? 'touchend' : 'click';
+      return clickEvent;
+    },
+
+    selectMonth: function (date) {
       var newMonth = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
       if (this.isNewDateAllowed(newMonth)) {
@@ -301,7 +305,7 @@ jdPicker = (function($) {
 
           // Render the current month
           var calendar = this.renderDatepicker(date),
-              firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
+            firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
 
           this.monthNameSpan[0].empty().append(this.month_names[firstMonth.getMonth()]);
           this.yearNameSpan[0].empty().append(this.currentMonth.getFullYear());
@@ -320,41 +324,41 @@ jdPicker = (function($) {
           this.tbody.empty().append(calendar);
 
           if (this.select_week == 0) {
-            $(".selectable_day", this.tbody).click(this.bindToObj(function(event) {
+            $(".selectable_day", this.tbody).click(this.bindToObj(function (event) {
               this.changeInput($(event.target).attr("date"));
             }));
           }
           else {
-            $(".selectable_week", this.tbody).click(this.bindToObj(function(event) {
+            $(".selectable_week", this.tbody).click(this.bindToObj(function (event) {
               this.changeInput($(event.target.parentNode).attr("date"));
             }));
           }
 
           $("td[date='" + this.dateToString(new Date()) + "']", this.tbody).addClass("today");
           if (this.select_week == 1) {
-            $("tr", this.tbody).mouseover(function() {
+            $("tr", this.tbody).mouseover(function () {
               $(this).addClass("hover");
             });
-            $("tr", this.tbody).mouseout(function() {
+            $("tr", this.tbody).mouseout(function () {
               $(this).removeClass("hover");
             });
           }
           else {
-            $("td.selectable_day", this.tbody).mouseover(function() {
+            $("td.selectable_day", this.tbody).mouseover(function () {
               $(this).addClass("hover");
             });
-            $("td.selectable_day", this.tbody).mouseout(function() {
+            $("td.selectable_day", this.tbody).mouseout(function () {
               $(this).removeClass("hover");
             });
           }
         }
 
-        $('.selected', this.tbody).removeClass("selected").attr('aria-selected','false');
-        $('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]', this.tbody).addClass("selected").attr('aria-selected','true');
+        $('.selected', this.tbody).removeClass("selected").attr('aria-selected', 'false');
+        $('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]', this.tbody).addClass("selected").attr('aria-selected', 'true');
       }
     },
 
-    selectDate: function(date) {
+    selectDate: function (date) {
       if (typeof (date) == "undefined") {
         date = this.stringToDate(this.input.val());
       }
@@ -383,96 +387,88 @@ jdPicker = (function($) {
       }
     },
 
-    isNewDateAllowed: function(date) {
+    isNewDateAllowed: function (date) {
       return ((!this.date_min) || this.daysBetween(this.date_min, date) >= 0) && ((!this.date_max) || this.daysBetween(date, this.date_max) >= 0);
     },
 
-    isHoliday: function(date) {
+    isHoliday: function (date) {
       return ((this.indexFor(this.selectable_days, date.getDay()) === false || this.indexFor(this.non_selectable, this.dateToString(date)) !== false) || this.indexFor(this.rec_non_selectable, this.dateToShortString(date)) !== false);
     },
 
-    changeInput: function(dateString) {
+    changeInput: function (dateString) {
       this.input.val(dateString).change();
       if (this.input.context.type != "hidden") {
         this.hide();
       }
     },
 
-    show: function() {
+    show: function () {
       $('.error_msg', this.rootLayers).css('display', 'none');
       this.rootLayers.attr('aria-hidden', 'false').fadeIn('fast');
-      $([window, document.body]).click(this.hideIfClickOutside);
+      $(document).bind(this.clickEvent(), this.hideIfClickOutside);
       this.input.unbind("focus", this.show).attr('autocomplete', 'off');
       $(document.body).keydown(this.keydownHandler);
       this.setPosition();
     },
 
-    hide: function() {
+    hide: function () {
       if (this.input.context.type != "hidden") {
         this.rootLayers.attr('aria-hidden', 'true').fadeOut('fast');
-        $([window, document.body]).unbind("click", this.hideIfClickOutside);
+        $(document).unbind(this.clickEvent(), this.hideIfClickOutside);
         this.input.focus(this.show);
         $(document.body).unbind("keydown", this.keydownHandler);
       }
     },
 
-    hideIfClickOutside: function(event) {
-      if (event.target != this.input[0] && !this.insideSelector(event)) {
+    hideIfClickOutside: function (event) {
+      if (event.target != this.input[0] && !$(event.target).closest('.date-selector').length) {
         this.hide();
       }
     },
 
-    insideSelector: function(event) {
-      var offset = this.dateSelector.position();
-      offset.right = offset.left + this.dateSelector.outerWidth();
-      offset.bottom = offset.top + this.dateSelector.outerHeight();
-
-      return event.pageY < offset.bottom && event.pageY > offset.top && event.pageX < offset.right && event.pageX > offset.left;
-    },
-
-    keydownHandler: function(event) {
+    keydownHandler: function (event) {
       switch (event.keyCode) {
-      // Tab & ctrl key
-      case 9:
-      case 27:
-        this.hide();
-        return;
-        break;
-      // Enter key
-      case 13:
-        if (this.isNewDateAllowed(this.stringToDate(this.selectedDateString)) && !this.isHoliday(this.stringToDate(this.selectedDateString))) this.changeInput(this.selectedDateString);
-        break;
-      // Page up key
-      case 33:
-        this.moveDateMonthBy(event.ctrlKey ? -12 : -1);
-        break;
-      // Page down key
-      case 34:
-        this.moveDateMonthBy(event.ctrlKey ? 12 : 1);
-        break;
-      // Up arrow key
-      case 38:
-        this.moveDateBy(-7);
-        break;
-      // Down arrow key
-      case 40:
-        this.moveDateBy(7);
-        break;
-      // Left arrow key
-      case 37:
-        if (this.select_week == 0) this.moveDateBy(-1);
-        break;
-      // Right arrow key
-      case 39:
-        if (this.select_week == 0) this.moveDateBy(1);
-        break;
-      default:
-        return;
+        // Tab & ctrl key
+        case 9:
+        case 27:
+          this.hide();
+          return;
+          break;
+        // Enter key
+        case 13:
+          if (this.isNewDateAllowed(this.stringToDate(this.selectedDateString)) && !this.isHoliday(this.stringToDate(this.selectedDateString))) this.changeInput(this.selectedDateString);
+          break;
+        // Page up key
+        case 33:
+          this.moveDateMonthBy(event.ctrlKey ? -12 : -1);
+          break;
+        // Page down key
+        case 34:
+          this.moveDateMonthBy(event.ctrlKey ? 12 : 1);
+          break;
+        // Up arrow key
+        case 38:
+          this.moveDateBy(-7);
+          break;
+        // Down arrow key
+        case 40:
+          this.moveDateBy(7);
+          break;
+        // Left arrow key
+        case 37:
+          if (this.select_week == 0) this.moveDateBy(-1);
+          break;
+        // Right arrow key
+        case 39:
+          if (this.select_week == 0) this.moveDateBy(1);
+          break;
+        default:
+          return;
       }
       event.preventDefault();
     },
 
-    stringToDate: function(string) {
+    stringToDate: function (string) {
       var matches;
 
       if (matches = string.match(this.reg)) {
@@ -488,22 +484,22 @@ jdPicker = (function($) {
       }
     },
 
-    dateToString: function(date) {
+    dateToString: function (date) {
       return eval(this.date_encode);
     },
 
-    dateToShortString: function(date) {
+    dateToShortString: function (date) {
       return eval(this.date_encode_s);
     },
 
-    setPosition: function() {
+    setPosition: function () {
       var win = $(window),
-          input_position = this.input.position(),
-          input_offset = this.input.offset(),
+        input_position = this.input.position(),
+        input_offset = this.input.offset(),
         date_selector_height = this.rootLayers.outerHeight();
 
       // Define viewport
-      var viewport = { top : win.scrollTop() };
+      var viewport = {top: win.scrollTop()};
       viewport.bottom = viewport.top + win.height();
 
       // Get input position
@@ -530,12 +526,12 @@ jdPicker = (function($) {
       }
     },
 
-    moveDateBy: function(amount) {
+    moveDateBy: function (amount) {
       var newDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate() + amount);
       this.selectDate(newDate);
     },
 
-    moveDateMonthBy: function(amount) {
+    moveDateMonthBy: function (amount) {
       var newDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + amount, this.selectedDate.getDate());
       if (newDate.getMonth() == this.selectedDate.getMonth() + amount + 1) {
         newDate.setDate(0);
@@ -543,9 +539,9 @@ jdPicker = (function($) {
       this.selectDate(newDate);
     },
 
-    moveMonthBy: function(amount) {
+    moveMonthBy: function (amount) {
       if (amount < 0) {
-        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount + 1, - 1);
+        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount + 1, -1);
       }
       else {
         var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount, 1);
@@ -553,7 +549,7 @@ jdPicker = (function($) {
       this.selectMonth(newMonth);
     },
 
-    firstMonthAllowed: function(firstMonth) {
+    firstMonthAllowed: function (firstMonth) {
       if (this.isNewDateAllowed(firstMonth)) {
         $(".button.prev").removeClass("stop");
       }
@@ -581,20 +577,20 @@ jdPicker = (function($) {
       return monthSelect;
     },
 
-    bindToObj: function(fn) {
+    bindToObj: function (fn) {
       var self = this;
-      return function() {
+      return function () {
         return fn.apply(self, arguments)
       };
     },
 
-    bindMethodsToObj: function() {
+    bindMethodsToObj: function () {
       for (var i = 0, len = arguments.length; i < len; i++) {
         this[arguments[i]] = this.bindToObj(this[arguments[i]]);
       }
     },
 
-    indexFor: function(array, value) {
+    indexFor: function (array, value) {
       for (var i = 0, len = array.length; i < len; i++) {
         if (value == array[i]) {
           return i;
@@ -603,61 +599,61 @@ jdPicker = (function($) {
       return false;
     },
 
-    monthNum: function(month_name) {
+    monthNum: function (month_name) {
       return this.indexFor(this.month_names, month_name);
     },
 
-    shortMonthNum: function(month_name) {
+    shortMonthNum: function (month_name) {
       return this.indexFor(this.short_month_names, month_name);
     },
 
-    shortDayNum: function(day_name) {
+    shortDayNum: function (day_name) {
       return this.indexFor(this.short_day_names, day_name);
     },
 
-    daysBetween: function(start, end) {
+    daysBetween: function (start, end) {
       start = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
       end = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
       return (end - start) / 86400000;
     },
 
-    changeDayTo: function(dayOfWeek, date, direction) {
+    changeDayTo: function (dayOfWeek, date, direction) {
       var difference = direction * (Math.abs(date.getDay() - dayOfWeek - (direction * 7)) % 7);
       return new Date(date.getFullYear(), date.getMonth(), date.getDate() + difference);
     },
 
-    rangeStart: function(date) {
-      return this.changeDayTo(this.start_of_week, new Date(date.getFullYear(), date.getMonth()), - 1);
+    rangeStart: function (date) {
+      return this.changeDayTo(this.start_of_week, new Date(date.getFullYear(), date.getMonth()), -1);
     },
 
-    rangeEnd: function(date) {
+    rangeEnd: function (date) {
       return this.changeDayTo((this.start_of_week - 1) % 7, new Date(date.getFullYear(), date.getMonth() + 1, 0), 1);
     },
 
-    isFirstDayOfWeek: function(date) {
+    isFirstDayOfWeek: function (date) {
       return date.getDay() == this.start_of_week;
     },
 
-    getWeekNum: function(date) {
+    getWeekNum: function (date) {
       var date_week = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 6);
       var firstDayOfYear = new Date(date_week.getFullYear(), 0, 1, 12, 00);
       var n = parseInt(this.daysBetween(firstDayOfYear, date_week)) + 1;
       return Math.floor((date_week.getDay() + n + 5) / 7) - Math.floor(date_week.getDay() / 5);
     },
 
-    isLastDayOfWeek: function(date) {
+    isLastDayOfWeek: function (date) {
       return date.getDay() == (this.start_of_week - 1) % 7;
     },
 
-    show_error: function(error) {
+    show_error: function (error) {
       var errors = $('.error_msg', this.rootLayers);
       errors.html(error);
-      errors.slideDown(400, function() {
+      errors.slideDown(400, function () {
         setTimeout("$('.error_msg', this.rootLayers).slideUp(200);", 2000);
       });
     },
 
-    adjustDays: function(days) {
+    adjustDays: function (days) {
       var newDays = [];
       for (var i = 0, len = days.length; i < len; i++) {
         newDays[i] = days[(i + this.start_of_week) % 7];
@@ -665,7 +661,7 @@ jdPicker = (function($) {
       return newDays;
     },
 
-    strpad: function(num) {
+    strpad: function (num) {
       if (parseInt(num) < 10) {
         return "0" + parseInt(num);
       }
@@ -676,14 +672,14 @@ jdPicker = (function($) {
 
   };
 
-  $.fn.jdPicker = function(opts) {
-    return this.each(function() {
+  $.fn.jdPicker = function (opts) {
+    return this.each(function () {
       new jdPicker(this, opts);
     });
   };
 
   $.jdPicker = {
-    initialize: function(opts) {
+    initialize: function (opts) {
       $("input.datepicker").jdPicker(opts);
     }
   };
