@@ -1,10 +1,9 @@
-@import "../vendors/bourbon/dist/_bourbon.scss";
 @import "vars";
 @import "extends";
 @import "animation";
 @import "ico";
 
-.datepicker-wrapper {
+.datepicker-wrapper { 
   font-family: Arial, Helvetica, sans-serif;
   abbr[title] {
     border-bottom: none;
