@@ -1,13 +1,8 @@
-$(document).ready(function() {
+'use strict';
 
-  var lang;
-  //verify if datepicker is called from the booking, get language from global variable defined in booking context
-  if (typeof BookingWidgetState !== 'undefined') {
-    lang = BookingWidgetState.userCountry.split('_')[1];
-  } else {
-    //get language variable from lang attribute of html
-    lang = $('html').attr('lang').split('-')[0];
-  }
+require('./jquery.jdpicker.js');
+
+module.exports = function (lang, backDate, nextDate) {
 
   /**
    * Return the current date
@@ -32,10 +27,10 @@ $(document).ready(function() {
 
   function backwardDate() {
     var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
-        thirtyDaysFromNow = new Date(+new Date - THIRTY_DAYS),
-        dd = thirtyDaysFromNow.getDate(),
-        mm = thirtyDaysFromNow.getMonth() + 1,
-        yyyy = thirtyDaysFromNow.getFullYear();
+      thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
+      dd = thirtyDaysFromNow.getDate(),
+      mm = thirtyDaysFromNow.getMonth() + 1,
+      yyyy = thirtyDaysFromNow.getFullYear();
 
     if (dd < 10) {
       dd = '0' + dd;
@@ -51,11 +46,11 @@ $(document).ready(function() {
   function railpassMinDate() {
     var allowedDate = new Date();
 
-    allowedDate.setDate(allowedDate.getDate()+7);
+    allowedDate.setDate(allowedDate.getDate() + 7);
 
     var dd = allowedDate.getDate(),
-        mm = allowedDate.getMonth() + 1,
-        yyyy = allowedDate.getFullYear();
+      mm = allowedDate.getMonth() + 1,
+      yyyy = allowedDate.getFullYear();
 
     if (dd < 10) {
       dd = '0' + dd;
@@ -90,11 +85,11 @@ $(document).ready(function() {
   function sixMonthsFutureDate() {
     var allowedDate = new Date();
 
-    allowedDate.setMonth(allowedDate.getMonth()+6);
+    allowedDate.setMonth(allowedDate.getMonth() + 6);
 
     var dd = allowedDate.getDate(),
-        mm = allowedDate.getMonth() + 1,
-        yyyy = allowedDate.getFullYear();
+      mm = allowedDate.getMonth() + 1,
+      yyyy = allowedDate.getFullYear();
 
     if (dd < 10) {
       dd = '0' + dd;
@@ -107,18 +102,16 @@ $(document).ready(function() {
     return String(dd + "\/" + mm + "\/" + yyyy);
   }
 
-  var options = {},
-      backDate = currentDate(),
-      nextDate = "";
+  var options = {};
 
-  // Get dates min and max if set
-  if (typeof(Drupal) != 'undefined') {
-    if (Drupal.settings && Drupal.settings.vsct_feature_booking && Drupal.settings.vsct_feature_booking.vsct_feature_booking_idtgv_dates_min) {
-      backDate = Drupal.settings.vsct_feature_booking.vsct_feature_booking_idtgv_dates_min;
-    }
-    if (Drupal.settings && Drupal.settings.vsct_feature_booking && Drupal.settings.vsct_feature_booking.vsct_feature_booking_idtgv_dates_max) {
-      nextDate = Drupal.settings.vsct_feature_booking.vsct_feature_booking_idtgv_dates_max;
-    }
+  //if back date is not defined, set it to current date
+  if (backDate === undefined || backDate ==='') {
+    backDate = currentDate();
+  }
+
+  //if next date is not defined, set it to empty value
+  if (nextDate === undefined) {
+    nextDate = '';
   }
 
   switch (lang) {
@@ -134,54 +127,54 @@ $(document).ready(function() {
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
 
     case 'de':
       options = {
         month_names: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
         short_month_names: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        day_names: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
-        short_day_names: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+        day_names: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        short_day_names: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
         today_string: 'Heute',
         error_out_of_range: "Das selektierte Datum ist ungültig.",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
 
     case 'it':
       options = {
-        month_names: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-        short_month_names: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
-        day_names: ['Domenica','Luned&#236','Marted&#236','Mercoled&#236','Gioved&#236','Venerd&#236','Sabato'],
-        short_day_names: ['Do','Lu','Ma','Me','Gio','Ve','Sa'],
+        month_names: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        short_month_names: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        day_names: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
+        short_day_names: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
         today_string: 'Oggi',
         error_out_of_range: "La data selezionata non è disponibile",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
 
     case 'es':
       options = {
         month_names: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         short_month_names: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        day_names: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-        short_day_names: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+        day_names: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
+        short_day_names: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
         today_string: 'Hoy',
         error_out_of_range: "La fecha seleccionada est&aacute; fuera de rango",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
 
     case 'nl':
       options = {
-        month_names: ['januari', 'februari', 'maart', 'april', 'mei', 'juni','juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-        short_month_names: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun','jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+        month_names: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+        short_month_names: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
         day_names: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
         short_day_names: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
         today_string: 'Vandaag',
@@ -190,7 +183,7 @@ $(document).ready(function() {
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
 
     case 'en':
       options = {
@@ -204,11 +197,11 @@ $(document).ready(function() {
         date_min: backDate,
         date_max: nextDate
       };
-    break;
+      break;
   }
 
   // Browse datepickers fields to deal with specific behaviours
-  $('input.datepicker').each(function() {
+  $('input.datepicker').each(function () {
     if ($(this).attr('data-start-date')) {
       options.date_min = startDate($(this).attr('data-start-date'));
     }
@@ -238,4 +231,4 @@ $(document).ready(function() {
       options.date_max = nextDate;
     }
   });
-});
+};

@@ -31,7 +31,7 @@
 jdPicker = (function ($) {
 
   function jdPicker(el, opts) {
-    if (typeof (opts) != "object") {
+    if (typeof (opts) !== "object") {
       opts = {};
     }
     $.extend(this, jdPicker.DEFAULT_OPTS, opts);
@@ -136,7 +136,7 @@ jdPicker = (function ($) {
           break;
       }
 
-      if (this.date_max != "" && this.date_max.match(this.reg)) {
+      if (this.date_max !== "" && this.date_max.match(this.reg)) {
         var matches = this.date_max.match(this.reg);
         this.date_max = eval(this.date_decode);
       }
@@ -144,7 +144,7 @@ jdPicker = (function ($) {
         this.date_max = "";
       }
 
-      if (this.date_min != "" && this.date_min.match(this.reg)) {
+      if (this.date_min !== "" && this.date_min.match(this.reg)) {
         var matches = this.date_min.match(this.reg);
         this.date_min = eval(this.date_decode);
       }
