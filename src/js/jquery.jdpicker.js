@@ -86,7 +86,9 @@ jdPicker = (function ($) {
     nb_calendar: 2,
     date_min: "",
     date_max: "",
-    date_format: "dd/mm/YYYY"
+    date_format: "dd/mm/YYYY",
+    previous: "Previous",
+    next: "Next"
   };
 
 
@@ -160,7 +162,7 @@ jdPicker = (function ($) {
         monthHead += '<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '">' + '<span class="month-name month-name-' + i + '"></span> ' + ' <span class="year-name year-name-' + i + '"></span>' + '</span> ';
       }
 
-      var monthNav = $('<p class="month-nav">' + '<span class="button prev idp-left" title="Précédent [Page-Up]" role="button">Précédent</span>' + '<span class="button next idp-right" title="Suivant [Page-Down]" role="button">Suivant</span>' + monthHead + '</p>');
+      var monthNav = $('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span>' + monthHead + '</p>');
 
       for (var i = 0; i < this.nb_calendar; i++) {
         this.monthNameSpan[i] = $(".month-name-" + i, monthNav);
@@ -286,7 +288,6 @@ jdPicker = (function ($) {
       }
 
       tableCells += '</tr></table></td>';
-
       return tableCells;
     },
 

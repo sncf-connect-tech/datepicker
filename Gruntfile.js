@@ -48,7 +48,7 @@ module.exports = function(grunt) {
     },
     ngAnnotate: {
       options: {
-        singleQuotes: true,
+        singleQuotes: true
       },
       app: {
         files: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'src/js/*.js',
+        'src/js/*.js'
       ],
       test: {
         options: {
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
       },
       unit: {
         singleRun: true,
-        reporters: ['dots', 'coverage']
+        reporters: ['html', 'junit', 'coverage']
       }
     },
     ngdocs: {
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
       },
       api: {
         src: [
-          'dist/angular-autocomplete.js',
+          'dist/angular-autocomplete.js'
         ],
         title: 'API Documentation'
       },

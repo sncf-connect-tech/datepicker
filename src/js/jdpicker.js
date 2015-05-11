@@ -8,7 +8,6 @@ module.exports = function (lang, backDate, nextDate) {
    * Return the current date
    */
   function currentDate() {
-
     var today = new Date(),
       dd = today.getDate(),
       mm = today.getMonth() + 1,
@@ -114,6 +113,11 @@ module.exports = function (lang, backDate, nextDate) {
     nextDate = '';
   }
 
+  //if lang is not defined, set it to 'en'
+  if (lang === undefined) {
+    lang = 'en';
+  }
+
   switch (lang) {
     case 'fr':
       options = {
@@ -125,7 +129,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "La date sélectionnée est incorrecte",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Précédent",
+        next: "Suivant"
       };
       break;
 
@@ -139,7 +145,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "Das selektierte Datum ist ungültig.",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Früher",
+        next: "Nächste"
       };
       break;
 
@@ -153,7 +161,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "La data selezionata non è disponibile",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Precedente",
+        next: "Il prossimo"
       };
       break;
 
@@ -167,7 +177,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "La fecha seleccionada est&aacute; fuera de rango",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Anterior",
+        next: "Siguiente"
       };
       break;
 
@@ -181,7 +193,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "De geselecteerde datum is niet beschikbaar",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Vorig",
+        next: "Volgende"
       };
       break;
 
@@ -195,7 +209,9 @@ module.exports = function (lang, backDate, nextDate) {
         error_out_of_range: "Selected date is out of range",
         date_format: "dd/mm/YYYY",
         date_min: backDate,
-        date_max: nextDate
+        date_max: nextDate,
+        previous: "Previous",
+        next: "Next"
       };
       break;
   }
