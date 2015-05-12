@@ -88,7 +88,16 @@ module.exports = function(grunt) {
       },
       unit: {
         singleRun: true,
+        autoWatch: true,
         reporters: ['html', 'junit', 'coverage']
+      },
+      unitWatch: {
+        autoWatch: true
+      },
+      //continuous integration mode: run tests once in PhantomJS browser.
+      continuous: {
+        singleRun: true,
+        browsers: ['PhantomJS']
       }
     },
     ngdocs: {

@@ -113,11 +113,6 @@ module.exports = function (lang, backDate, nextDate) {
     nextDate = '';
   }
 
-  //if lang is not defined, set it to 'en'
-  if (lang === undefined) {
-    lang = 'en';
-  }
-
   switch (lang) {
     case 'fr':
       options = {
@@ -199,7 +194,7 @@ module.exports = function (lang, backDate, nextDate) {
       };
       break;
 
-    case 'en':
+    default:
       options = {
         month_names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         short_month_names: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

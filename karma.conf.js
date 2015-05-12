@@ -10,6 +10,7 @@ module.exports = function (config) {
       'karma-jasmine',
       'karma-browserify',
       'karma-chrome-launcher',
+      "karma-firefox-launcher",
       "karma-coverage",
       "karma-junit-reporter",
       "karma-htmlfile-reporter"
