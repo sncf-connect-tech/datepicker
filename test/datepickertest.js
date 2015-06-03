@@ -1,6 +1,7 @@
 'use strict';
 
 var utils = require('./testUtils');
+var $ = require('../vendors/jquery-2.1.3.min/index.js');
 
 describe('Date picker tests', function () {
 
@@ -19,7 +20,7 @@ describe('Date picker tests', function () {
   });
 
   it('Call date picker with default parameters', function () {
-    require('../src/js/jdpicker')();
+    require('../src/js/datepicker')();
 
     //verify today
     var formattedToday = utils.formatDate(currentDate);
@@ -40,7 +41,7 @@ describe('Date picker tests', function () {
 
   it('Display date picker for fr language', function () {
     var lang = 'fr';
-    require('../src/js/jdpicker')(lang);
+    require('../src/js/datepicker')(lang);
 
     var currentMonth = currentDate.getMonth();
     var currentMonthName = utils.getMonthName(currentMonth, lang);
@@ -50,7 +51,7 @@ describe('Date picker tests', function () {
 
   it('Display date picker for es language', function () {
     var lang = 'es';
-    require('../src/js/jdpicker')(lang);
+    require('../src/js/datepicker')(lang);
 
     var currentMonth = currentDate.getMonth();
     var currentMonthName = utils.getMonthName(currentMonth, lang);
@@ -66,7 +67,7 @@ describe('Date picker tests', function () {
     var backDateFormatted = utils.formatDate(backDate);
     var nextDate = new Date(currentDate.getTime() + THREE_DAYS);
     var nextDateFormatted = utils.formatDate(nextDate);
-    require('../src/js/jdpicker')(lang, backDateFormatted, nextDateFormatted);
+    require('../src/js/datepicker')(lang, backDateFormatted, nextDateFormatted);
 
     //verify that previous date is unselected
     var backDateElement = $('.table-month-wrapper').find("[date='" + backDateFormatted + "']");

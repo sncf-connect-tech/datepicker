@@ -1,6 +1,6 @@
 'use strict';
 
-require('./jquery.jdpicker.js');
+var $ = require('../vendors/jquery-2.1.3.min/index.js');
 
 module.exports = function (lang, backDate, nextDate) {
 
@@ -229,7 +229,7 @@ module.exports = function (lang, backDate, nextDate) {
       options.date_max = sixMonthsFutureDate();
     }
     // Instantiate datepicker object
-    $(this).jdPicker(options);
+    require("./jquery.jdpicker.js")(options);
 
     // Restore default values
     if ($(this).hasClass('railpass-date') || $(this).attr('data-start-date')) {

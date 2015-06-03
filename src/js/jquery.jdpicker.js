@@ -28,7 +28,9 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-jdPicker = (function ($) {
+var $ = require('../vendors/jquery-2.1.3.min/index.js');
+
+module.exports = function () {
 
   function jdPicker(el, opts) {
     if (typeof (opts) !== "object") {
@@ -673,7 +675,7 @@ jdPicker = (function ($) {
 
   };
 
-  $.fn.jdPicker = function (opts) {
+  /*$.fn.jdPicker = function (opts) {
     return this.each(function () {
       new jdPicker(this, opts);
     });
@@ -683,7 +685,7 @@ jdPicker = (function ($) {
     initialize: function (opts) {
       $("input.datepicker").jdPicker(opts);
     }
-  };
+  };*/
 
   return jdPicker;
-})(jQuery);
+};

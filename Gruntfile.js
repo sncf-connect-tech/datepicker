@@ -12,13 +12,44 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      module: {
-        src: [
-          'src/js/autocomplete.module.js',
-          'src/js/*.js'
-        ],
-        dest: 'dist/angular-autocomplete.js'
+    browserify: {
+      build: {
+        options: {
+          browserifyOptions: {
+            debug: false,
+            standalone: 'datepicker'
+          }
+        },
+        files: {
+          'datepicker.js': ['src/js/datepicker.js']
+        }
+      },
+      dist: {
+        options: {
+          browserifyOptions: {
+            debug: false,
+            standalone: 'datepicker'
+          },
+          transform: ['uglifyify']
+        },
+        files: {
+          'datepicker.min.js': ['src/js/datepicker.js']
+        }
+      }
+    },
+    sass: {
+      dist: {
+        options: {
+          precision: 10,
+          outputStyle: 'compressed',
+          sourceMap: false,
+          includePaths: [
+            'src/sass/', 'src/vendors'
+          ]
+        },
+        files: {
+          'datepicker.css': 'src/sass/datepicker.{scss,sass}'
+        }
       }
     },
     copy: {
@@ -28,43 +59,6 @@ module.exports = function(grunt) {
         src: 'css/*.css',
         dest: 'dist/',
         flatten: true
-      }
-    },
-    csslint: {
-      options: {
-        csslintrc: '.csslintrc',
-        formatters: [
-          {
-            id: 'lint-xml',
-            dest: 'build/logs/csslint.xml'
-          }
-        ]
-      },
-      strict: {
-        src: [
-          'src/css/*.css'
-        ]
-      }
-    },
-    ngAnnotate: {
-      options: {
-        singleQuotes: true
-      },
-      app: {
-        files: {
-          'dist/angular-autocomplete.js': ['dist/angular-autocomplete.js']
-        }
-      }
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                '<%= grunt.template.today("yyyy-mm-dd") %> */'
-      },
-      app: {
-        files: {
-          'dist/angular-autocomplete.min.js': ['dist/angular-autocomplete.js']
-        }
       }
     },
     jshint: {
@@ -99,27 +93,6 @@ module.exports = function(grunt) {
         singleRun: true,
         browsers: ['PhantomJS']
       }
-    },
-    ngdocs: {
-      options: {
-        dest: 'build/docs',
-        html5Mode: false,
-        title: '<%= pkg.name %> - <%= pkg.version %>',
-        startPage: '/guide',
-        styles: ['docs/css/styles.css']
-      },
-      api: {
-        src: [
-          'dist/angular-autocomplete.js'
-        ],
-        title: 'API Documentation'
-      },
-      guide: {
-        src: [
-          'docs/content/guide/*.ngdoc'
-        ],
-        title: 'Guide'
-      }
     }
   });
 
@@ -127,12 +100,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-ngdocs');
 
-  grunt.registerTask('default', ['csslint', 'jshint', 'concat', 'copy', 'ngAnnotate', 'uglify', 'ngdocs']);
+  grunt.registerTask('default', ['browserify:build', 'browserify:dist', 'sass:dist']);
   grunt.registerTask('test', ['karma']);
 
 };
