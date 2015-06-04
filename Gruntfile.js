@@ -21,7 +21,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'datepicker.js': ['src/js/datepicker.js']
+          'dist/datepicker.js': ['src/js/main.js']
         }
       },
       dist: {
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
           transform: ['uglifyify']
         },
         files: {
-          'datepicker.min.js': ['src/js/datepicker.js']
+          'dist/datepicker.min.js': ['src/js/main.js']
         }
       }
     },
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
           ]
         },
         files: {
-          'datepicker.css': 'src/sass/datepicker.{scss,sass}'
+          'dist/datepicker.css': 'src/sass/datepicker.{scss,sass}'
         }
       }
     },

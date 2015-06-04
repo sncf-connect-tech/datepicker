@@ -229,7 +229,7 @@ module.exports = function (lang, backDate, nextDate) {
       options.date_max = sixMonthsFutureDate();
     }
     // Instantiate datepicker object
-    require("./jquery.jdpicker.js")(options);
+    require("./jquery.jdpicker.js")($(this), options);
 
     // Restore default values
     if ($(this).hasClass('railpass-date') || $(this).attr('data-start-date')) {

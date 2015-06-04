@@ -30,7 +30,7 @@
 
 var $ = require('../vendors/jquery-2.1.3.min/index.js');
 
-module.exports = function () {
+module.exports = (function () {
 
   function jdPicker(el, opts) {
     if (typeof (opts) !== "object") {
@@ -687,5 +687,7 @@ module.exports = function () {
     }
   };*/
 
-  return jdPicker;
-};
+  return function (el, opts) {
+    new jdPicker(el, opts);
+  }
+})();
