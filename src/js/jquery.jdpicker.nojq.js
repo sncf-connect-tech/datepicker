@@ -53,8 +53,9 @@ module.exports = (function () {
     return elt.firstChild;
   }
 
-  //////////////
-
+  /**
+   * Constructor
+   */
   function jdPicker(el, opts) {
     /* jshint validthis: true */
     if (typeof (opts) !== "object") {
@@ -69,26 +70,6 @@ module.exports = (function () {
     this.selectDate();
     this.hide();
   }
-
-  /**
-   * Return the current date
-   */
-  jdPicker.currentDate = function () {
-    var today = new Date(),
-      dd = today.getDate(),
-      mm = today.getMonth() + 1,
-      yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  };
-
 
   /**
    * Default options
@@ -130,6 +111,7 @@ module.exports = (function () {
     hide: hide,
     hideIfClickOutside: hideIfClickOutside,
     keydownHandler: keydownHandler,
+    currentDate: currentDate,
     setDateFormat: setDateFormat,
     stringToDate: stringToDate,
     dateToString: dateToString,
@@ -600,6 +582,22 @@ module.exports = (function () {
         return;
     }
     event.preventDefault();
+  }
+
+  function currentDate() {
+    var today = new Date(),
+      dd = today.getDate(),
+      mm = today.getMonth() + 1,
+      yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return String(dd + "\/" + mm + "\/" + yyyy);
   }
 
   function setDateFormat() {
