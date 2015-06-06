@@ -130,6 +130,7 @@ module.exports = (function () {
     hide: hide,
     hideIfClickOutside: hideIfClickOutside,
     keydownHandler: keydownHandler,
+    setDateFormat: setDateFormat,
     stringToDate: stringToDate,
     dateToString: dateToString,
     dateToShortString: dateToShortString,
@@ -168,58 +169,17 @@ module.exports = (function () {
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);
 
-    switch (this.dateFormat) {
-      case "dd/mm/YYYY":
-        this.reg = new RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-        this.dateDecode = "new Date(matches[3], parseInt(matches[2]-1), matches[1]);";
-        this.dateEncode = 'this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1) + "/" + date.getFullYear();';
-        this.dateEncodeS = 'this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1)';
-        break;
-      case "FF dd YYYY":
-        this.reg = new RegExp(/^([a-zA-Z]+) (\d{1,2}) (\d{4})$/);
-        this.dateDecode = "new Date(matches[3], this.indexFor(this.monthNames, matches[1]), matches[2]);";
-        this.dateEncode = 'this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();';
-        this.dateEncodeS = 'this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate());';
-        break;
-      case "dd MM YYYY":
-        this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]{3}) (\d{4})$/);
-        this.dateDecode = "new Date(matches[3], this.indexFor(this.shortMonthNames, matches[2]), matches[1]);";
-        this.dateEncode = 'this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()] + " " + date.getFullYear();';
-        this.dateEncodeS = 'this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()];';
-        break;
-      case "MM dd YYYY":
-        this.reg = new RegExp(/^([a-zA-Z]{3}) (\d{1,2}) (\d{4})$/);
-        this.dateDecode = "new Date(matches[3], this.indexFor(this.shortMonthNames, matches[1]), matches[2]);";
-        this.dateEncode = 'this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();';
-        this.dateEncodeS = 'this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate());';
-        break;
-      case "dd FF YYYY":
-        this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]+) (\d{4})$/);
-        this.dateDecode = "new Date(matches[3], this.indexFor(this.monthNames, matches[2]), matches[1]);";
-        this.dateEncode = 'this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear();';
-        this.dateEncodeS = 'this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()];';
-        break;
-      case "YYYY/mm/dd":
-        break;
-      default:
-        this.reg = new RegExp(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
-        this.dateDecode = "new Date(matches[1], parseInt(matches[2]-1), matches[3]);";
-        this.dateEncode = 'date.getFullYear() + "/" + this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());';
-        this.dateEncodeS = 'this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());';
-        break;
-    }
+    this.setDateFormat();
 
     if (this.dateMax !== "" && this.dateMax.match(this.reg)) {
-      var matches = this.dateMax.match(this.reg);
-      this.dateMax = eval(this.dateDecode);
+      this.dateMax = this.dateDecode(this.dateMax.match(this.reg));
     }
     else {
       this.dateMax = "";
     }
 
     if (this.dateMin !== "" && this.dateMin.match(this.reg)) {
-      var matches = this.dateMin.match(this.reg);
-      this.dateMin = eval(this.dateDecode);
+      this.dateMin = this.dateDecode(this.dateMin.match(this.reg));
     }
     else {
       this.dateMin = "";
@@ -642,6 +602,97 @@ module.exports = (function () {
     event.preventDefault();
   }
 
+  function setDateFormat() {
+    /* jshint validthis: true */
+    switch (this.dateFormat) {
+      case "dd/mm/YYYY":
+        this.reg = new RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[3], parseInt(matches[2]-1), matches[1]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1) + "/" + date.getFullYear();
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1);
+        };
+        break;
+      case "FF dd YYYY":
+        this.reg = new RegExp(/^([a-zA-Z]+) (\d{1,2}) (\d{4})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[3], this.indexFor(this.monthNames, matches[1]), matches[2]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate());
+        };
+        break;
+      case "dd MM YYYY":
+        this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]{3}) (\d{4})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[3], this.indexFor(this.shortMonthNames, matches[2]), matches[1]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()] + " " + date.getFullYear();
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()];
+        };
+        break;
+      case "MM dd YYYY":
+        this.reg = new RegExp(/^([a-zA-Z]{3}) (\d{1,2}) (\d{4})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[3], this.indexFor(this.shortMonthNames, matches[1]), matches[2]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate());
+        };
+        break;
+      case "dd FF YYYY":
+        this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]+) (\d{4})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[3], this.indexFor(this.monthNames, matches[2]), matches[1]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear();
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()];
+        };
+        break;
+      // case "YYYY/mm/dd":
+      default:
+        this.reg = new RegExp(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
+        this.dateDecode = function (matches) {
+          return new Date(matches[1], parseInt(matches[2]-1), matches[3]);
+        };
+        this.dateEncode = function (date) {
+          /* jshint validthis: true */
+          return date.getFullYear() + "/" + this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());
+        };
+        this.dateEncodeS = function (date) {
+          /* jshint validthis: true */
+          return this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());
+        };
+        break;
+    }
+  }
+
   function stringToDate(string) {
     /* jshint validthis: true */
 
@@ -652,7 +703,7 @@ module.exports = (function () {
         return null;
       }
       else {
-        return eval(this.dateDecode);
+        return this.dateDecode(matches);
       }
     }
     else {
@@ -662,12 +713,12 @@ module.exports = (function () {
 
   function dateToString(date) {
     /* jshint validthis: true */
-    return eval(this.dateEncode);
+    return this.dateEncode(date);
   }
 
   function dateToShortString(date) {
     /* jshint validthis: true */
-    return eval(this.dateEncodeS);
+    return this.dateEncodeS(date);
   }
 
   function setPosition() {
