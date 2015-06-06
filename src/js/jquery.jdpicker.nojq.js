@@ -229,6 +229,11 @@ module.exports = (function () {
     });
 
     this.tbody = this.dateSelector.querySelector('tbody tr');
+    this.dateSelector.addEventListener(this.clickEvent(), function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
     // Fill inwardDate with outwardDate
     this.presetInward();
 
@@ -533,7 +538,7 @@ module.exports = (function () {
 
   function hideIfClickOutside(event) {
     /* jshint validthis: true */
-    if (event.target !== this.input && !this.dateSelector.length) {
+    if (event.target !== this.input && event.target !== this.dateSelector) {
       this.hide();
     }
   }
