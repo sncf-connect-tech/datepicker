@@ -100,6 +100,7 @@ module.exports = (function () {
 
   jdPicker.prototype = {
     build: build,
+    presetInward: presetInward,
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
     selectMonth: selectMonth,
@@ -228,47 +229,62 @@ module.exports = (function () {
     });
 
     this.tbody = this.dateSelector.querySelector('tbody tr');
+    // Fill inwardDate with outwardDate
+    this.presetInward();
 
     this.input.onchange = (this.bindToObj(function () {
       this.selectDate();
     }));
+    this.selectDate();
+  }
 
-    // Fill inwardDate with outwardDate
-    var parentForm = this.input.parentNode,
+  function presetInward() {
+    /* jshint validthis: true */
+    var dp = this;
+
+    if (!dp.input.classList.contains('inward')) {
+      return;
+    }
+
+    var parentForm = dp.input.parentNode,
         outward = null,
         outwardDate = [],
         inwardDate = [],
         month = '',
         day = '';
-    while (parentForm !== null && parentForm.tagName !== 'FORM') {
+
+    while (parentForm.parentNode !== null && parentForm.tagName !== 'FORM') {
       parentForm = parentForm.parentNode;
     }
     if (parentForm !== null) {
       outward = parentForm.querySelector('input.outward');
     }
 
-    this.wrapp.addEventListener('click focus', function (e) {
+    dp.input.addEventListener('focus', inputFocusHandler);
+
+    function inputFocusHandler(e) {
       var elt = e.target;
-      if (elt.classList.indexOf('inward') > -1) {
-        elt.value = outward.value;
-        self.selectDate();
+
+      if (dp.stringToDate(elt.value) >= dp.stringToDate(outward.value)) {
+        return;
       }
+
+      elt.value = outward.value;
+
       // Case classes are 'inward' AND 'one-day-after' : set date to selected date +1
-      if (elt.classList.indexOf('inward') > -1 && elt.classList.indexOf('inward') > -1) {
-      // if ($(this).hasClass('inward') && $(this).hasClass('one-day-after')) {
-        outwardDate = $(this).parents('form').find('input.outward').val();
+      if (elt.classList.contains('one-day-after')) {
+        outwardDate = outward.value;
         outwardDate = outwardDate.split('/');
         inwardDate = new Date(outwardDate[2] + ',' + outwardDate[1] + ',' + outwardDate[0]);
         inwardDate.setTime(inwardDate.getTime() + (24 * 60 * 60 * 1000));
         month = ((inwardDate.getMonth() + 1) < 10) ? '0' + (inwardDate.getMonth() + 1) : (inwardDate.getMonth() + 1);
         day = (inwardDate.getDate() < 10) ? '0' + inwardDate.getDate() : inwardDate.getDate();
         inwardDate = day + '/' + month + '/' + inwardDate.getFullYear();
-        this.value = inwardDate;
-        self.selectDate();
+        elt.value = inwardDate;
       }
-    });
 
-    this.selectDate();
+      dp.selectDate();
+    }
   }
 
   function renderDatepicker(date) {
