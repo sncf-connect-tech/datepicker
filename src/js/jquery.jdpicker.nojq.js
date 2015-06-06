@@ -144,14 +144,19 @@ module.exports = (function () {
 
   function build() {
     /* jshint validthis: true */
-    var self = this,
-        i = 0,
-        l = 0;
+    var i = 0;
 
+    // Wrapper
     this.wrapp = createElement('<div class="datepicker-wrapper">');
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);
 
+    // Input
+    this.input.onchange = (this.bindToObj(function () {
+      this.selectDate();
+    }));
+
+    // Date settings
     this.setDateFormat();
 
     if (this.dateMax !== "" && this.dateMax.match(this.reg)) {
@@ -168,6 +173,14 @@ module.exports = (function () {
       this.dateMin = "";
     }
 
+    // Nav
+    var nav = createElement('<div class="nav" />');
+
+    // Error
+    this.errorMsg = createElement('<div class="error_msg" />');
+    nav.appendChild(this.errorMsg);
+
+    // Heading
     var monthHead = document.createElement('div'),
         monthHeading = null;
     this.monthNameSpan = [];
@@ -204,8 +217,10 @@ module.exports = (function () {
       e.stopPropagation();
     });
 
-    nav.appendChild(this.errorMsg);
     nav.appendChild(monthNav);
+
+    // Months grid
+    var tableShell = '<table role="grid" aria-labelledby="month-name" class="month-wrapper"><thead><tr>';
 
     if (this.showWeek === 1) {
       tableShell += '<th class="weekLabel">' + (this.weekLabel) + '</th>';
@@ -214,9 +229,16 @@ module.exports = (function () {
     tableShell += "</tr></thead><tbody><tr><td></td></tr></tbody></table>";
     tableShell = createElement(tableShell);
 
-    var todayDate = createElement('<div class="today-date" role="button">' + this.todayString + '</div>'),
-      style = (this.input.type === "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
+    this.tbody = tableShell.querySelector('tbody tr');
 
+    // Today button
+    var todayDate = createElement('<div class="today-date" role="button">' + this.todayString + '</div>');
+    todayDate.click = this.bindToObj(function () {
+      this.changeInput(this.currentDate());
+    });
+
+    // Date picker container
+    var  style = (this.input.type === "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
     this.dateSelector = createElement('<div class="date-selector" aria-hidden="true"' + style + '></div>');
     this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(tableShell);
@@ -224,11 +246,6 @@ module.exports = (function () {
     this.input.parentNode.appendChild(this.dateSelector);  
     this.rootLayers = this.dateSelector;
 
-    todayDate.click = this.bindToObj(function () {
-      this.changeInput(jdPicker.currentDate());
-    });
-
-    this.tbody = this.dateSelector.querySelector('tbody tr');
     this.dateSelector.addEventListener(this.clickEvent(), function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -237,9 +254,6 @@ module.exports = (function () {
     // Fill inwardDate with outwardDate
     this.presetInward();
 
-    this.input.onchange = (this.bindToObj(function () {
-      this.selectDate();
-    }));
     this.selectDate();
   }
 
@@ -373,7 +387,6 @@ module.exports = (function () {
         this.currentMonth = newMonth;
 
         // Render the current month
-        // var calendar = this.renderDatepicker(date),
         var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
         this.tbody.appendChild(this.renderDatepicker(date));
 
@@ -387,13 +400,9 @@ module.exports = (function () {
             var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
             this.monthNameSpan[i].empty().innerText = this.monthNames[nextMonth.getMonth()];
             this.yearNameSpan[i].empty().innerText = nextMonth.getFullYear();
-            // calendar += this.renderDatepicker(nextMonth);
-          this.tbody.appendChild(this.renderDatepicker(nextMonth));
-
+            this.tbody.appendChild(this.renderDatepicker(nextMonth));
           }
         }
-
-        // this.tbody.empty().appendChild(createElement(calendar)) ;
 
         var selectableDays = this.tbody.querySelectorAll('.selectable_day'),
             selectableWeeks = this.tbody.querySelectorAll('.selectable_week'),
@@ -441,14 +450,12 @@ module.exports = (function () {
         }
       }
 
-      // $('.selected', this.tbody).removeClass("selected").attr('aria-selected', 'false');
       var prevSelected = this.tbody.querySelectorAll('.selected'),
           currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
       for (i = 0, l = prevSelected.length; i < l; i++) {
         prevSelected[i].classList.remove('selected');
         prevSelected[i].setAttribute('aria-selected', 'true');
       }
-      // $('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]', this.tbody).addClass("selected").attr('aria-selected', 'true');
       for (i = 0, l = currentSelected.length; i < l; i++) {
         currentSelected[i].classList.add('selected');
         currentSelected[i].setAttribute('aria-selected', 'true');
@@ -489,7 +496,6 @@ module.exports = (function () {
 
   function isNewDateAllowed(date) {
     /* jshint validthis: true */
-
     return ((!this.dateMin) || this.daysBetween(this.dateMin, date) >= 0) && ((!this.dateMax) || this.daysBetween(date, this.dateMax) >= 0);
   }
 
@@ -531,10 +537,6 @@ module.exports = (function () {
       document.body.removeEventListener('keydown', this.keydownHandler);
     }
   }
-
-  // function documentClickHandler(event) {
-
-  // }
 
   function hideIfClickOutside(event) {
     /* jshint validthis: true */
@@ -700,9 +702,7 @@ module.exports = (function () {
 
   function stringToDate(string) {
     /* jshint validthis: true */
-
     var matches = string.match(this.reg);
-
     if (matches) {
       if (matches[3] === 0 && matches[2] === 0 && matches[1] === 0) {
         return null;
