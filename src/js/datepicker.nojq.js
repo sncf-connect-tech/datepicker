@@ -116,15 +116,15 @@ module.exports = function (lang, backDate, nextDate) {
   switch (lang) {
     case 'fr':
       options = {
-        month_names: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
-        short_month_names: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
-        day_names: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-        short_day_names: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-        today_string: 'Aujourd\'hui',
-        error_out_of_range: "La date sélectionnée est incorrecte",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
+        shortMonthNames: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
+        dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+        shortDayNames: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+        todayString: 'Aujourd\'hui',
+        errorOutOfRange: "La date sélectionnée est incorrecte",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Précédent",
         next: "Suivant"
       };
@@ -132,15 +132,15 @@ module.exports = function (lang, backDate, nextDate) {
 
     case 'de':
       options = {
-        month_names: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        short_month_names: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        day_names: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-        short_day_names: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-        today_string: 'Heute',
-        error_out_of_range: "Das selektierte Datum ist ungültig.",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        shortDayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        todayString: 'Heute',
+        errorOutOfRange: "Das selektierte Datum ist ungültig.",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Früher",
         next: "Nächste"
       };
@@ -148,15 +148,15 @@ module.exports = function (lang, backDate, nextDate) {
 
     case 'it':
       options = {
-        month_names: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        short_month_names: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-        day_names: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
-        short_day_names: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
-        today_string: 'Oggi',
-        error_out_of_range: "La data selezionata non è disponibile",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        shortMonthNames: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        dayNames: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
+        shortDayNames: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
+        todayString: 'Oggi',
+        errorOutOfRange: "La data selezionata non è disponibile",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Precedente",
         next: "Il prossimo"
       };
@@ -164,15 +164,15 @@ module.exports = function (lang, backDate, nextDate) {
 
     case 'es':
       options = {
-        month_names: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        short_month_names: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        day_names: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
-        short_day_names: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
-        today_string: 'Hoy',
-        error_out_of_range: "La fecha seleccionada est&aacute; fuera de rango",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        shortMonthNames: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
+        shortDayNames: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
+        todayString: 'Hoy',
+        errorOutOfRange: "La fecha seleccionada est&aacute; fuera de rango",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Anterior",
         next: "Siguiente"
       };
@@ -180,15 +180,15 @@ module.exports = function (lang, backDate, nextDate) {
 
     case 'nl':
       options = {
-        month_names: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-        short_month_names: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-        day_names: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
-        short_day_names: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
-        today_string: 'Vandaag',
-        error_out_of_range: "De geselecteerde datum is niet beschikbaar",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+        shortMonthNames: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+        dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+        shortDayNames: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+        todayString: 'Vandaag',
+        errorOutOfRange: "De geselecteerde datum is niet beschikbaar",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Vorig",
         next: "Volgende"
       };
@@ -196,15 +196,15 @@ module.exports = function (lang, backDate, nextDate) {
 
     default:
       options = {
-        month_names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        short_month_names: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        short_day_names: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-        today_string: 'Today',
-        error_out_of_range: "Selected date is out of range",
-        date_format: "dd/mm/YYYY",
-        date_min: backDate,
-        date_max: nextDate,
+        monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        todayString: 'Today',
+        errorOutOfRange: "Selected date is out of range",
+        dateFormat: "dd/mm/YYYY",
+        dateMin: backDate,
+        dateMax: nextDate,
         previous: "Previous",
         next: "Next"
       };
@@ -219,32 +219,32 @@ module.exports = function (lang, backDate, nextDate) {
   for (i = 0, l = datepickers.length; i < l; i++) {
     input = datepickers[i];
     if (input.getAttribute('data-start-date')) {
-      options.date_min = startDate(input.getAttribute('data-start-date'));
+      options.dateMin = startDate(input.getAttribute('data-start-date'));
     }
     // Railpass case
     if (input.classList.contains('railpass-date')) {
-      options.date_min = railpassMinDate();
+      options.dateMin = railpassMinDate();
     }
     // Backward case
     if (input.classList.contains('datepicker-backwards')) {
-      options.date_min = backwardDate();
+      options.dateMin = backwardDate();
     }
     // Limit date range to 6 months in the future
     if (input.classList.contains('six-months-in-future')) {
-      options.date_max = sixMonthsFutureDate();
+      options.dateMax = sixMonthsFutureDate();
     }
     // Instantiate datepicker object
     require("./jquery.jdpicker.nojq.js")(input, options);
 
     // Restore default values
     if (input.classList.contains('railpass-date') || input.getAttribute('data-start-date')) {
-      options.date_min = '';
+      options.dateMin = '';
     }
     if (input.classList.contains('datepicker-backwards')) {
-      options.date_min = currentDate();
+      options.dateMin = currentDate();
     }
     if (input.classList.contains('six-months-in-future')) {
-      options.date_max = nextDate;
+      options.dateMax = nextDate;
     }
   }
 };
