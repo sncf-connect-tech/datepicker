@@ -182,40 +182,26 @@ module.exports = (function () {
       monthHead.appendChild(monthHeading);
     }
 
-    // var monthNav = $('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span>' + monthHead + '</p>');
+    // Nav buttons
     var monthNav = createElement('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span></p>');
     monthNav.appendChild(monthHead);
 
-    // for (var i = 0; i < this.nbCalendar; i++) {
-    //   this.monthNameSpan[i] = $(".month-name-" + i, monthNav);
-    //   this.yearNameSpan[i] = $(".year-name-" + i, monthNav);
-    // }
+    this.prevBtn = monthNav.querySelector('.prev');
+    this.nextBtn = monthNav.querySelector('.next');
 
-    // $(".prev", monthNav).click(this.bindToObj(function (e) {
-    var prev = monthNav.querySelectorAll('.prev'),
-        next = monthNav.querySelectorAll('.next');
+    this.prevBtn.onclick = this.bindToObj(function (e) {
+      this.moveMonthBy(Number('-1')); // Always go 1 month backward, even if 2 months or more are displayed
+      e.preventDefault();
+      e.stopPropagation();
+      var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), -1);
+      this.firstMonthAllowed(newMonth);
+    });
 
-    for (i = 0, l = prev.length; i < l; i++) {
-      prev[0].click = this.bindToObj(function (e) {
-        this.moveMonthBy(Number('-1')); // Always go 1 month backward, even if 2 months or more are displayed
-        e.preventDefault();
-        e.stopPropagation();
-        var newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), -1);
-        this.firstMonthAllowed(newMonth);
-      });
-    }
-
-    for (i = 0, l = next.length; i < l; i++) {
-      prev[0].click = this.bindToObj(function (e) {
-        this.moveMonthBy(1); // Always go 1 month forward, even if 2 months or more are displayed
-        e.preventDefault();
-        e.stopPropagation();
-      });
-    }
-
-    this.errorMsg = createElement('<div class="error_msg" />');
-    var nav = createElement('<div class="nav" />'),
-        tableShell = '<table role="grid" aria-labelledby="month-name" class="month-wrapper"><thead><tr>';
+    this.nextBtn.onclick = this.bindToObj(function (e) {
+      this.moveMonthBy(1); // Always go 1 month forward, even if 2 months or more are displayed
+      e.preventDefault();
+      e.stopPropagation();
+    });
 
     nav.appendChild(this.errorMsg);
     nav.appendChild(monthNav);
@@ -783,13 +769,11 @@ module.exports = (function () {
 
   function firstMonthAllowed(firstMonth) {
     /* jshint validthis: true */
-    var btn = document.querySelector('.button.prev');
-
     if (this.isNewDateAllowed(firstMonth)) {
-      btn.classList.remove('stop');
+      this.prevBtn.classList.remove('stop');
     }
     else {
-      btn.classList.add('stop');
+      this.prevBtn.classList.add('stop');
     }
   }
 
