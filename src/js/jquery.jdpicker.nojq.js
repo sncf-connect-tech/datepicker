@@ -517,8 +517,8 @@ module.exports = (function () {
     /* jshint validthis: true */
     this.errorMsg.style.display = 'none';
     this.rootLayers.setAttribute('aria-hidden', 'false');
-    // this.rootLayers.fadeIn('fast'); // @todo
     this.rootLayers.style.display = 'block';
+    this.rootLayers.style.opacity = 1;
     document.addEventListener(this.clickEvent(), this.hideIfClickOutside);
     this.input.removeEventListener("focus", this.show);
     this.input.setAttribute('autocomplete', 'off');
@@ -528,13 +528,16 @@ module.exports = (function () {
 
   function hide() {
     /* jshint validthis: true */
-    if (this.input.type !== "hidden") {
-      this.rootLayers.setAttribute('aria-hidden', 'true');
-      // this.rootLayers.fadeOut('fast'); // @todo
-      this.rootLayers.style.display = 'none';  
-      document.removeEventListener(this.clickEvent(), this.hideIfClickOutside);
-      this.input.addEventListener('focus', this.show);
-      document.body.removeEventListener('keydown', this.keydownHandler);
+    var dp = this;
+    if (dp.input.type !== "hidden") {
+      dp.rootLayers.setAttribute('aria-hidden', 'true');
+      setTimeout(function() {
+        dp.rootLayers.style.display = 'none';
+      }, 200);
+      dp.rootLayers.style.opacity = 0;
+      document.removeEventListener(dp.clickEvent(), dp.hideIfClickOutside);
+      dp.input.addEventListener('focus', dp.show);
+      document.body.removeEventListener('keydown', dp.keydownHandler);
     }
   }
 
