@@ -120,6 +120,11 @@ module.exports = function(grunt) {
         ],
         title: 'Guide'
       }
+    },
+    push: {
+      options: {
+        files: ['package.json', 'bower.json']
+      }
     }
   });
 
@@ -131,6 +136,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-ngdocs');
+  grunt.loadNpmTasks('grunt-push-release');
 
   grunt.registerTask('default', ['csslint', 'jshint', 'concat', 'copy', 'ngAnnotate', 'uglify', 'ngdocs']);
   grunt.registerTask('test', ['karma']);
