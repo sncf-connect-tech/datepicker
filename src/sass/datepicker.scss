@@ -19,8 +19,6 @@
     @include animation(dp-scale 0.12s ease-in);
     @extend %noSelect;
     z-index: 9000;
-    opacity: 0;
-    transition: opacity .2s;
     &:after {
       content: "";
       position: absolute;

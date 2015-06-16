@@ -28,7 +28,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var $ = require('../vendors/jquery-2.1.3.min/index.js');
+var $ = require('jquery');
 
 module.exports = (function () {
 

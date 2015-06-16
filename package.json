@@ -9,6 +9,8 @@
     "url": "git://gitlab.socrate.vsct.fr/VSH/datepicker"
   },
   "devDependencies": {
+    "browserify": "^10.2.4",
+    "browserify-shim": "^3.8.8",
     "grunt": "^0.4.5",
     "grunt-browserify": "3.7.0",
     "grunt-sass": "~0.18.0",
@@ -32,6 +34,17 @@
     "time-grunt": "^1.1.0",
     "minifyify": "~5.0.0",
     "uglifyify": "^3.0.1"
+  },
+  "browser": {
+    "jquery": "./src/vendors/jquery-2.1.3.min/index.js"
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "engines": {
     "node": ">=0.10.0"

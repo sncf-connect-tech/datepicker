@@ -1,11 +1,10 @@
 'use strict';
 
-(function () {
-
-    window.DatePicker = {
-      init: function (lang, backDate, nextDate) {
-        require('./datepicker.js')(lang, backDate, nextDate);
-      }
+var datepicker = require('./datepicker.js');
+module.exports = function () {
+  return {
+    init: function (lang, backDate, nextDate) {
+      datepicker(lang, backDate, nextDate);
     }
-
-})();
+  };
+};
