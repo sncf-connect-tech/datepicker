@@ -32,20 +32,20 @@
 
 module.exports = (function () {
 
-  Object.prototype.extend = function (obj) {
+  function extendObject(initObj, obj) {
     var i = '';
     for (i in obj) {
-      this[i] = obj[i];
+      initObj[i] = obj[i];
     }
-    return this;
-  };
+    return initObj;
+  }
 
-  Node.prototype.empty = function () {
-    while (this.hasChildNodes()) {
-      this.removeChild(this.lastChild);
+  function emptyNode(node) {
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
     }
-    return this;
-  };
+    return node;
+  }
 
   function createElement(str) {
     var elt = document.createElement("div");
@@ -61,7 +61,7 @@ module.exports = (function () {
     if (typeof (opts) !== "object") {
       opts = {};
     }
-    this.extend(jdPicker.DEFAULT_OPTS).extend(opts);
+    extendObject(extendObject(this, jdPicker.DEFAULT_OPTS), opts);
 
     this.input = el;
     this.bindMethodsToObj("show", "hide", "hideIfClickOutside", "keydownHandler", "selectDate");
@@ -383,23 +383,23 @@ module.exports = (function () {
     if (this.isNewDateAllowed(newMonth)) {
       if (!this.currentMonth || !(this.currentMonth.getFullYear() === newMonth.getFullYear() && this.currentMonth.getMonth() === newMonth.getMonth())) {
 
-        this.tbody.empty();
+        emptyNode(this.tbody);
         this.currentMonth = newMonth;
 
         // Render the current month
         var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
         this.tbody.appendChild(this.renderDatepicker(date));
 
-        this.monthNameSpan[0].empty().innerText = this.monthNames[firstMonth.getMonth()];
-        this.yearNameSpan[0].empty().innerText = this.currentMonth.getFullYear();
+        emptyNode(this.monthNameSpan[0]).innerText = this.monthNames[firstMonth.getMonth()];
+        emptyNode(this.yearNameSpan[0]).innerText = this.currentMonth.getFullYear();
         this.firstMonthAllowed(firstMonth);
 
         // Iterate to render next months
         if (this.nbCalendar > 1) {
           for (i = 1; i < this.nbCalendar; i++) {
             var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
-            this.monthNameSpan[i].empty().innerText = this.monthNames[nextMonth.getMonth()];
-            this.yearNameSpan[i].empty().innerText = nextMonth.getFullYear();
+            emptyNode(this.monthNameSpan[i]).innerText = this.monthNames[nextMonth.getMonth()];
+            emptyNode(this.yearNameSpan[i]).innerText = nextMonth.getFullYear();
             this.tbody.appendChild(this.renderDatepicker(nextMonth));
           }
         }
