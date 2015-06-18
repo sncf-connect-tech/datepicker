@@ -1,7 +1,5 @@
 'use strict';
 
-// var $ = require('../vendors/jquery-2.1.3.min/index.js');
-
 module.exports = function (lang, backDate, nextDate) {
 
   /**

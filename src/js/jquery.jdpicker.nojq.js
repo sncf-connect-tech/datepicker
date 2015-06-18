@@ -245,6 +245,7 @@ module.exports = (function () {
     this.dateSelector.appendChild(todayDate);
     this.input.parentNode.appendChild(this.dateSelector);  
     this.rootLayers = this.dateSelector;
+    this.rootHeight = this.rootLayers.offsetHeight;
 
     this.dateSelector.addEventListener(this.clickEvent(), function(e) {
       e.preventDefault();
@@ -731,36 +732,23 @@ module.exports = (function () {
 
   function setPosition() {
     /* jshint validthis: true */
-    return
-    var win = $(window),
-      inputPosition = this.input.position(),
-      inputOffset = this.input.offset(),
-      dateSelectorHeight = this.rootLayers.outerHeight();
-
-    // Define viewport
-    var viewport = {top: win.scrollTop()};
-    viewport.bottom = viewport.top + win.height();
-
-    // Get input position
-    inputOffset.bottom = inputOffset.top + this.input.outerHeight();
-
-    // Enough available space under the input or no place above
-    if (((viewport.bottom - inputOffset.bottom) >= dateSelectorHeight) || ((typeof BookingWidgetState !== 'undefined') && (inputOffset.bottom - $(window).scrollTop() - 80 < dateSelectorHeight))) {
-      this.rootLayers.css({
-        top: inputPosition.top + this.input.outerHeight() + 15,
-        bottom: 'auto'
-      });
-      this.rootLayers.addClass('under');
-      this.rootLayers.removeClass('on-top');
+    var inputRect = this.input.getBoundingClientRect();
+    if (this.rootHeight === 0) {
+      this.rootHeight = this.rootLayers.offsetHeight;
     }
-    // No space available under the input
+
+    // Enough space over input
+    if (inputRect.top >= this.rootHeight) {
+      this.rootLayers.style.top = 'auto';
+      this.rootLayers.style.bottom = (inputRect.height + 15) + 'px';
+      this.rootLayers.classList.add('on-top');
+      this.rootLayers.classList.remove('under');
+    }
     else {
-      this.rootLayers.css({
-        bottom: inputPosition.top + this.input.outerHeight() + 15,
-        top: 'auto'
-      });
-      this.rootLayers.addClass('on-top');
-      this.rootLayers.removeClass('under');
+      this.rootLayers.style.top = (inputRect.height + 15) + 'px';
+      this.rootLayers.style.bottom = 'auto';
+      this.rootLayers.classList.add('under');
+      this.rootLayers.classList.remove('on-top');
     }
   }
 

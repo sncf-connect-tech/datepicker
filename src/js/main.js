@@ -1,6 +1,6 @@
 'use strict';
 
-var datepicker = require('./datepicker.js');
+var datepicker = require('./datepicker.nojq.js');
 module.exports = function () {
   return {
     init: function (lang, backDate, nextDate) {
