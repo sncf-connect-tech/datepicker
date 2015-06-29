@@ -1,33 +1,3 @@
-/**
- jdPicker 1.0
- Requires jQuery version: >= 1.2.6
-
- 2010 - ? -- Paul Da Silva, AMJ Groupe
-
- Copyright (c) 2007-2008 Jonathan Leighton & Torchbox Ltd
-
- Permission is hereby granted, free of charge, to any person
- obtaining a copy of this software and associated documentation
- files (the "Software"), to deal in the Software without
- restriction, including without limitation the rights to use,
- copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the
- Software is furnished to do so, subject to the following
- conditions:
-
- The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- OTHER DEALINGS IN THE SOFTWARE.
- */
-
 'use strict';
 
 module.exports = (function () {
@@ -59,9 +29,81 @@ module.exports = (function () {
   function jdPicker(el, opts) {
     /* jshint validthis: true */
     if (typeof (opts) !== "object") {
-      opts = {};
+      opts = {
+        lang: "en"
+      };
     }
-    extendObject(extendObject(this, jdPicker.DEFAULT_OPTS), opts);
+
+    var i18n = {
+      fr: {
+        monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
+        shortMonthNames: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
+        dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+        shortDayNames: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+        todayString: 'Aujourd\'hui',
+        errorOutOfRange: "La date sélectionnée est incorrecte",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Précédent",
+        next: "Suivant"
+      },
+      de: {
+        monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        shortDayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        todayString: 'Heute',
+        errorOutOfRange: "Das selektierte Datum ist ungültig.",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Früher",
+        next: "Nächste"
+      },
+      it: {
+        monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        shortMonthNames: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+        dayNames: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
+        shortDayNames: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
+        todayString: 'Oggi',
+        errorOutOfRange: "La data selezionata non è disponibile",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Precedente",
+        next: "Il prossimo"
+      },
+      es: {
+        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        shortMonthNames: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
+        shortDayNames: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
+        todayString: 'Hoy',
+        errorOutOfRange: "La fecha seleccionada est&aacute; fuera de rango",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Anterior",
+        next: "Siguiente"
+      },
+      nl: {
+        monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+        shortMonthNames: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+        dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+        shortDayNames: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+        todayString: 'Vandaag',
+        errorOutOfRange: "De geselecteerde datum is niet beschikbaar",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Vorig",
+        next: "Volgende"
+      },
+      en: {
+        monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        todayString: 'Today',
+        errorOutOfRange: "Selected date is out of range",
+        dateFormat: "dd/mm/YYYY",
+        previous: "Previous",
+        next: "Next"
+      }
+    };
+
+    extendObject(extendObject(extendObject(this, jdPicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
     this.input = el;
     this.bindMethodsToObj("show", "hide", "hideIfClickOutside", "keydownHandler", "selectDate");
@@ -71,18 +113,15 @@ module.exports = (function () {
     this.hide();
   }
 
+
+
+
   /**
    * Default options
    * @type {Object}
    */
     //JdPicker i18n
   jdPicker.DEFAULT_OPTS = {
-    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-    todayString: 'Today',
-    errorOutOfRange: "Selected date is out of range",
     selectableDays: [0, 1, 2, 3, 4, 5, 6],
     nonSelectable: [],
     recNonSelectable: [],
@@ -92,10 +131,7 @@ module.exports = (function () {
     weekLabel: "",
     nbCalendar: 2,
     dateMin: "",
-    dateMax: "",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Previous",
-    next: "Next"
+    dateMax: ""
   };
 
   jdPicker.prototype = {
@@ -243,7 +279,7 @@ module.exports = (function () {
     this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(tableShell);
     this.dateSelector.appendChild(todayDate);
-    this.input.parentNode.appendChild(this.dateSelector);  
+    this.input.parentNode.appendChild(this.dateSelector);
     this.rootLayers = this.dateSelector;
     this.rootHeight = this.rootLayers.offsetHeight;
 

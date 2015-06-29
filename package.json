@@ -36,7 +36,10 @@
     "uglifyify": "^3.0.1"
   },
   "browser": {
-    "jquery": "./src/vendors/jquery-2.1.3.min/index.js"
+    "jquery": "./src/vendors/jquery-2.1.3.min/index.js",
+    "jdpicker": "./src/js/jquery.jdpicker.nojq.js",
+    "datepicker": "./src/js/datepicker.nojq.js"
+
   },
   "browserify-shim": {
     "jquery": "$"
