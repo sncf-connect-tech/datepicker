@@ -15,6 +15,7 @@ module.exports = function(grunt) {
     browserify: {
       build: {
         options: {
+          watch: true,
           browserifyOptions: {
             debug: false,
             standalone: 'datepicker'
@@ -50,6 +51,16 @@ module.exports = function(grunt) {
         files: {
           'dist/datepicker.css': 'src/sass/datepicker.{scss,sass}'
         }
+      }
+    },
+    watch: {
+      sass: {
+        files: [
+          'src/sass/**/*.{scss,sass}'
+        ],
+        tasks: [
+          'sass:dist'
+        ]
       }
     },
     copy: {
@@ -104,8 +115,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['browserify:build', 'browserify:dist', 'sass:dist']);
+  grunt.registerTask('build', ['browserify:build', 'sass:dist', 'watch']);
+  grunt.registerTask('default', ['browserify:dist', 'sass:dist']);
   grunt.registerTask('test', ['karma']);
 
 };

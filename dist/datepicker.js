@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js":[function(require,module,exports){
 'use strict';
 
 
@@ -36,74 +36,7 @@ module.exports = (function () {
       };
     }
 
-    var i18n = {
-      fr: {
-        monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
-        shortMonthNames: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
-        dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-        shortDayNames: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-        todayString: 'Aujourd\'hui',
-        errorOutOfRange: "La date sélectionnée est incorrecte",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Précédent",
-        next: "Suivant"
-      },
-      de: {
-        monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-        shortDayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-        todayString: 'Heute',
-        errorOutOfRange: "Das selektierte Datum ist ungültig.",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Früher",
-        next: "Nächste"
-      },
-      it: {
-        monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        shortMonthNames: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-        dayNames: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
-        shortDayNames: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
-        todayString: 'Oggi',
-        errorOutOfRange: "La data selezionata non è disponibile",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Precedente",
-        next: "Il prossimo"
-      },
-      es: {
-        monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        shortMonthNames: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
-        shortDayNames: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
-        todayString: 'Hoy',
-        errorOutOfRange: "La fecha seleccionada est&aacute; fuera de rango",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Anterior",
-        next: "Siguiente"
-      },
-      nl: {
-        monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-        shortMonthNames: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-        dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
-        shortDayNames: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
-        todayString: 'Vandaag',
-        errorOutOfRange: "De geselecteerde datum is niet beschikbaar",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Vorig",
-        next: "Volgende"
-      },
-      en: {
-        monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-        todayString: 'Today',
-        errorOutOfRange: "Selected date is out of range",
-        dateFormat: "dd/mm/YYYY",
-        previous: "Previous",
-        next: "Next"
-      }
-    };
+    var i18n = require("i18n");
 
     extendObject(extendObject(extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
@@ -1112,5 +1045,75 @@ module.exports = (function () {
 })();
 
 
-},{}]},{},[1])(1)
+},{"i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
+module.exports = {
+  fr: {
+    monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
+    shortMonthNames: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
+    dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+    shortDayNames: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+    todayString: 'Aujourd\'hui',
+    errorOutOfRange: "La date sélectionnée est incorrecte",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Précédent",
+    next: "Suivant"
+  },
+  de: {
+    monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+    shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    shortDayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    todayString: 'Heute',
+    errorOutOfRange: "Das selektierte Datum ist ungültig.",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Früher",
+    next: "Nächste"
+  },
+  it: {
+    monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+    shortMonthNames: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+    dayNames: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
+    shortDayNames: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
+    todayString: 'Oggi',
+    errorOutOfRange: "La data selezionata non è disponibile",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Precedente",
+    next: "Il prossimo"
+  },
+  es: {
+    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    shortMonthNames: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
+    shortDayNames: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
+    todayString: 'Hoy',
+    errorOutOfRange: "La fecha seleccionada est&aacute; fuera de rango",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Anterior",
+    next: "Siguiente"
+  },
+  nl: {
+    monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+    shortMonthNames: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+    dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+    shortDayNames: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+    todayString: 'Vandaag',
+    errorOutOfRange: "De geselecteerde datum is niet beschikbaar",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Vorig",
+    next: "Volgende"
+  },
+  en: {
+    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    todayString: 'Today',
+    errorOutOfRange: "Selected date is out of range",
+    dateFormat: "dd/mm/YYYY",
+    previous: "Previous",
+    next: "Next"
+  }
+};
+
+},{}]},{},["/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js"])("/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js")
 });
