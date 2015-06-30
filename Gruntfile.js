@@ -21,7 +21,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'dist/datepicker.js': ['src/js/main.js']
+          'dist/datepicker.js': ['src/js/datepicker.js']
         }
       },
       dist: {
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
           transform: ['uglifyify']
         },
         files: {
-          'dist/datepicker.min.js': ['src/js/main.js']
+          'dist/datepicker.min.js': ['src/js/datepicker.js']
         }
       }
     },

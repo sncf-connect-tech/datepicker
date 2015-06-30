@@ -1,163 +1,6 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-module.exports = function (lang, backDate, nextDate) {
-
-  /**
-   * Return the current date
-   */
-  function currentDate() {
-    var today = new Date(),
-      dd = today.getDate(),
-      mm = today.getMonth() + 1,
-      yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  }
-
-  function backwardDate() {
-    var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
-      thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
-      dd = thirtyDaysFromNow.getDate(),
-      mm = thirtyDaysFromNow.getMonth() + 1,
-      yyyy = thirtyDaysFromNow.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  }
-
-  // For UK Railpass
-  function railpassMinDate() {
-    var allowedDate = new Date();
-
-    allowedDate.setDate(allowedDate.getDate() + 7);
-
-    var dd = allowedDate.getDate(),
-      mm = allowedDate.getMonth() + 1,
-      yyyy = allowedDate.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  }
-
-  // For start date
-  function startDate(days) {
-    var today = new Date(),
-      dd = today.getDate() + parseInt(days) + 1,
-      mm = today.getMonth() + 1,
-      yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  }
-
-  // For 6 months limitation
-  function sixMonthsFutureDate() {
-    var allowedDate = new Date();
-
-    allowedDate.setMonth(allowedDate.getMonth() + 6);
-
-    var dd = allowedDate.getDate(),
-      mm = allowedDate.getMonth() + 1,
-      yyyy = allowedDate.getFullYear();
-
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
-
-    return String(dd + "\/" + mm + "\/" + yyyy);
-  }
-
-  //if back date is not defined, set it to current date
-  if (backDate === undefined || backDate ==='') {
-    backDate = currentDate();
-  }
-
-  //if next date is not defined, set it to empty value
-  if (nextDate === undefined) {
-    nextDate = '';
-  }
-
-  var options = {
-    lang: typeof lang === "undefined" ? "en" : lang,
-    dateMin: backDate,
-    dateMax: nextDate
-  };
-
-
-
-  // Browse datepickers fields to deal with specific behaviours
-  var datepickers = document.querySelectorAll('input.datepicker'),
-      i = 0,
-      l = 0,
-      input = null;
-  for (i = 0, l = datepickers.length; i < l; i++) {
-    input = datepickers[i];
-    if (input.getAttribute('data-start-date')) {
-      options.dateMin = startDate(input.getAttribute('data-start-date'));
-    }
-    // Railpass case
-    if (input.classList.contains('railpass-date')) {
-      options.dateMin = railpassMinDate();
-    }
-    // Backward case
-    if (input.classList.contains('datepicker-backwards')) {
-      options.dateMin = backwardDate();
-    }
-    // Limit date range to 6 months in the future
-    if (input.classList.contains('six-months-in-future')) {
-      options.dateMax = sixMonthsFutureDate();
-    }
-    // Instantiate datepicker object
-    require("jdpicker")(input, options);
-
-    // Restore default values
-    if (input.classList.contains('railpass-date') || input.getAttribute('data-start-date')) {
-      options.dateMin = '';
-    }
-    if (input.classList.contains('datepicker-backwards')) {
-      options.dateMin = currentDate();
-    }
-    if (input.classList.contains('six-months-in-future')) {
-      options.dateMax = nextDate;
-    }
-  }
-};
-
-},{"jdpicker":2}],2:[function(require,module,exports){
-'use strict';
 
 module.exports = (function () {
 
@@ -185,7 +28,7 @@ module.exports = (function () {
   /**
    * Constructor
    */
-  function jdPicker(el, opts) {
+  function VscDatePicker(el, opts) {
     /* jshint validthis: true */
     if (typeof (opts) !== "object") {
       opts = {
@@ -262,7 +105,7 @@ module.exports = (function () {
       }
     };
 
-    extendObject(extendObject(extendObject(this, jdPicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
+    extendObject(extendObject(extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
     this.input = el;
     this.bindMethodsToObj("show", "hide", "hideIfClickOutside", "keydownHandler", "selectDate");
@@ -279,8 +122,8 @@ module.exports = (function () {
    * Default options
    * @type {Object}
    */
-    //JdPicker i18n
-  jdPicker.DEFAULT_OPTS = {
+    //VscDatePicker i18n
+  VscDatePicker.DEFAULT_OPTS = {
     selectableDays: [0, 1, 2, 3, 4, 5, 6],
     nonSelectable: [],
     recNonSelectable: [],
@@ -293,7 +136,7 @@ module.exports = (function () {
     dateMax: ""
   };
 
-  jdPicker.prototype = {
+  VscDatePicker.prototype = {
     build: build,
     presetInward: presetInward,
     renderDatepicker: renderDatepicker,
@@ -377,7 +220,7 @@ module.exports = (function () {
 
     // Heading
     var monthHead = document.createElement('div'),
-        monthHeading = null;
+      monthHeading = null;
     this.monthNameSpan = [];
     this.yearNameSpan = [];
 
@@ -462,11 +305,11 @@ module.exports = (function () {
     }
 
     var parentForm = dp.input.parentNode,
-        outward = null,
-        outwardDate = [],
-        inwardDate = [],
-        month = '',
-        day = '';
+      outward = null,
+      outwardDate = [],
+      inwardDate = [],
+      month = '',
+      day = '';
 
     while (parentForm.parentNode !== null && parentForm.tagName !== 'FORM') {
       parentForm = parentForm.parentNode;
@@ -505,15 +348,15 @@ module.exports = (function () {
   function renderDatepicker(date) {
     /* jshint validthis: true */
     var rangeStart = this.rangeStart(date),
-        rangeEnd = this.rangeEnd(date),
-        numDays = this.daysBetween(rangeStart, rangeEnd),
-        td = document.createElement('td'),
-        tableCells = "",
-        weekRow = 0,
-        adjustShortDayNames = this.adjustDays(this.shortDayNames),
-        adjustDayNames = this.adjustDays(this.dayNames),
-        i = 0,
-        len = 0;
+      rangeEnd = this.rangeEnd(date),
+      numDays = this.daysBetween(rangeStart, rangeEnd),
+      td = document.createElement('td'),
+      tableCells = "",
+      weekRow = 0,
+      adjustShortDayNames = this.adjustDays(this.shortDayNames),
+      adjustDayNames = this.adjustDays(this.dayNames),
+      i = 0,
+      len = 0;
 
     td.classList.add('table-month-wrapper');
     tableCells += '<table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
@@ -524,8 +367,8 @@ module.exports = (function () {
 
     for (i = 0; i <= numDays; i++) {
       var currentDay = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), rangeStart.getDate() + i, 12, 0),
-          firstDay = 0,
-          firstDayOfWeek = currentDay;
+        firstDay = 0,
+        firstDayOfWeek = currentDay;
 
       if (this.isFirstDayOfWeek(currentDay)) {
 
@@ -573,8 +416,8 @@ module.exports = (function () {
   function selectMonth(date) {
     /* jshint validthis: true */
     var newMonth = new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-        i = 0,
-        l = 0;
+      i = 0,
+      l = 0;
 
     if (this.isNewDateAllowed(newMonth)) {
       if (!this.currentMonth || !(this.currentMonth.getFullYear() === newMonth.getFullYear() && this.currentMonth.getMonth() === newMonth.getMonth())) {
@@ -601,9 +444,9 @@ module.exports = (function () {
         }
 
         var selectableDays = this.tbody.querySelectorAll('.selectable_day'),
-            selectableWeeks = this.tbody.querySelectorAll('.selectable_week'),
-            today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]'),
-            tr = this.tbody.querySelectorAll('tr');
+          selectableWeeks = this.tbody.querySelectorAll('.selectable_week'),
+          today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]'),
+          tr = this.tbody.querySelectorAll('tr');
 
         if (this.selectWeek === 0) {
           for (i = 0, l = selectableDays.length; i < l; i++) {
@@ -647,7 +490,7 @@ module.exports = (function () {
       }
 
       var prevSelected = this.tbody.querySelectorAll('.selected'),
-          currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
+        currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
       for (i = 0, l = prevSelected.length; i < l; i++) {
         prevSelected[i].classList.remove('selected');
         prevSelected[i].setAttribute('aria-selected', 'true');
@@ -1110,34 +953,164 @@ module.exports = (function () {
     }
   }
 
-  /*$.fn.jdPicker = function (opts) {
-    return this.each(function () {
-      new jdPicker(this, opts);
-    });
-  };
 
-  $.jdPicker = {
-    initialize: function (opts) {
-      $("input.datepicker").jdPicker(opts);
+  return {
+    init: function (lang, backDate, nextDate) {
+      /**
+       * Return the current date
+       */
+      function currentDate() {
+        var today = new Date(),
+          dd = today.getDate(),
+          mm = today.getMonth() + 1,
+          yyyy = today.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        return String(dd + "\/" + mm + "\/" + yyyy);
+      }
+
+      function backwardDate() {
+        var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
+          thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
+          dd = thirtyDaysFromNow.getDate(),
+          mm = thirtyDaysFromNow.getMonth() + 1,
+          yyyy = thirtyDaysFromNow.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        return String(dd + "\/" + mm + "\/" + yyyy);
+      }
+
+      // For UK Railpass
+      function railpassMinDate() {
+        var allowedDate = new Date();
+
+        allowedDate.setDate(allowedDate.getDate() + 7);
+
+        var dd = allowedDate.getDate(),
+          mm = allowedDate.getMonth() + 1,
+          yyyy = allowedDate.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        return String(dd + "\/" + mm + "\/" + yyyy);
+      }
+
+      // For start date
+      function startDate(days) {
+        var today = new Date(),
+          dd = today.getDate() + parseInt(days) + 1,
+          mm = today.getMonth() + 1,
+          yyyy = today.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        return String(dd + "\/" + mm + "\/" + yyyy);
+      }
+
+      // For 6 months limitation
+      function sixMonthsFutureDate() {
+        var allowedDate = new Date();
+
+        allowedDate.setMonth(allowedDate.getMonth() + 6);
+
+        var dd = allowedDate.getDate(),
+          mm = allowedDate.getMonth() + 1,
+          yyyy = allowedDate.getFullYear();
+
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+
+        return String(dd + "\/" + mm + "\/" + yyyy);
+      }
+
+      //if back date is not defined, set it to current date
+      if (backDate === undefined || backDate ==='') {
+        backDate = currentDate();
+      }
+
+      //if next date is not defined, set it to empty value
+      if (nextDate === undefined) {
+        nextDate = '';
+      }
+
+      var options = {
+        lang: typeof lang === "undefined" ? "en" : lang,
+        dateMin: backDate,
+        dateMax: nextDate
+      };
+
+
+
+      // Browse datepickers fields to deal with specific behaviours
+      var datepickers = document.querySelectorAll('input.datepicker'),
+        i = 0,
+        l = 0,
+        input = null;
+      for (i = 0, l = datepickers.length; i < l; i++) {
+        input = datepickers[i];
+        if (input.getAttribute('data-start-date')) {
+          options.dateMin = startDate(input.getAttribute('data-start-date'));
+        }
+        // Railpass case
+        if (input.classList.contains('railpass-date')) {
+          options.dateMin = railpassMinDate();
+        }
+        // Backward case
+        if (input.classList.contains('datepicker-backwards')) {
+          options.dateMin = backwardDate();
+        }
+        // Limit date range to 6 months in the future
+        if (input.classList.contains('six-months-in-future')) {
+          options.dateMax = sixMonthsFutureDate();
+        }
+        // Instantiate datepicker object
+        new VscDatePicker(input, options);
+
+        // Restore default values
+        if (input.classList.contains('railpass-date') || input.getAttribute('data-start-date')) {
+          options.dateMin = '';
+        }
+        if (input.classList.contains('datepicker-backwards')) {
+          options.dateMin = currentDate();
+        }
+        if (input.classList.contains('six-months-in-future')) {
+          options.dateMax = nextDate;
+        }
+      }
     }
-  };*/
-
-  return function (el, opts) {
-    new jdPicker(el, opts);
   };
 })();
 
-},{}],3:[function(require,module,exports){
-'use strict';
 
-var datepicker = require('datepicker');
-module.exports = function () {
-  return {
-    init: function (lang, backDate, nextDate) {
-      datepicker(lang, backDate, nextDate);
-    }
-  };
-};
-
-},{"datepicker":1}]},{},[3])(3)
+},{}]},{},[1])(1)
 });
