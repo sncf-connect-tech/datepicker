@@ -2,28 +2,10 @@
 'use strict';
 
 
+
 module.exports = (function () {
 
-  function extendObject(initObj, obj) {
-    var i = '';
-    for (i in obj) {
-      initObj[i] = obj[i];
-    }
-    return initObj;
-  }
-
-  function emptyNode(node) {
-    while (node.hasChildNodes()) {
-      node.removeChild(node.lastChild);
-    }
-    return node;
-  }
-
-  function createElement(str) {
-    var elt = document.createElement("div");
-    elt.innerHTML = str;
-    return elt.firstChild;
-  }
+  var toolBox = require("toolbox");
 
   /**
    * Constructor
@@ -38,7 +20,7 @@ module.exports = (function () {
 
     var i18n = require("i18n");
 
-    extendObject(extendObject(extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
+    toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
     this.input = el;
     this.bindMethodsToObj("show", "hide", "hideIfClickOutside", "keydownHandler", "selectDate");
@@ -118,7 +100,7 @@ module.exports = (function () {
     var i = 0;
 
     // Wrapper
-    this.wrapp = createElement('<div class="datepicker-wrapper">');
+    this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);
 
@@ -145,10 +127,10 @@ module.exports = (function () {
     }
 
     // Nav
-    var nav = createElement('<div class="nav" />');
+    var nav = toolBox.createElement('<div class="nav" />');
 
     // Error
-    this.errorMsg = createElement('<div class="error_msg" />');
+    this.errorMsg = toolBox.createElement('<div class="error_msg" />');
     nav.appendChild(this.errorMsg);
 
     // Heading
@@ -158,17 +140,17 @@ module.exports = (function () {
     this.yearNameSpan = [];
 
     for (i = 0; i < this.nbCalendar; i++) {
-      monthHeading = createElement('<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '"></span> ');
-      this.monthNameSpan.push(createElement('<span class="month-name month-name-' + i + '"></span> '));
-      this.yearNameSpan.push(createElement('<span class="year-name year-name-' + i + '"></span>'));
+      monthHeading = toolBox.createElement('<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '"></span> ');
+      this.monthNameSpan.push(toolBox.createElement('<span class="month-name month-name-' + i + '"></span> '));
+      this.yearNameSpan.push(toolBox.createElement('<span class="year-name year-name-' + i + '"></span>'));
       monthHeading.appendChild(this.monthNameSpan[i]);
-      monthHeading.appendChild(createElement('<span> </span>'));
+      monthHeading.appendChild(toolBox.createElement('<span> </span>'));
       monthHeading.appendChild(this.yearNameSpan[i]);
       monthHead.appendChild(monthHeading);
     }
 
     // Nav buttons
-    var monthNav = createElement('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span></p>');
+    var monthNav = toolBox.createElement('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span></p>');
     monthNav.appendChild(monthHead);
 
     this.prevBtn = monthNav.querySelector('.prev');
@@ -198,19 +180,19 @@ module.exports = (function () {
     }
 
     tableShell += "</tr></thead><tbody><tr><td></td></tr></tbody></table>";
-    tableShell = createElement(tableShell);
+    tableShell = toolBox.createElement(tableShell);
 
     this.tbody = tableShell.querySelector('tbody tr');
 
     // Today button
-    var todayDate = createElement('<div class="today-date" role="button">' + this.todayString + '</div>');
+    var todayDate = toolBox.createElement('<div class="today-date" role="button">' + this.todayString + '</div>');
     todayDate.click = this.bindToObj(function () {
       this.changeInput(this.currentDate());
     });
 
     // Date picker container
     var  style = (this.input.type === "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
-    this.dateSelector = createElement('<div class="date-selector" aria-hidden="true"' + style + '></div>');
+    this.dateSelector = toolBox.createElement('<div class="date-selector" aria-hidden="true"' + style + '></div>');
     this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(tableShell);
     this.dateSelector.appendChild(todayDate);
@@ -355,23 +337,23 @@ module.exports = (function () {
     if (this.isNewDateAllowed(newMonth)) {
       if (!this.currentMonth || !(this.currentMonth.getFullYear() === newMonth.getFullYear() && this.currentMonth.getMonth() === newMonth.getMonth())) {
 
-        emptyNode(this.tbody);
+        toolBox.emptyNode(this.tbody);
         this.currentMonth = newMonth;
 
         // Render the current month
         var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
         this.tbody.appendChild(this.renderDatepicker(date));
 
-        emptyNode(this.monthNameSpan[0]).innerText = this.monthNames[firstMonth.getMonth()];
-        emptyNode(this.yearNameSpan[0]).innerText = this.currentMonth.getFullYear();
+        toolBox.emptyNode(this.monthNameSpan[0]).innerText = this.monthNames[firstMonth.getMonth()];
+        toolBox.emptyNode(this.yearNameSpan[0]).innerText = this.currentMonth.getFullYear();
         this.firstMonthAllowed(firstMonth);
 
         // Iterate to render next months
         if (this.nbCalendar > 1) {
           for (i = 1; i < this.nbCalendar; i++) {
             var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
-            emptyNode(this.monthNameSpan[i]).innerText = this.monthNames[nextMonth.getMonth()];
-            emptyNode(this.yearNameSpan[i]).innerText = nextMonth.getFullYear();
+            toolBox.emptyNode(this.monthNameSpan[i]).innerText = this.monthNames[nextMonth.getMonth()];
+            toolBox.emptyNode(this.yearNameSpan[i]).innerText = nextMonth.getFullYear();
             this.tbody.appendChild(this.renderDatepicker(nextMonth));
           }
         }
@@ -1045,7 +1027,7 @@ module.exports = (function () {
 })();
 
 
-},{"i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
+},{"i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js","toolbox":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
 module.exports = {
   fr: {
     monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
@@ -1113,6 +1095,28 @@ module.exports = {
     previous: "Previous",
     next: "Next"
   }
+};
+
+},{}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js":[function(require,module,exports){
+exports.extendObject = function(initObj, obj) {
+  var i = '';
+  for (i in obj) {
+    initObj[i] = obj[i];
+  }
+  return initObj;
+};
+
+exports.emptyNode = function(node) {
+  while (node.hasChildNodes()) {
+    node.removeChild(node.lastChild);
+  }
+  return node;
+};
+
+exports.createElement = function (str) {
+  var elt = document.createElement("div");
+  elt.innerHTML = str;
+  return elt.firstChild;
 };
 
 },{}]},{},["/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js"])("/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js")
