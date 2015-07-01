@@ -40,7 +40,8 @@
   "browser": {
     "jquery": "./src/vendors/jquery-2.1.3.min/index.js",
     "i18n": "./src/js/i18n.js",
-    "toolbox": "./src/js/toolbox.js"
+    "toolbox": "./src/js/toolbox.js",
+    "date": "./src/js/date.js"
   },
   "browserify-shim": {
     "jquery": "$"

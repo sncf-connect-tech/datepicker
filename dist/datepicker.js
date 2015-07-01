@@ -1,4 +1,102 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js":[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/date.js":[function(require,module,exports){
+/**
+ * Return the current date
+ */
+exports.current = function () {
+  var today = new Date(),
+    dd = today.getDate(),
+    mm = today.getMonth() + 1,
+    yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  return String(dd + "\/" + mm + "\/" + yyyy);
+};
+
+exports.backward = function () {
+  var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
+    thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
+    dd = thirtyDaysFromNow.getDate(),
+    mm = thirtyDaysFromNow.getMonth() + 1,
+    yyyy = thirtyDaysFromNow.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  return String(dd + "\/" + mm + "\/" + yyyy);
+};
+
+// For 6 months limitation
+exports.sixMonthsFuture = function () {
+  var allowedDate = new Date();
+
+  allowedDate.setMonth(allowedDate.getMonth() + 6);
+
+  var dd = allowedDate.getDate(),
+    mm = allowedDate.getMonth() + 1,
+    yyyy = allowedDate.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  return String(dd + "\/" + mm + "\/" + yyyy);
+};
+
+// For UK Railpass
+exports.railpassMin = function() {
+  var allowedDate = new Date();
+
+  allowedDate.setDate(allowedDate.getDate() + 7);
+
+  var dd = allowedDate.getDate(),
+    mm = allowedDate.getMonth() + 1,
+    yyyy = allowedDate.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  return String(dd + "\/" + mm + "\/" + yyyy);
+};
+
+// For start date
+exports.start = function(days) {
+  var today = new Date(),
+    dd = today.getDate() + parseInt(days) + 1,
+    mm = today.getMonth() + 1,
+    yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  return String(dd + "\/" + mm + "\/" + yyyy);
+};
+
+},{}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js":[function(require,module,exports){
 'use strict';
 
 
@@ -6,6 +104,8 @@
 module.exports = (function () {
 
   var toolBox = require("toolbox");
+  var i18n = require("i18n");
+  var date = require("date");
 
   /**
    * Constructor
@@ -18,7 +118,7 @@ module.exports = (function () {
       };
     }
 
-    var i18n = require("i18n");
+
 
     toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
@@ -65,7 +165,6 @@ module.exports = (function () {
     hide: hide,
     hideIfClickOutside: hideIfClickOutside,
     keydownHandler: keydownHandler,
-    currentDate: currentDate,
     setDateFormat: setDateFormat,
     stringToDate: stringToDate,
     dateToString: dateToString,
@@ -870,120 +969,26 @@ module.exports = (function () {
 
 
   return {
-    init: function (lang, backDate, nextDate) {
-      /**
-       * Return the current date
-       */
-      function currentDate() {
-        var today = new Date(),
-          dd = today.getDate(),
-          mm = today.getMonth() + 1,
-          yyyy = today.getFullYear();
+    init: function (options) {
 
-        if (dd < 10) {
-          dd = '0' + dd;
-        }
+      var options = options || {
+        lang: "en"
+      };
 
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-
-        return String(dd + "\/" + mm + "\/" + yyyy);
-      }
-
-      function backwardDate() {
-        var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
-          thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
-          dd = thirtyDaysFromNow.getDate(),
-          mm = thirtyDaysFromNow.getMonth() + 1,
-          yyyy = thirtyDaysFromNow.getFullYear();
-
-        if (dd < 10) {
-          dd = '0' + dd;
-        }
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-
-        return String(dd + "\/" + mm + "\/" + yyyy);
-      }
-
-      // For UK Railpass
-      function railpassMinDate() {
-        var allowedDate = new Date();
-
-        allowedDate.setDate(allowedDate.getDate() + 7);
-
-        var dd = allowedDate.getDate(),
-          mm = allowedDate.getMonth() + 1,
-          yyyy = allowedDate.getFullYear();
-
-        if (dd < 10) {
-          dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-
-        return String(dd + "\/" + mm + "\/" + yyyy);
-      }
-
-      // For start date
-      function startDate(days) {
-        var today = new Date(),
-          dd = today.getDate() + parseInt(days) + 1,
-          mm = today.getMonth() + 1,
-          yyyy = today.getFullYear();
-
-        if (dd < 10) {
-          dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-
-        return String(dd + "\/" + mm + "\/" + yyyy);
-      }
-
-      // For 6 months limitation
-      function sixMonthsFutureDate() {
-        var allowedDate = new Date();
-
-        allowedDate.setMonth(allowedDate.getMonth() + 6);
-
-        var dd = allowedDate.getDate(),
-          mm = allowedDate.getMonth() + 1,
-          yyyy = allowedDate.getFullYear();
-
-        if (dd < 10) {
-          dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-
-        return String(dd + "\/" + mm + "\/" + yyyy);
+      //langue par defaut si celle en options non prise en charge
+      if (typeof i18n[options.lang] === "undefined") {
+        options.lang = "en";
       }
 
       //if back date is not defined, set it to current date
-      if (backDate === undefined || backDate ==='') {
-        backDate = currentDate();
+      if (options.backDate === undefined || options.backDate ==='') {
+        options.backDate = date.current();
       }
 
       //if next date is not defined, set it to empty value
-      if (nextDate === undefined) {
-        nextDate = '';
+      if (options.nextDate === undefined) {
+        options.nextDate = '';
       }
-
-      var options = {
-        lang: typeof lang === "undefined" ? "en" : lang,
-        dateMin: backDate,
-        dateMax: nextDate
-      };
-
 
 
       // Browse datepickers fields to deal with specific behaviours
@@ -994,19 +999,19 @@ module.exports = (function () {
       for (i = 0, l = datepickers.length; i < l; i++) {
         input = datepickers[i];
         if (input.getAttribute('data-start-date')) {
-          options.dateMin = startDate(input.getAttribute('data-start-date'));
+          options.dateMin = date.start(input.getAttribute('data-start-date'));
         }
         // Railpass case
         if (input.classList.contains('railpass-date')) {
-          options.dateMin = railpassMinDate();
+          options.dateMin = date.railpassMin();
         }
         // Backward case
         if (input.classList.contains('datepicker-backwards')) {
-          options.dateMin = backwardDate();
+          options.dateMin = date.backward();
         }
         // Limit date range to 6 months in the future
         if (input.classList.contains('six-months-in-future')) {
-          options.dateMax = sixMonthsFutureDate();
+          options.dateMax = date.sixMonthsFuture();
         }
         // Instantiate datepicker object
         new VscDatePicker(input, options);
@@ -1016,7 +1021,7 @@ module.exports = (function () {
           options.dateMin = '';
         }
         if (input.classList.contains('datepicker-backwards')) {
-          options.dateMin = currentDate();
+          options.dateMin = date.current();
         }
         if (input.classList.contains('six-months-in-future')) {
           options.dateMax = nextDate;
@@ -1027,7 +1032,7 @@ module.exports = (function () {
 })();
 
 
-},{"i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js","toolbox":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
+},{"date":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/date.js","i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js","toolbox":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
 module.exports = {
   fr: {
     monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
