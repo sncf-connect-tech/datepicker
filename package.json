@@ -11,6 +11,7 @@
   "devDependencies": {
     "browserify": "^10.2.4",
     "browserify-shim": "^3.8.8",
+    "cssify": "^0.7.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "3.7.0",
     "grunt-contrib-concat": "^0.5.1",
@@ -38,6 +39,8 @@
     "karma-junit-reporter": "0.2.2",
     "minifyify": "~5.0.0",
     "moment": "^2.10.3",
+    "sassify": "^0.9.1",
+    "sassr": "0.0.6",
     "time-grunt": "^1.1.0",
     "uglifyify": "^3.0.1",
     "watchify": "^3.2.3"

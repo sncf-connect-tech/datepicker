@@ -21,7 +21,8 @@ module.exports = function (grunt) {
           browserifyOptions: {
             debug: false,
             standalone: 'datepicker'
-          }
+          },
+          transform: ['sassr']
         },
         files: {
           'dist/datepicker.js': ['src/js/datepicker.js']
@@ -33,37 +34,14 @@ module.exports = function (grunt) {
             debug: false,
             standalone: 'datepicker'
           },
-          transform: ['uglifyify']
+          transform: ['sassr', 'uglifyify']
         },
         files: {
           'dist/datepicker.min.js': ['src/js/datepicker.js']
         }
       }
     },
-    sass: {
-      dist: {
-        options: {
-          precision: 10,
-          outputStyle: 'compressed',
-          sourceMap: false,
-          includePaths: [
-            'src/sass/', 'src/vendors'
-          ]
-        },
-        files: {
-          'dist/datepicker.css': 'src/sass/datepicker.{scss,sass}'
-        }
-      }
-    },
     watch: {
-      sass: {
-        files: [
-          'src/sass/**/*.{scss,sass}'
-        ],
-        tasks: [
-          'sass:dist'
-        ]
-      },
       js: {
         files: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
         tasks: ['jshint', 'jscs']
@@ -122,8 +100,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['jshint', 'jscs', 'browserify:build', 'sass:dist', 'watch']);
-  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist', 'sass:dist']);
+  grunt.registerTask('build', ['jshint', 'jscs', 'browserify:build', 'watch']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist']);
   grunt.registerTask('test', ['karma']);
 };
 

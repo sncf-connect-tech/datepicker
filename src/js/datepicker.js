@@ -1,5 +1,6 @@
 module.exports = (function () {
 
+  var styles = require('../sass/datepicker.scss');
   var toolBox = require('toolbox');
   var i18n = require('i18n');
   var date = require('date');
@@ -92,6 +93,7 @@ module.exports = (function () {
     var l = 0;
 
     // Wrapper
+    styles.append();
     this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);

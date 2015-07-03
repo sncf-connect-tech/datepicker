@@ -8,7 +8,6 @@
   "_target": "*",
   "_originalSource": "git@gitlab.socrate.vsct.fr:VSH/datepicker.git",
   "main": [
-    "dist/datepicker.css",
     "dist/datepicker.js"
   ],
   "dependencies": {

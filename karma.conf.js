@@ -33,7 +33,8 @@ module.exports = function (config) {
 
     browserify: {
       watch: true,
-      debug: true
+      debug: true,
+      transform: ['sassr']
     },
 
     // list of files to exclude
