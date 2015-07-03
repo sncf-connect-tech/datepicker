@@ -1,12 +1,16 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/date.js":[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/date.js":[function(require,module,exports){
+(function () {
+
+'use strict';
+
 /**
  * Return the current date
  */
 exports.current = function () {
-  var today = new Date(),
-    dd = today.getDate(),
-    mm = today.getMonth() + 1,
-    yyyy = today.getFullYear();
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -16,15 +20,15 @@ exports.current = function () {
     mm = '0' + mm;
   }
 
-  return String(dd + "\/" + mm + "\/" + yyyy);
+  return String(dd + '\/' + mm + '\/' + yyyy);
 };
 
 exports.backward = function () {
-  var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000,
-    thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS),
-    dd = thirtyDaysFromNow.getDate(),
-    mm = thirtyDaysFromNow.getMonth() + 1,
-    yyyy = thirtyDaysFromNow.getFullYear();
+  var THIRTY_DAYS = 90 * 24 * 60 * 60 * 1000;
+  var thirtyDaysFromNow = new Date(new Date() - THIRTY_DAYS);
+  var dd = thirtyDaysFromNow.getDate();
+  var mm = thirtyDaysFromNow.getMonth() + 1;
+  var yyyy = thirtyDaysFromNow.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -33,7 +37,7 @@ exports.backward = function () {
     mm = '0' + mm;
   }
 
-  return String(dd + "\/" + mm + "\/" + yyyy);
+  return String(dd + '\/' + mm + '\/' + yyyy);
 };
 
 // For 6 months limitation
@@ -42,9 +46,9 @@ exports.sixMonthsFuture = function () {
 
   allowedDate.setMonth(allowedDate.getMonth() + 6);
 
-  var dd = allowedDate.getDate(),
-    mm = allowedDate.getMonth() + 1,
-    yyyy = allowedDate.getFullYear();
+  var dd = allowedDate.getDate();
+  var mm = allowedDate.getMonth() + 1;
+  var yyyy = allowedDate.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -54,18 +58,18 @@ exports.sixMonthsFuture = function () {
     mm = '0' + mm;
   }
 
-  return String(dd + "\/" + mm + "\/" + yyyy);
+  return String(dd + '\/' + mm + '\/' + yyyy);
 };
 
 // For UK Railpass
-exports.railpassMin = function() {
+exports.railpassMin = function () {
   var allowedDate = new Date();
 
   allowedDate.setDate(allowedDate.getDate() + 7);
 
-  var dd = allowedDate.getDate(),
-    mm = allowedDate.getMonth() + 1,
-    yyyy = allowedDate.getFullYear();
+  var dd = allowedDate.getDate();
+  var mm = allowedDate.getMonth() + 1;
+  var yyyy = allowedDate.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -75,15 +79,15 @@ exports.railpassMin = function() {
     mm = '0' + mm;
   }
 
-  return String(dd + "\/" + mm + "\/" + yyyy);
+  return String(dd + '\/' + mm + '\/' + yyyy);
 };
 
 // For start date
-exports.start = function(days) {
-  var today = new Date(),
-    dd = today.getDate() + parseInt(days) + 1,
-    mm = today.getMonth() + 1,
-    yyyy = today.getFullYear();
+exports.start = function (days) {
+  var today = new Date();
+  var dd = today.getDate() + parseInt(days) + 1;
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -93,51 +97,47 @@ exports.start = function(days) {
     mm = '0' + mm;
   }
 
-  return String(dd + "\/" + mm + "\/" + yyyy);
+  return String(dd + '\/' + mm + '\/' + yyyy);
 };
 
-},{}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js":[function(require,module,exports){
+})();
+},{}],"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/datepicker.js":[function(require,module,exports){
+(function () {
+
 'use strict';
-
-
 
 module.exports = (function () {
 
-  var toolBox = require("toolbox");
-  var i18n = require("i18n");
-  var date = require("date");
+  var toolBox = require('toolbox');
+  var i18n = require('i18n');
+  var date = require('date');
 
   /**
    * Constructor
    */
   function VscDatePicker(el, opts) {
     /* jshint validthis: true */
-    if (typeof (opts) !== "object") {
+    if (typeof (opts) !== 'object') {
       opts = {
-        lang: "en"
+        lang: 'en'
       };
     }
-
-
 
     toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
 
     this.input = el;
-    this.bindMethodsToObj("show", "hide", "hideIfClickOutside", "keydownHandler", "selectDate");
+    this.bindMethodsToObj('show', 'hide', 'hideIfClickOutside', 'keydownHandler', 'selectDate');
 
     this.build();
     this.selectDate();
     this.hide();
   }
 
-
-
-
   /**
    * Default options
    * @type {Object}
    */
-    //VscDatePicker i18n
+  // VscDatePicker i18n
   VscDatePicker.DEFAULT_OPTS = {
     selectableDays: [0, 1, 2, 3, 4, 5, 6],
     nonSelectable: [],
@@ -145,10 +145,10 @@ module.exports = (function () {
     startOfWeek: 1,
     showWeek: 0,
     selectWeek: 0,
-    weekLabel: "",
+    weekLabel: '',
     nbCalendar: 2,
-    dateMin: "",
-    dateMax: ""
+    dateMin: '',
+    dateMax: ''
   };
 
   VscDatePicker.prototype = {
@@ -197,6 +197,7 @@ module.exports = (function () {
   function build() {
     /* jshint validthis: true */
     var i = 0;
+    var l = 0;
 
     // Wrapper
     this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
@@ -211,34 +212,32 @@ module.exports = (function () {
     // Date settings
     this.setDateFormat();
 
-    if (this.dateMax !== "" && this.dateMax.match(this.reg)) {
+    if (this.dateMax !== '' && this.dateMax.match(this.reg)) {
       this.dateMax = this.dateDecode(this.dateMax.match(this.reg));
-    }
-    else {
-      this.dateMax = "";
+    } else {
+      this.dateMax = '';
     }
 
-    if (this.dateMin !== "" && this.dateMin.match(this.reg)) {
+    if (this.dateMin !== '' && this.dateMin.match(this.reg)) {
       this.dateMin = this.dateDecode(this.dateMin.match(this.reg));
-    }
-    else {
-      this.dateMin = "";
+    } else {
+      this.dateMin = '';
     }
 
     // Nav
-    var nav = toolBox.createElement('<div class="nav" />');
+    var nav = toolBox.createElement('<div class="nav"/>');
 
     // Error
-    this.errorMsg = toolBox.createElement('<div class="error_msg" />');
+    this.errorMsg = toolBox.createElement('<div class="error_msg"/>');
     nav.appendChild(this.errorMsg);
 
     // Heading
-    var monthHead = document.createElement('div'),
-      monthHeading = null;
+    var monthHead = document.createElement('div');
+    var monthHeading = null;
     this.monthNameSpan = [];
     this.yearNameSpan = [];
 
-    for (i = 0; i < this.nbCalendar; i++) {
+    for (i = 0, l = this.nbCalendar; i < l; i++) {
       monthHeading = toolBox.createElement('<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '"></span> ');
       this.monthNameSpan.push(toolBox.createElement('<span class="month-name month-name-' + i + '"></span> '));
       this.yearNameSpan.push(toolBox.createElement('<span class="year-name year-name-' + i + '"></span>'));
@@ -278,7 +277,7 @@ module.exports = (function () {
       tableShell += '<th class="weekLabel">' + (this.weekLabel) + '</th>';
     }
 
-    tableShell += "</tr></thead><tbody><tr><td></td></tr></tbody></table>";
+    tableShell += '</tr></thead><tbody><tr><td></td></tr></tbody></table>';
     tableShell = toolBox.createElement(tableShell);
 
     this.tbody = tableShell.querySelector('tbody tr');
@@ -290,7 +289,7 @@ module.exports = (function () {
     });
 
     // Date picker container
-    var  style = (this.input.type === "hidden") ? ' style="display:block; position:static; margin:0 auto"' : '';
+    var style = (this.input.type === 'hidden') ? ' style="display:block; position:static; margin:0 auto"' : '';
     this.dateSelector = toolBox.createElement('<div class="date-selector" aria-hidden="true"' + style + '></div>');
     this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(tableShell);
@@ -299,7 +298,7 @@ module.exports = (function () {
     this.rootLayers = this.dateSelector;
     this.rootHeight = this.rootLayers.offsetHeight;
 
-    this.dateSelector.addEventListener(this.clickEvent(), function(e) {
+    this.dateSelector.addEventListener(this.clickEvent(), function (e) {
       e.preventDefault();
       e.stopPropagation();
     });
@@ -318,12 +317,12 @@ module.exports = (function () {
       return;
     }
 
-    var parentForm = dp.input.parentNode,
-      outward = null,
-      outwardDate = [],
-      inwardDate = [],
-      month = '',
-      day = '';
+    var parentForm = dp.input.parentNode;
+    var outward = null;
+    var outwardDate = [];
+    var inwardDate = [];
+    var month = '';
+    var day = '';
 
     while (parentForm.parentNode !== null && parentForm.tagName !== 'FORM') {
       parentForm = parentForm.parentNode;
@@ -361,16 +360,16 @@ module.exports = (function () {
 
   function renderDatepicker(date) {
     /* jshint validthis: true */
-    var rangeStart = this.rangeStart(date),
-      rangeEnd = this.rangeEnd(date),
-      numDays = this.daysBetween(rangeStart, rangeEnd),
-      td = document.createElement('td'),
-      tableCells = "",
-      weekRow = 0,
-      adjustShortDayNames = this.adjustDays(this.shortDayNames),
-      adjustDayNames = this.adjustDays(this.dayNames),
-      i = 0,
-      len = 0;
+    var rangeStart = this.rangeStart(date);
+    var rangeEnd = this.rangeEnd(date);
+    var numDays = this.daysBetween(rangeStart, rangeEnd);
+    var td = document.createElement('td');
+    var tableCells = '';
+    var weekRow = 0;
+    var adjustShortDayNames = this.adjustDays(this.shortDayNames);
+    var adjustDayNames = this.adjustDays(this.dayNames);
+    var i = 0;
+    var len = 0;
 
     td.classList.add('table-month-wrapper');
     tableCells += '<table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
@@ -379,22 +378,18 @@ module.exports = (function () {
       tableCells += '<th id="' + adjustDayNames[i] + '"><abbr title="' + adjustDayNames[i] + '">' + adjustShortDayNames[i] + '</abbr></th>';
     }
 
-    for (i = 0; i <= numDays; i++) {
-      var currentDay = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), rangeStart.getDate() + i, 12, 0),
-        firstDay = 0,
-        firstDayOfWeek = currentDay;
+    for (i = 0, len = numDays; i <= len; i++) {
+      var currentDay = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), rangeStart.getDate() + i, 12, 0);
+      var firstDay = 0;
+      var firstDayOfWeek = currentDay;
 
       if (this.isFirstDayOfWeek(currentDay)) {
-
         if (this.selectWeek && this.isNewDateAllowed(firstDayOfWeek)) {
           tableCells += '<tr id="row' + weekRow + '" date="' + this.dateToString(currentDay) + '" class="selectable_week">';
-        }
-        else {
+        } else {
           tableCells += '<tr id="row' + weekRow + '">';
         }
-
         weekRow++;
-
         if (this.showWeek === 1) {
           tableCells += '<td class="week_num">' + this.getWeekNum(currentDay) + '</td>';
         }
@@ -402,11 +397,9 @@ module.exports = (function () {
 
       if ((this.selectWeek === 0 && currentDay.getMonth() === date.getMonth() && this.isNewDateAllowed(currentDay) && !this.isHoliday(currentDay)) || (this.selectWeek === 1 && currentDay.getMonth() === date.getMonth() && this.isNewDateAllowed(firstDayOfWeek))) {
         tableCells += '<td id="day' + i + '" class="selectable_day" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
-      }
-      else if (currentDay.getMonth() === date.getMonth()) {
+      } else if (currentDay.getMonth() === date.getMonth()) {
         tableCells += '<td id="day' + i + '" class="unselected_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
-      }
-      else {
+      } else {
         tableCells += '<td id="day' + i + '" class="unselected_month off_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
       }
 
@@ -424,14 +417,14 @@ module.exports = (function () {
   }
 
   function clickEvent() {
-    return ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false ) ? 'touchend' : 'click';
+    return (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false) ? 'touchend' : 'click';
   }
 
   function selectMonth(date) {
     /* jshint validthis: true */
-    var newMonth = new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-      i = 0,
-      l = 0;
+    var newMonth = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var i = 0;
+    var l = 0;
 
     if (this.isNewDateAllowed(newMonth)) {
       if (!this.currentMonth || !(this.currentMonth.getFullYear() === newMonth.getFullYear() && this.currentMonth.getMonth() === newMonth.getMonth())) {
@@ -449,7 +442,7 @@ module.exports = (function () {
 
         // Iterate to render next months
         if (this.nbCalendar > 1) {
-          for (i = 1; i < this.nbCalendar; i++) {
+          for (i = 1, l = this.nbCalendar; i < l; i++) {
             var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
             toolBox.emptyNode(this.monthNameSpan[i]).innerText = this.monthNames[nextMonth.getMonth()];
             toolBox.emptyNode(this.yearNameSpan[i]).innerText = nextMonth.getFullYear();
@@ -457,22 +450,21 @@ module.exports = (function () {
           }
         }
 
-        var selectableDays = this.tbody.querySelectorAll('.selectable_day'),
-          selectableWeeks = this.tbody.querySelectorAll('.selectable_week'),
-          today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]'),
-          tr = this.tbody.querySelectorAll('tr');
+        var selectableDays = this.tbody.querySelectorAll('.selectable_day');
+        var selectableWeeks = this.tbody.querySelectorAll('.selectable_week');
+        var today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]');
+        var tr = this.tbody.querySelectorAll('tr');
 
         if (this.selectWeek === 0) {
           for (i = 0, l = selectableDays.length; i < l; i++) {
             selectableDays[i].addEventListener('click', this.bindToObj(function (event) {
-              this.changeInput(event.target.getAttribute("date"));
+              this.changeInput(event.target.getAttribute('date'));
             }));
           }
-        }
-        else {
+        } else {
           for (i = 0, l = selectableWeeks.length; i < l; i++) {
             selectableWeeks[i].addEventListener('click', this.bindToObj(function (event) {
-              this.changeInput(event.target.parentNode.getAttribute("date"));
+              this.changeInput(event.target.parentNode.getAttribute('date'));
             }));
           }
         }
@@ -484,27 +476,26 @@ module.exports = (function () {
         if (this.selectWeek === 1) {
           for (i = 0, l = tr.length; i < l; i++) {
             tr[i].onmouseover = function () {
-              this.classList.add("hover");
+              this.classList.add('hover');
             };
             tr[i].onmouseout = function () {
-              this.classList.remove("hover");
+              this.classList.remove('hover');
             };
           }
-        }
-        else {
+        } else {
           for (i = 0, l = selectableDays.length; i < l; i++) {
             selectableDays[i].onmouseover = function () {
-              this.classList.add("hover");
+              this.classList.add('hover');
             };
             selectableDays[i].onmouseout = function () {
-              this.classList.remove("hover");
+              this.classList.remove('hover');
             };
           }
         }
       }
 
-      var prevSelected = this.tbody.querySelectorAll('.selected'),
-        currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
+      var prevSelected = this.tbody.querySelectorAll('.selected');
+      var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
       for (i = 0, l = prevSelected.length; i < l; i++) {
         prevSelected[i].classList.remove('selected');
         prevSelected[i].setAttribute('aria-selected', 'true');
@@ -519,7 +510,7 @@ module.exports = (function () {
   function selectDate(date) {
     /* jshint validthis: true */
 
-    if (typeof (date) === "undefined") {
+    if (typeof (date) === 'undefined') {
       date = this.stringToDate(this.input.value);
     }
 
@@ -535,13 +526,11 @@ module.exports = (function () {
       this.selectedDate = date;
       this.selectedDateString = this.dateToString(this.selectedDate);
       this.selectMonth(this.selectedDate);
-    }
-    else if ((this.dateMin) && this.daysBetween(this.dateMin, date) < 0) {
+    } else if ((this.dateMin) && this.daysBetween(this.dateMin, date) < 0) {
       this.selectedDate = this.dateMin;
       this.selectMonth(this.dateMin);
       this.input.value = ' ';
-    }
-    else {
+    } else {
       this.selectMonth(this.dateMax);
       this.input.value = ' ';
     }
@@ -561,7 +550,7 @@ module.exports = (function () {
     /* jshint validthis: true */
     this.input.value = dateString;
     this.input.onchange();
-    if (this.input.type !== "hidden") {
+    if (this.input.type !== 'hidden') {
       this.hide();
     }
   }
@@ -573,7 +562,7 @@ module.exports = (function () {
     this.rootLayers.style.display = 'block';
     this.rootLayers.style.opacity = 1;
     document.addEventListener(this.clickEvent(), this.hideIfClickOutside);
-    this.input.removeEventListener("focus", this.show);
+    this.input.removeEventListener('focus', this.show);
     this.input.setAttribute('autocomplete', 'off');
     document.body.addEventListener('keydown', this.keydownHandler);
     this.setPosition();
@@ -582,9 +571,9 @@ module.exports = (function () {
   function hide() {
     /* jshint validthis: true */
     var dp = this;
-    if (dp.input.type !== "hidden") {
+    if (dp.input.type !== 'hidden') {
       dp.rootLayers.setAttribute('aria-hidden', 'true');
-      setTimeout(function() {
+      setTimeout(function () {
         dp.rootLayers.style.display = 'none';
       }, 200);
       dp.rootLayers.style.opacity = 0;
@@ -650,10 +639,10 @@ module.exports = (function () {
   }
 
   function currentDate() {
-    var today = new Date(),
-      dd = today.getDate(),
-      mm = today.getMonth() + 1,
-      yyyy = today.getFullYear();
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
 
     if (dd < 10) {
       dd = '0' + dd;
@@ -662,95 +651,95 @@ module.exports = (function () {
     if (mm < 10) {
       mm = '0' + mm;
     }
-    return String(dd + "\/" + mm + "\/" + yyyy);
+    return String(dd + '\/' + mm + '\/' + yyyy);
   }
 
   function setDateFormat() {
     /* jshint validthis: true */
     switch (this.dateFormat) {
-      case "dd/mm/YYYY":
+      case 'dd/mm/YYYY':
         this.reg = new RegExp(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
         this.dateDecode = function (matches) {
-          return new Date(matches[3], parseInt(matches[2]-1), matches[1]);
+          return new Date(matches[3], parseInt(matches[2] - 1), matches[1]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1) + "/" + date.getFullYear();
+          return this.strpad(date.getDate()) + '/' + this.strpad(date.getMonth() + 1) + '/' + date.getFullYear();
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + "/" + this.strpad(date.getMonth()+1);
+          return this.strpad(date.getDate()) + '/' + this.strpad(date.getMonth() + 1);
         };
         break;
-      case "FF dd YYYY":
+      case 'FF dd YYYY':
         this.reg = new RegExp(/^([a-zA-Z]+) (\d{1,2}) (\d{4})$/);
         this.dateDecode = function (matches) {
           return new Date(matches[3], this.indexFor(this.monthNames, matches[1]), matches[2]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();
+          return this.monthNames[date.getMonth()] + ' ' + this.strpad(date.getDate()) + ' ' + date.getFullYear();
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.monthNames[date.getMonth()] + " " + this.strpad(date.getDate());
+          return this.monthNames[date.getMonth()] + ' ' + this.strpad(date.getDate());
         };
         break;
-      case "dd MM YYYY":
+      case 'dd MM YYYY':
         this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]{3}) (\d{4})$/);
         this.dateDecode = function (matches) {
           return new Date(matches[3], this.indexFor(this.shortMonthNames, matches[2]), matches[1]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()] + " " + date.getFullYear();
+          return this.strpad(date.getDate()) + ' ' + this.shortMonthNames[date.getMonth()] + ' ' + date.getFullYear();
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + " " + this.shortMonthNames[date.getMonth()];
+          return this.strpad(date.getDate()) + ' ' + this.shortMonthNames[date.getMonth()];
         };
         break;
-      case "MM dd YYYY":
+      case 'MM dd YYYY':
         this.reg = new RegExp(/^([a-zA-Z]{3}) (\d{1,2}) (\d{4})$/);
         this.dateDecode = function (matches) {
           return new Date(matches[3], this.indexFor(this.shortMonthNames, matches[1]), matches[2]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate()) + " " + date.getFullYear();
+          return this.shortMonthNames[date.getMonth()] + ' ' + this.strpad(date.getDate()) + ' ' + date.getFullYear();
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.shortMonthNames[date.getMonth()] + " " + this.strpad(date.getDate());
+          return this.shortMonthNames[date.getMonth()] + ' ' + this.strpad(date.getDate());
         };
         break;
-      case "dd FF YYYY":
+      case 'dd FF YYYY':
         this.reg = new RegExp(/^(\d{1,2}) ([a-zA-Z]+) (\d{4})$/);
         this.dateDecode = function (matches) {
           return new Date(matches[3], this.indexFor(this.monthNames, matches[2]), matches[1]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()] + " " + date.getFullYear();
+          return this.strpad(date.getDate()) + ' ' + this.monthNames[date.getMonth()] + ' ' + date.getFullYear();
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getDate()) + " " + this.monthNames[date.getMonth()];
+          return this.strpad(date.getDate()) + ' ' + this.monthNames[date.getMonth()];
         };
         break;
-      // case "YYYY/mm/dd":
+      // 'YYYY/mm/dd':
       default:
         this.reg = new RegExp(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
         this.dateDecode = function (matches) {
-          return new Date(matches[1], parseInt(matches[2]-1), matches[3]);
+          return new Date(matches[1], parseInt(matches[2] - 1), matches[3]);
         };
         this.dateEncode = function (date) {
           /* jshint validthis: true */
-          return date.getFullYear() + "/" + this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());
+          return date.getFullYear() + '/' + this.strpad(date.getMonth() + 1) + '/' + this.strpad(date.getDate());
         };
         this.dateEncodeS = function (date) {
           /* jshint validthis: true */
-          return this.strpad(date.getMonth()+1) + "/" + this.strpad(date.getDate());
+          return this.strpad(date.getMonth() + 1) + '/' + this.strpad(date.getDate());
         };
         break;
     }
@@ -762,12 +751,10 @@ module.exports = (function () {
     if (matches) {
       if (matches[3] === 0 && matches[2] === 0 && matches[1] === 0) {
         return null;
-      }
-      else {
+      } else {
         return this.dateDecode(matches);
       }
-    }
-    else {
+    } else {
       return null;
     }
   }
@@ -795,8 +782,7 @@ module.exports = (function () {
       this.rootLayers.style.bottom = (inputRect.height + 15) + 'px';
       this.rootLayers.classList.add('on-top');
       this.rootLayers.classList.remove('under');
-    }
-    else {
+    } else {
       this.rootLayers.style.top = (inputRect.height + 15) + 'px';
       this.rootLayers.style.bottom = 'auto';
       this.rootLayers.classList.add('under');
@@ -824,8 +810,7 @@ module.exports = (function () {
     var newMonth = null;
     if (amount < 0) {
       newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount + 1, -1);
-    }
-    else {
+    } else {
       newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount, 1);
     }
     this.selectMonth(newMonth);
@@ -835,8 +820,7 @@ module.exports = (function () {
     /* jshint validthis: true */
     if (this.isNewDateAllowed(firstMonth)) {
       this.prevBtn.classList.remove('stop');
-    }
-    else {
+    } else {
       this.prevBtn.classList.add('stop');
     }
   }
@@ -849,11 +833,12 @@ module.exports = (function () {
   function getMonthSelect() {
     /* jshint validthis: true */
     var monthSelect = '<select>';
-    for (var i = 0, len = this.monthNames.length; i < len; i++) {
+    var i = 0;
+    var len = 0;
+    for (i = 0, len = this.monthNames.length; i < len; i++) {
       if (i === this.currentMonth.getMonth()) {
         monthSelect += '<option value="' + (i) + '" selected="selected">' + this.monthNames[i] + '</option>';
-      }
-      else {
+      } else {
         monthSelect += '<option value="' + (i) + '">' + this.monthNames[i] + '</option>';
       }
     }
@@ -872,13 +857,17 @@ module.exports = (function () {
 
   function bindMethodsToObj() {
     /* jshint validthis: true */
-    for (var i = 0, len = arguments.length; i < len; i++) {
+    var i = 0;
+    var len = 0;
+    for (i = 0, len = arguments.length; i < len; i++) {
       this[arguments[i]] = this.bindToObj(this[arguments[i]]);
     }
   }
 
   function indexFor(array, value) {
-    for (var i = 0, len = array.length; i < len; i++) {
+    var i = 0;
+    var len = 0;
+    for (i = 0, len = array.length; i < len; i++) {
       if (value === array[i]) {
         return i;
       }
@@ -945,14 +934,18 @@ module.exports = (function () {
     var errors = $('.error_msg', this.rootLayers);
     errors.html(error);
     errors.slideDown(400, function () {
-      setTimeout("$('.error_msg', this.rootLayers).slideUp(200);", 2000);
+      setTimeout(function () {
+        $('.error_msg', this.rootLayers).slideUp(200);
+      }, 2000);
     });
   }
 
   function adjustDays(days) {
     /* jshint validthis: true */
     var newDays = [];
-    for (var i = 0, len = days.length; i < len; i++) {
+    var i = 0;
+    var len = 0;
+    for (i = 0, len = days.length; i < len; i++) {
       newDays[i] = days[(i + this.startOfWeek) % 7];
     }
     return newDays;
@@ -960,42 +953,39 @@ module.exports = (function () {
 
   function strpad(num) {
     if (parseInt(num) < 10) {
-      return "0" + parseInt(num);
-    }
-    else {
+      return '0' + parseInt(num);
+    } else {
       return parseInt(num);
     }
   }
 
-
   return {
-    init: function (options) {
+    init: function (opt) {
 
-      var options = options || {
-        lang: "en"
+      var options = opt || {
+        lang: 'en'
       };
 
-      //langue par defaut si celle en options non prise en charge
-      if (typeof i18n[options.lang] === "undefined") {
-        options.lang = "en";
+      // Langue par defaut si celle en option non prise en charge
+      if (typeof i18n[options.lang] === 'undefined') {
+        options.lang = 'en';
       }
 
-      //if back date is not defined, set it to current date
-      if (options.backDate === undefined || options.backDate ==='') {
+      // If back date is not defined, set it to current date
+      if (options.backDate === undefined || options.backDate === '') {
         options.backDate = date.current();
       }
 
-      //if next date is not defined, set it to empty value
+      // If next date is not defined, set it to empty value
       if (options.nextDate === undefined) {
         options.nextDate = '';
       }
 
-
       // Browse datepickers fields to deal with specific behaviours
-      var datepickers = document.querySelectorAll('input.datepicker'),
-        i = 0,
-        l = 0,
-        input = null;
+      var datepickers = document.querySelectorAll('input.datepicker');
+      var i = 0;
+      var l = 0;
+      var input = null;
       for (i = 0, l = datepickers.length; i < l; i++) {
         input = datepickers[i];
         if (input.getAttribute('data-start-date')) {
@@ -1031,30 +1021,30 @@ module.exports = (function () {
   };
 })();
 
-
-},{"date":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/date.js","i18n":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js","toolbox":"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js"}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/i18n.js":[function(require,module,exports){
+})();
+},{"date":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/date.js","i18n":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/i18n.js","toolbox":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/toolbox.js"}],"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/i18n.js":[function(require,module,exports){
 module.exports = {
   fr: {
-    monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
-    shortMonthNames: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"],
-    dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-    shortDayNames: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+    monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+    shortMonthNames: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    shortDayNames: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
     todayString: 'Aujourd\'hui',
-    errorOutOfRange: "La date sélectionnée est incorrecte",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Précédent",
-    next: "Suivant"
+    errorOutOfRange: 'La date sélectionnée est incorrecte',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Précédent',
+    next: 'Suivant'
   },
   de: {
-    monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-    shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    shortMonthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     shortDayNames: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
     todayString: 'Heute',
-    errorOutOfRange: "Das selektierte Datum ist ungültig.",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Früher",
-    next: "Nächste"
+    errorOutOfRange: 'Das selektierte Datum ist ungültig.',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Früher',
+    next: 'Nächste'
   },
   it: {
     monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
@@ -1062,21 +1052,21 @@ module.exports = {
     dayNames: ['Domenica', 'Luned&#236', 'Marted&#236', 'Mercoled&#236', 'Gioved&#236', 'Venerd&#236', 'Sabato'],
     shortDayNames: ['Do', 'Lu', 'Ma', 'Me', 'Gio', 'Ve', 'Sa'],
     todayString: 'Oggi',
-    errorOutOfRange: "La data selezionata non è disponibile",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Precedente",
-    next: "Il prossimo"
+    errorOutOfRange: 'La data selezionata non è disponibile',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Precedente',
+    next: 'Il prossimo'
   },
   es: {
-    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-    shortMonthNames: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    shortMonthNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&eacute;rcoles', 'Jueves', 'Viernes', 'S&aacute;bado'],
     shortDayNames: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&aacute;'],
     todayString: 'Hoy',
-    errorOutOfRange: "La fecha seleccionada est&aacute; fuera de rango",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Anterior",
-    next: "Siguiente"
+    errorOutOfRange: 'La fecha seleccionada est&aacute; fuera de rango',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Anterior',
+    next: 'Siguiente'
   },
   nl: {
     monthNames: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
@@ -1084,26 +1074,26 @@ module.exports = {
     dayNames: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
     shortDayNames: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
     todayString: 'Vandaag',
-    errorOutOfRange: "De geselecteerde datum is niet beschikbaar",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Vorig",
-    next: "Volgende"
+    errorOutOfRange: 'De geselecteerde datum is niet beschikbaar',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Vorig',
+    next: 'Volgende'
   },
   en: {
-    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    shortDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    shortMonthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    shortDayNames: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
     todayString: 'Today',
-    errorOutOfRange: "Selected date is out of range",
-    dateFormat: "dd/mm/YYYY",
-    previous: "Previous",
-    next: "Next"
+    errorOutOfRange: 'Selected date is out of range',
+    dateFormat: 'dd/mm/YYYY',
+    previous: 'Previous',
+    next: 'Next'
   }
 };
 
-},{}],"/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/toolbox.js":[function(require,module,exports){
-exports.extendObject = function(initObj, obj) {
+},{}],"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/toolbox.js":[function(require,module,exports){
+exports.extendObject = function (initObj, obj) {
   var i = '';
   for (i in obj) {
     initObj[i] = obj[i];
@@ -1111,7 +1101,7 @@ exports.extendObject = function(initObj, obj) {
   return initObj;
 };
 
-exports.emptyNode = function(node) {
+exports.emptyNode = function (node) {
   while (node.hasChildNodes()) {
     node.removeChild(node.lastChild);
   }
@@ -1119,10 +1109,10 @@ exports.emptyNode = function(node) {
 };
 
 exports.createElement = function (str) {
-  var elt = document.createElement("div");
+  var elt = document.createElement('div');
   elt.innerHTML = str;
   return elt.firstChild;
 };
 
-},{}]},{},["/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js"])("/Users/ivan_isaakidis/Dev/VSCT/HOME/datepicker/src/js/datepicker.js")
+},{}]},{},["/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/datepicker.js"])("/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/datepicker.js")
 });

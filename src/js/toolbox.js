@@ -1,4 +1,4 @@
-exports.extendObject = function(initObj, obj) {
+exports.extendObject = function (initObj, obj) {
   var i = '';
   for (i in obj) {
     initObj[i] = obj[i];
@@ -6,7 +6,7 @@ exports.extendObject = function(initObj, obj) {
   return initObj;
 };
 
-exports.emptyNode = function(node) {
+exports.emptyNode = function (node) {
   while (node.hasChildNodes()) {
     node.removeChild(node.lastChild);
   }
@@ -14,7 +14,7 @@ exports.emptyNode = function(node) {
 };
 
 exports.createElement = function (str) {
-  var elt = document.createElement("div");
+  var elt = document.createElement('div');
   elt.innerHTML = str;
   return elt.firstChild;
 };

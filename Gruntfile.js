@@ -3,9 +3,11 @@
  * Build Grunt tasks
  */
 
+(function () {
+
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -61,6 +63,10 @@ module.exports = function(grunt) {
         tasks: [
           'sass:dist'
         ]
+      },
+      js: {
+        files: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
+        tasks: ['jshint', 'jscs']
       }
     },
     copy: {
@@ -72,19 +78,17 @@ module.exports = function(grunt) {
         flatten: true
       }
     },
+    jscs: {
+      src: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
+      options: {
+        config: '.jscsrc'
+      }
+    },
     jshint: {
+      src: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
-      },
-      all: [
-        'src/js/*.js'
-      ],
-      test: {
-        options: {
-          jshintrc: '.jshintrc'
-        },
-        src: ['test/spec/*.js']
       }
     },
     karma: {
@@ -99,7 +103,7 @@ module.exports = function(grunt) {
       unitWatch: {
         autoWatch: true
       },
-      //continuous integration mode: run tests once in PhantomJS browser.
+      // Continuous integration mode: run tests once in PhantomJS browser.
       continuous: {
         singleRun: true,
         browsers: ['PhantomJS']
@@ -109,6 +113,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
@@ -117,8 +122,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['browserify:build', 'sass:dist', 'watch']);
-  grunt.registerTask('default', ['browserify:dist', 'sass:dist']);
+  grunt.registerTask('build', ['jshint', 'jscs', 'browserify:build', 'sass:dist', 'watch']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist', 'sass:dist']);
   grunt.registerTask('test', ['karma']);
-
 };
+
+})();

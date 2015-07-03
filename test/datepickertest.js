@@ -1,3 +1,5 @@
+(function () {
+
 'use strict';
 
 var utils = require('./testUtils');
@@ -6,14 +8,14 @@ var $ = require('../vendors/jquery-2.1.3.min/index.js');
 describe('Date picker tests', function () {
 
   var currentDate;
-  // inject the HTML input for the tests
+  // Inject the HTML input for the tests
   beforeEach(function () {
     currentDate = new Date();
     var datepickerInput = '<input type="text" class="datepicker">';
     document.body.insertAdjacentHTML('afterbegin', datepickerInput);
   });
 
-  // remove the html input and the date picker div from the DOM
+  // Remove the html input and the date picker div from the DOM
   afterEach(function () {
     $('.datepicker').remove();
     $('.date-selector').remove();
@@ -22,18 +24,18 @@ describe('Date picker tests', function () {
   it('Call date picker with default parameters', function () {
     require('../src/js/datepicker')();
 
-    //verify today
+    // Verify today
     var formattedToday = utils.formatDate(currentDate);
     var dpToday = $('div.date-selector .today').attr('date');
     expect(dpToday).toBe(formattedToday);
 
-    //verify month name is in english
+    // Verify month name is in english
     var currentMonth = currentDate.getMonth();
     var currentMonthName = utils.getMonthName(currentMonth);
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe(currentMonthName);
 
-    //verify that previous date is unselected
+    // Verify that previous date is unselected
     var previousParentId = $('div.date-selector .today').parent().prev().attr('id');
     var lastElement = $('#' + previousParentId + ' td:last-child');
     expect(lastElement.attr('class')).toBe('unselected_month');
@@ -69,16 +71,18 @@ describe('Date picker tests', function () {
     var nextDateFormatted = utils.formatDate(nextDate);
     require('../src/js/datepicker')(lang, backDateFormatted, nextDateFormatted);
 
-    //verify that previous date is unselected
-    var backDateElement = $('.table-month-wrapper').find("[date='" + backDateFormatted + "']");
+    // Verify that previous date is unselected
+    var backDateElement = $('.table-month-wrapper').find('[date="' + backDateFormatted + '"]');
     var previousElement = backDateElement.prev();
     expect(backDateElement.attr('class')).toBe('selectable_day');
     expect(previousElement.attr('class')).toBe('unselected_month');
 
-    //verify that next date is unselected
-    var nextDateElement = $('.table-month-wrapper').find("[date='" + nextDateFormatted + "']");
+    // Verify that next date is unselected
+    var nextDateElement = $('.table-month-wrapper').find('[date="' + nextDateFormatted + '"]');
     var nextElement = nextDateElement.next();
     expect(nextDateElement.attr('class')).toBe('selectable_day');
     expect(nextElement.attr('class')).toBe('unselected_month');
   });
 });
+
+})();
