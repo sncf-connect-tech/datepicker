@@ -3,7 +3,6 @@ var $ = require('jquery');
 
 describe('Date picker tests', function () {
 
-
   var currentDate;
   // Inject the HTML input for the tests
   beforeEach(function () {
