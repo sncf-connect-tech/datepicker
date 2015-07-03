@@ -1,7 +1,8 @@
-var utils = require('./testUtils');
-var $ = require('../vendors/jquery-2.1.3.min/index.js');
+var moment = require('moment');
+var $ = require('jquery');
 
 describe('Date picker tests', function () {
+
 
   var currentDate;
   // Inject the HTML input for the tests
@@ -18,16 +19,15 @@ describe('Date picker tests', function () {
   });
 
   it('Call date picker with default parameters', function () {
-    require('../src/js/datepicker')();
+    require('../src/js/datepicker').init();
 
     // Verify today
-    var formattedToday = utils.formatDate(currentDate);
+    var formattedToday = moment().format('DD/MM/YYYY');
     var dpToday = $('div.date-selector .today').attr('date');
     expect(dpToday).toBe(formattedToday);
 
     // Verify month name is in english
-    var currentMonth = currentDate.getMonth();
-    var currentMonthName = utils.getMonthName(currentMonth);
+    var currentMonthName = moment().format('MMMM');
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe(currentMonthName);
 
@@ -39,42 +39,39 @@ describe('Date picker tests', function () {
 
   it('Display date picker for fr language', function () {
     var lang = 'fr';
-    require('../src/js/datepicker')(lang);
+    require('../src/js/datepicker').init({lang: lang});
 
-    var currentMonth = currentDate.getMonth();
-    var currentMonthName = utils.getMonthName(currentMonth, lang);
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
-    expect(dpCurrentMonth).toBe(currentMonthName);
+    expect(dpCurrentMonth).toBe('Juillet');
   });
 
   it('Display date picker for es language', function () {
     var lang = 'es';
-    require('../src/js/datepicker')(lang);
+    require('../src/js/datepicker').init({lang: lang});
 
-    var currentMonth = currentDate.getMonth();
-    var currentMonthName = utils.getMonthName(currentMonth, lang);
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
-    expect(dpCurrentMonth).toBe(currentMonthName);
+    expect(dpCurrentMonth).toBe('Julio');
   });
 
   it('Display date picker with back and next dates parameters', function () {
     var lang = 'fr';
-    var THREE_DAYS = (1000 * 60 * 60 * 24) * 3;
 
-    var backDate = new Date(currentDate.getTime() - THREE_DAYS);
-    var backDateFormatted = utils.formatDate(backDate);
-    var nextDate = new Date(currentDate.getTime() + THREE_DAYS);
-    var nextDateFormatted = utils.formatDate(nextDate);
-    require('../src/js/datepicker')(lang, backDateFormatted, nextDateFormatted);
+    var backDate = moment().subtract(3, 'days').calendar();
+    var nextDate = moment().subtract(3, 'days').calendar();
+    require('../src/js/datepicker').init({
+      lang: lang,
+      backDate: backDate,
+      nextDate: nextDate
+    });
 
     // Verify that previous date is unselected
-    var backDateElement = $('.table-month-wrapper').find('[date="' + backDateFormatted + '"]');
+    var backDateElement = $('.table-month-wrapper').find('[date="' + backDate + '"]');
     var previousElement = backDateElement.prev();
     expect(backDateElement.attr('class')).toBe('selectable_day');
     expect(previousElement.attr('class')).toBe('unselected_month');
 
     // Verify that next date is unselected
-    var nextDateElement = $('.table-month-wrapper').find('[date="' + nextDateFormatted + '"]');
+    var nextDateElement = $('.table-month-wrapper').find('[date="' + backDate + '"]');
     var nextElement = nextDateElement.next();
     expect(nextDateElement.attr('class')).toBe('selectable_day');
     expect(nextElement.attr('class')).toBe('unselected_month');

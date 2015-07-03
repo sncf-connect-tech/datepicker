@@ -10,25 +10,25 @@ module.exports = function (config) {
       'karma-jasmine',
       'karma-browserify',
       'karma-chrome-launcher',
-      "karma-firefox-launcher",
-      "karma-coverage",
-      "karma-junit-reporter",
-      "karma-htmlfile-reporter"
+      'karma-firefox-launcher',
+      'karma-coverage',
+      'karma-junit-reporter',
+      'karma-htmlfile-reporter'
     ],
 
     // base path, that will be used to resolve files and exclude
-    basePath: '',
+    basePath: '.',
 
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['browserify', 'jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
-      'test/*.js'
+      'test/**/*.js'
     ],
 
     preprocessors: {
-      'test/*.js': ['browserify']
+      'test/**/*.js': ['browserify']
     },
 
     browserify: {
