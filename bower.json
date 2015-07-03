@@ -2,13 +2,19 @@
   "name": "datepicker",
   "version": "0.1.0",
   "authors": [
-    "Philippe Penissou <ppenissou@voyages-sncf.com>"
   ],
   "_source": "git@gitlab.socrate.vsct.fr:VSH/datepicker.git",
   "_target": "*",
   "_originalSource": "git@gitlab.socrate.vsct.fr:VSH/datepicker.git",
   "main": [
     "dist/datepicker.js"
+  ],
+  "ignore": [
+    ".tmp",
+    ".idea",
+    "node_modules",
+    "grunt",
+    "package.json"
   ],
   "dependencies": {
     "bourbon": "3.2.4"
