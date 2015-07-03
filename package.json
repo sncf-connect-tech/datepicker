@@ -1,9 +1,8 @@
 {
-  "name": "Datepicker",
+  "name": "datepicker",
   "private": true,
   "version": "0.1.1",
   "description": "Date picker",
-  "main": "datepicker.js",
   "repository": {
     "type": "git",
     "url": "git://gitlab.socrate.vsct.fr/VSH/datepicker"
