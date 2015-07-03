@@ -1,7 +1,3 @@
-(function () {
-
-'use strict';
-
 var utils = require('./testUtils');
 var $ = require('../vendors/jquery-2.1.3.min/index.js');
 
@@ -84,5 +80,3 @@ describe('Date picker tests', function () {
     expect(nextElement.attr('class')).toBe('unselected_month');
   });
 });
-
-})();

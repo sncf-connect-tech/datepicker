@@ -1,8 +1,4 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.datepicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/date.js":[function(require,module,exports){
-(function () {
-
-'use strict';
-
 /**
  * Return the current date
  */
@@ -99,13 +95,7 @@ exports.start = function (days) {
 
   return String(dd + '\/' + mm + '\/' + yyyy);
 };
-
-})();
 },{}],"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/datepicker.js":[function(require,module,exports){
-(function () {
-
-'use strict';
-
 module.exports = (function () {
 
   var toolBox = require('toolbox');
@@ -1019,8 +1009,6 @@ module.exports = (function () {
       }
     }
   };
-})();
-
 })();
 },{"date":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/date.js","i18n":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/i18n.js","toolbox":"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/toolbox.js"}],"/Users/gaelle_gomez/Workspace/datepicker-vsc/src/js/i18n.js":[function(require,module,exports){
 module.exports = {

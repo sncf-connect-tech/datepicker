@@ -1,7 +1,3 @@
-(function () {
-
-'use strict';
-
 module.exports = (function () {
 
   var toolBox = require('toolbox');
@@ -915,6 +911,4 @@ module.exports = (function () {
       }
     }
   };
-})();
-
 })();

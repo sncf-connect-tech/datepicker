@@ -1,7 +1,3 @@
-(function () {
-
-'use strict';
-
 /**
  * Return the current date
  */
@@ -98,5 +94,3 @@ exports.start = function (days) {
 
   return String(dd + '\/' + mm + '\/' + yyyy);
 };
-
-})();
