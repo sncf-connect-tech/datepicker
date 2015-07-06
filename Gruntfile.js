@@ -22,7 +22,8 @@ module.exports = function (grunt) {
             debug: false,
             standalone: 'datepicker'
           },
-          transform: ['sassr']
+          transform: ['sassr'],
+          plugin: ['browserify-derequire']
         },
         files: {
           'dist/datepicker.js': ['src/js/datepicker.js']
@@ -34,10 +35,26 @@ module.exports = function (grunt) {
             debug: false,
             standalone: 'datepicker'
           },
+          plugin: ['browserify-derequire'],
           transform: ['sassr', 'uglifyify']
         },
         files: {
           'dist/datepicker.min.js': ['src/js/datepicker.js']
+        }
+      }
+    },
+    sass: {
+      dist: {
+        options: {
+          precision: 10,
+          outputStyle: 'compressed',
+          sourceMap: false,
+          includePaths: [
+            'src/sass/', 'src/vendors'
+          ]
+        },
+        files: {
+          'dist/datepicker.css': 'src/sass/datepicker.{scss,sass}'
         }
       }
     },

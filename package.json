@@ -9,8 +9,9 @@
   },
   "devDependencies": {
     "browserify": "^10.2.4",
+    "browserify-derequire": "^0.9.4",
     "browserify-shim": "^3.8.8",
-    "cssify": "^0.7.0",
+    "derequire-transform": "^1.0.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "3.7.0",
     "grunt-contrib-concat": "^0.5.1",
@@ -24,10 +25,10 @@
     "grunt-release": "^0.12.0",
     "grunt-sass": "~0.18.0",
     "jasmine-core": "^2.2.0",
+    "jquery": "^2.1.4",
     "jscs": "^1.13.1",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
-    "jquery": "^2.1.4",
     "karma": "^0.12.31",
     "karma-browserify": "4.1.2",
     "karma-chrome-launcher": "0.1.8",
@@ -47,7 +48,8 @@
   "browser": {
     "i18n": "./src/js/i18n.js",
     "toolbox": "./src/js/toolbox.js",
-    "date": "./src/js/date.js"
+    "date": "./src/js/date.js",
+    "styles": "./src/sass/datepicker.scss"
   },
   "browserify-shim": {
     "jquery": "$"

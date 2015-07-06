@@ -1,9 +1,9 @@
-module.exports = (function () {
+var toolBox = require('toolbox');
+var styles = require('styles');
+var i18n = require('i18n');
+var date = require('date');
 
-  var styles = require('../sass/datepicker.scss');
-  var toolBox = require('toolbox');
-  var i18n = require('i18n');
-  var date = require('date');
+module.exports = (function () {
 
   /**
    * Constructor
