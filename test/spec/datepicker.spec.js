@@ -18,7 +18,7 @@ describe('Date picker tests', function () {
   });
 
   it('Call date picker with default parameters', function () {
-    require('../src/js/datepicker').init();
+    require('../../src/js/datepicker').init();
 
     // Verify today
     var formattedToday = moment().format('DD/MM/YYYY');
@@ -38,7 +38,7 @@ describe('Date picker tests', function () {
 
   it('Display date picker for fr language', function () {
     var lang = 'fr';
-    require('../src/js/datepicker').init({lang: lang});
+    require('../../src/js/datepicker').init({lang: lang});
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Juillet');
@@ -46,7 +46,7 @@ describe('Date picker tests', function () {
 
   it('Display date picker for es language', function () {
     var lang = 'es';
-    require('../src/js/datepicker').init({lang: lang});
+    require('../../src/js/datepicker').init({lang: lang});
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Julio');
@@ -57,7 +57,7 @@ describe('Date picker tests', function () {
 
     var backDate = moment().subtract(3, 'days').calendar();
     var nextDate = moment().subtract(3, 'days').calendar();
-    require('../src/js/datepicker').init({
+    require('../../src/js/datepicker').init({
       lang: lang,
       backDate: backDate,
       nextDate: nextDate
