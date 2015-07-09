@@ -7,7 +7,7 @@ describe('Test des fonctions de la toolbox du datepicker', function () {
     expect(toolbox.extendObject({}, {})).toEqual({});
     expect(toolbox.extendObject({a: 'a'}, {})).toEqual({a: 'a'});
     expect(toolbox.extendObject({}, {a: 'a'})).toEqual({a: 'a'});
-    expect(toolbox.extendObject({a: 'a'}, {b :'b'})).toEqual({a: 'a', b: 'b'});
+    expect(toolbox.extendObject({a: 'a'}, {b: 'b'})).toEqual({a: 'a', b: 'b'});
   });
 
   it('tests createElement', function () {

@@ -43,7 +43,8 @@
     "sassr": "0.0.6",
     "time-grunt": "^1.1.0",
     "uglifyify": "^3.0.1",
-    "watchify": "^3.2.3"
+    "watchify": "^3.2.3",
+    "grunt-push-release": "^0.1.1"
   },
   "browser": {
     "i18n": "./src/js/i18n.js",
