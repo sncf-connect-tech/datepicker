@@ -103,6 +103,11 @@ module.exports = function (grunt) {
         singleRun: true,
         browsers: ['PhantomJS']
       }
+    },
+    push: {
+      options: {
+        files: ['package.json', 'bower.json']
+      }
     }
   });
 
@@ -116,6 +121,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-push-release');
 
   grunt.registerTask('build', ['jshint', 'jscs', 'browserify:build', 'watch']);
   grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist']);

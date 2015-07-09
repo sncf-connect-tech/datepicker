@@ -1,6 +1,7 @@
 @import "../vendors/bourbon/dist/bourbon";
 @import "vars";
 @import "extends";
+@import "mixins";
 @import "animation";
 @import "ico";
 
@@ -16,7 +17,7 @@
     padding: em(10);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
     border-radius: 3px;
-    @include animation(dp-scale 0.12s ease-in);
+    animation: dp-scale 0.12s ease-in;
     @extend %noSelect;
     z-index: 9000;
     &:after {
@@ -28,7 +29,7 @@
       background: #FFF;
       top: em(-6);
       left: em(14);
-      @include transform(rotate(45deg));
+      transform: rotate(45deg);
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
       z-index:0;
     }
@@ -94,7 +95,7 @@
     }
     &:active {
       &:after  {
-        @include animation(dp-turn-month ease 0.5s);
+        animation: dp-turn-month 0.5s ease;
       }
     }
   }
