@@ -15,9 +15,9 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     browserify: {
-      build: {
+      watch: {
         options: {
-          watch: true,
+          watch: false,
           browserifyOptions: {
             debug: false,
             standalone: 'datepicker'
@@ -30,6 +30,19 @@ module.exports = function (grunt) {
         }
       },
       dist: {
+        options: {
+          browserifyOptions: {
+            debug: false,
+            standalone: 'datepicker'
+          },
+          transform: ['sassr'],
+          plugin: ['browserify-derequire']
+        },
+        files: {
+          'dist/datepicker.js': ['src/js/datepicker.js']
+        }
+      },
+      distMin: {
         options: {
           browserifyOptions: {
             debug: false,
@@ -61,7 +74,7 @@ module.exports = function (grunt) {
     watch: {
       js: {
         files: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
-        tasks: ['jshint', 'jscs']
+        tasks: ['jshint', 'jscs', 'browserify:dist', 'browserify:distMin']
       }
     },
     copy: {
@@ -123,9 +136,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-push-release');
 
-  grunt.registerTask('build', ['jshint', 'jscs', 'browserify:build', 'watch']);
-  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist']);
-  grunt.registerTask('test', ['karma']);
+  grunt.registerTask('build', ['jshint', 'jscs', 'watch']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist', 'browserify:distMin']);
+  grunt.registerTask('test', ['karma:unit']);
+  grunt.registerTask('test:watch', ['karma:unitWatch']);
 };
 
 })();
