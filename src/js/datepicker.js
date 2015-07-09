@@ -871,8 +871,8 @@ module.exports = (function () {
       }
 
       // If next date is not defined, set it to empty value
-      if (options.nextDate === undefined) {
-        options.nextDate = '';
+      if (options.dateMax === undefined) {
+        options.dateMax = '';
       }
 
       // Browse datepickers fields to deal with specific behaviours
@@ -880,36 +880,30 @@ module.exports = (function () {
       var i = 0;
       var l = 0;
       var input = null;
+      var instanceOptions = {};
       for (i = 0, l = datepickers.length; i < l; i++) {
         input = datepickers[i];
+
+        // On clone les options avant de les surcharger et les passer a la prochaine instance du datepicker
+        toolBox.extendObject(instanceOptions, options);
+
         if (input.getAttribute('data-start-date')) {
           options.dateMin = date.start(input.getAttribute('data-start-date'));
         }
         // Railpass case
         if (input.classList.contains('railpass-date')) {
-          options.dateMin = date.railpassMin();
+          instanceOptions.dateMin = date.railpassMin();
         }
         // Backward case
         if (input.classList.contains('datepicker-backwards')) {
-          options.dateMin = date.backward();
+          instanceOptions.dateMin = date.backward();
         }
         // Limit date range to 6 months in the future
         if (input.classList.contains('six-months-in-future')) {
-          options.dateMax = date.sixMonthsFuture();
+          instanceOptions.dateMax = date.sixMonthsFuture();
         }
         // Instantiate datepicker object
-        new VscDatePicker(input, options);
-
-        // Restore default values
-        if (input.classList.contains('railpass-date') || input.getAttribute('data-start-date')) {
-          options.dateMin = '';
-        }
-        if (input.classList.contains('datepicker-backwards')) {
-          options.dateMin = date.current();
-        }
-        if (input.classList.contains('six-months-in-future')) {
-          options.dateMax = nextDate;
-        }
+        new VscDatePicker(input, instanceOptions);
       }
     }
   };
