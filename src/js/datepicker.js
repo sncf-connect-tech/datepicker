@@ -866,8 +866,8 @@ module.exports = (function () {
       }
 
       // If back date is not defined, set it to current date
-      if (options.backDate === undefined || options.backDate === '') {
-        options.backDate = date.current();
+      if (options.dateMin === undefined || options.dateMin === '') {
+        options.dateMin = date.current();
       }
 
       // If next date is not defined, set it to empty value
