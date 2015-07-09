@@ -52,27 +52,32 @@ describe('Date picker tests', function () {
     expect(dpCurrentMonth).toBe('Julio');
   });
 
-  it('Display date picker with back and next dates parameters', function () {
+  it('Display date picker with min and max dates parameters', function () {
     var lang = 'fr';
 
-    var backDate = moment().subtract(3, 'days').calendar();
-    var nextDate = moment().subtract(3, 'days').calendar();
+    var dateMin = moment().subtract(3, 'days');
+    var formattedDateMin = dateMin.format('DD/MM/YYYY');
+    var formattedOneDayBeforeDateMin = dateMin.subtract(1, 'days').format('DD/MM/YYYY');
+    var dateMax = moment().add(3, 'days');
+    var formattedDateMax = dateMax.format('DD/MM/YYYY');
+    var formattedOneDayAfterMaxDate = dateMax.add(1, 'days').format('DD/MM/YYYY');
+
     require('../../src/js/datepicker').init({
       lang: lang,
-      backDate: backDate,
-      nextDate: nextDate
+      dateMin: formattedDateMin,
+      dateMax: formattedDateMax
     });
 
     // Verify that previous date is unselected
-    var backDateElement = $('.table-month-wrapper').find('[date="' + backDate + '"]');
-    var previousElement = backDateElement.prev();
-    expect(backDateElement.attr('class')).toBe('selectable_day');
-    expect(previousElement.attr('class')).toBe('unselected_month');
+    var dateMinElement = $('.table-month-wrapper').find('[date="' + formattedDateMin + '"]');
+    var oneDayBeforeDateMinElement = $('.table-month-wrapper').find('[date="' + formattedOneDayBeforeDateMin + '"]');
+    expect(dateMinElement.attr('class')).toBe('selectable_day');
+    expect(oneDayBeforeDateMinElement.attr('class')).toBe('unselected_month');
 
     // Verify that next date is unselected
-    var nextDateElement = $('.table-month-wrapper').find('[date="' + backDate + '"]');
-    var nextElement = nextDateElement.next();
-    expect(nextDateElement.attr('class')).toBe('selectable_day');
-    expect(nextElement.attr('class')).toBe('unselected_month');
+    var dateMaxElement = $('.table-month-wrapper').find('[date="' + formattedDateMax + '"]');
+    var oneDayAfterDateMaxElement = $('.table-month-wrapper').find('[date="' + formattedOneDayAfterMaxDate + '"]');
+    expect(dateMaxElement.attr('class')).toBe('selectable_day');
+    expect(oneDayAfterDateMaxElement.attr('class')).toBe('unselected_month');
   });
 });
