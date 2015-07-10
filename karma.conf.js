@@ -11,6 +11,7 @@ module.exports = function (config) {
       'karma-browserify',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-junit-reporter',
       'karma-htmlfile-reporter'
@@ -78,7 +79,7 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     //browsers: ['PhantomJS'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
