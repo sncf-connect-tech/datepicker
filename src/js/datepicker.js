@@ -93,7 +93,6 @@ module.exports = (function () {
     var l = 0;
 
     // Wrapper
-    styles.append();
     this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);

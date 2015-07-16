@@ -22,7 +22,7 @@ module.exports = function (grunt) {
             debug: false,
             standalone: 'datepicker'
           },
-          transform: ['sassr'],
+          transform: ['cssify'],
           plugin: ['browserify-derequire']
         },
         files: {
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             debug: false,
             standalone: 'datepicker'
           },
-          transform: ['sassr'],
+          transform: ['cssify'],
           plugin: ['browserify-derequire']
         },
         files: {
@@ -67,23 +67,47 @@ module.exports = function (grunt) {
           ]
         },
         files: {
-          'dist/datepicker.css': 'src/sass/datepicker.{scss,sass}'
+          'tmp/datepicker.css': 'src/sass/datepicker.{scss,sass}'
         }
+      }
+    },
+    postcss: {
+      server: {
+        options: {
+          map: true, // Inline sourcemaps
+          processors: [
+            require('autoprefixer-core')({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']}) // Add vendor prefixes
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: 'tmp/*.css',
+          dest: 'tmp/'
+        }]
+      },
+      dist: {
+        options: {
+          processors: [
+            require('autoprefixer-core')({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']}) // Add vendor prefixes
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: 'tmp/*.css',
+          dest: 'tmp/'
+        }]
       }
     },
     watch: {
       js: {
         files: ['Gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
-        tasks: ['jshint', 'jscs', 'browserify:dist', 'browserify:distMin']
-      }
-    },
-    copy: {
-      main: {
-        expand: true,
-        cwd: 'src/',
-        src: 'css/*.css',
-        dest: 'dist/',
-        flatten: true
+        tasks: ['jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean']
+      },
+      css: {
+        files: ['src/sass/*.scss'],
+        tasks: ['sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean']
       }
     },
     jscs: {
@@ -99,6 +123,9 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       }
     },
+    clean: [
+      'tmp'
+    ],
     karma: {
       options: {
         configFile: 'karma.conf.js'
@@ -128,17 +155,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-push-release');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('build', ['jshint', 'jscs', 'watch']);
-  grunt.registerTask('default', ['jshint', 'jscs', 'browserify:dist', 'browserify:distMin']);
-  grunt.registerTask('test', ['karma:unit']);
+  grunt.registerTask('build', ['jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean', 'watch']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean']);
+  grunt.registerTask('test', ['sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'karma:unit', 'clean']);
   grunt.registerTask('test:watch', ['karma:unitWatch']);
 };
 
