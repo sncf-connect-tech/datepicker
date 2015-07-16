@@ -429,7 +429,7 @@ module.exports = (function () {
   }
 
   function clickEvent() {
-    return (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false) ? 'touchend' : 'click';
+    return 'click';
   }
 
   function selectMonth(date) {
