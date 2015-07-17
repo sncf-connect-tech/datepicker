@@ -292,10 +292,20 @@ module.exports = (function () {
       this.firstMonthAllowed(newMonth);
     });
 
+    // Keep focus on the editable element (prevent blur on the corresponding input)
+    this.prevBtn.onmousedown = this.bindToObj(function (e) {
+      return false;
+    });
+
     this.nextBtn.onclick = this.bindToObj(function (e) {
       this.moveMonthBy(1); // Always go 1 month forward, even if 2 months or more are displayed
       e.preventDefault();
       e.stopPropagation();
+    });
+
+    // Keep focus on the editable element (prevent blur on the corresponding input)
+    this.nextBtn.onmousedown = this.bindToObj(function (e) {
+      return false;
     });
 
     nav.appendChild(monthNav);
