@@ -2,6 +2,7 @@ var toolBox = require('toolbox');
 var styles = require('styles');
 var i18n = require('i18n');
 var date = require('date');
+var css = require('css');
 
 module.exports = (function () {
 
@@ -216,7 +217,7 @@ module.exports = (function () {
     /* jshint validthis: true */
     var dp = this;
 
-    if (!dp.input.classList.contains('inward')) {
+    if (!css.hasClass(dp.input, 'inward')) {
       return;
     }
 
@@ -246,7 +247,7 @@ module.exports = (function () {
       elt.value = outward.value;
 
       // Case classes are 'inward' AND 'one-day-after' : set date to selected date +1
-      if (elt.classList.contains('one-day-after')) {
+      if (css.hasClass(elt, 'one-day-after')) {
         outwardDate = outward.value;
         outwardDate = outwardDate.split('/');
         inwardDate = new Date(outwardDate[2] + ',' + outwardDate[1] + ',' + outwardDate[0]);
@@ -274,7 +275,7 @@ module.exports = (function () {
     var i = 0;
     var len = 0;
 
-    td.classList.add('table-month-wrapper');
+    css.addClass(td, 'table-month-wrapper');
     tableCells += '<table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
 
     for (i = 0, len = adjustShortDayNames.length; i < len; i++) {
@@ -373,26 +374,30 @@ module.exports = (function () {
         }
 
         if (today !== null) {
-          today.classList.add('today');
+          css.addClass(today, 'today');
         }
+
+        var overHandler = function (elt, className) {
+          return function () {
+            css.addClass(elt, className);
+          };
+        };
+
+        var outHandler = function (elt, className) {
+          return function () {
+            css.removeClass(elt, className);
+          };
+        };
 
         if (this.selectWeek === 1) {
           for (i = 0, l = tr.length; i < l; i++) {
-            tr[i].onmouseover = function () {
-              this.classList.add('hover');
-            };
-            tr[i].onmouseout = function () {
-              this.classList.remove('hover');
-            };
+            tr[i].onmouseover = overHandler(tr[i], 'hover');
+            tr[i].onmouseout = outHandler(tr[i], 'hover');
           }
         } else {
           for (i = 0, l = selectableDays.length; i < l; i++) {
-            selectableDays[i].onmouseover = function () {
-              this.classList.add('hover');
-            };
-            selectableDays[i].onmouseout = function () {
-              this.classList.remove('hover');
-            };
+            selectableDays[i].onmouseover = overHandler(selectableDays[i], 'hover');
+            selectableDays[i].onmouseout = outHandler(selectableDays[i], 'hover');
           }
         }
       }
@@ -400,11 +405,11 @@ module.exports = (function () {
       var prevSelected = this.tbody.querySelectorAll('.selected');
       var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
       for (i = 0, l = prevSelected.length; i < l; i++) {
-        prevSelected[i].classList.remove('selected');
+        css.removeClass(prevSelected[i], 'selected');
         prevSelected[i].setAttribute('aria-selected', 'true');
       }
       for (i = 0, l = currentSelected.length; i < l; i++) {
-        currentSelected[i].classList.add('selected');
+        css.addClass(currentSelected[i], 'selected');
         currentSelected[i].setAttribute('aria-selected', 'true');
       }
     }
@@ -683,13 +688,13 @@ module.exports = (function () {
     if (inputRect.top >= this.rootHeight) {
       this.rootLayers.style.top = 'auto';
       this.rootLayers.style.bottom = (inputRect.height + 15) + 'px';
-      this.rootLayers.classList.add('on-top');
-      this.rootLayers.classList.remove('under');
+      css.addClass(this.rootLayers, 'on-top');
+      css.removeClass(this.rootLayers, 'under');
     } else {
       this.rootLayers.style.top = (inputRect.height + 15) + 'px';
       this.rootLayers.style.bottom = 'auto';
-      this.rootLayers.classList.add('under');
-      this.rootLayers.classList.remove('on-top');
+      css.addClass(this.rootLayers, 'under');
+      css.removeClass(this.rootLayers, 'on-top');
     }
   }
 
@@ -722,9 +727,9 @@ module.exports = (function () {
   function firstMonthAllowed(firstMonth) {
     /* jshint validthis: true */
     if (this.isNewDateAllowed(firstMonth)) {
-      this.prevBtn.classList.remove('stop');
+      css.removeClass(this.prevBtn, 'stop');
     } else {
-      this.prevBtn.classList.add('stop');
+      css.addClass(this.prevBtn, 'stop');
     }
   }
 
@@ -900,15 +905,15 @@ module.exports = (function () {
           options.dateMin = date.start(input.getAttribute('data-start-date'));
         }
         // Railpass case
-        if (input.classList.contains('railpass-date')) {
+        if (css.hasClass(input, 'railpass-date') > -1) {
           instanceOptions.dateMin = date.railpassMin();
         }
         // Backward case
-        if (input.classList.contains('datepicker-backwards')) {
+        if (css.hasClass(input, 'datepicker-backwards') > -1) {
           instanceOptions.dateMin = date.backward();
         }
         // Limit date range to 6 months in the future
-        if (input.classList.contains('six-months-in-future')) {
+        if (css.hasClass(input, 'six-months-in-future') > -1) {
           instanceOptions.dateMax = date.sixMonthsFuture();
         }
         // Instantiate datepicker object

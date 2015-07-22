@@ -23,6 +23,8 @@
     "grunt",
     "Gruntfile.js",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "shooter.html",
+    "server.js"
   ]
 }

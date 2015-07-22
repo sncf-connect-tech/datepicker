@@ -14,6 +14,7 @@
     "browserify-shim": "^3.8.8",
     "cssify": "^0.7.0",
     "derequire-transform": "^1.0.0",
+    "express": "^4.13.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "3.7.0",
     "grunt-contrib-clean": "^0.6.0",
@@ -55,7 +56,8 @@
     "i18n": "./src/js/i18n.js",
     "toolbox": "./src/js/toolbox.js",
     "date": "./src/js/date.js",
-    "styles": "./tmp/datepicker.css"
+    "styles": "./tmp/datepicker.css",
+    "css": "./src/js/css.js"
   },
   "browserify-shim": {
     "jquery": "$"
