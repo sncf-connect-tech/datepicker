@@ -905,15 +905,15 @@ module.exports = (function () {
           options.dateMin = date.start(input.getAttribute('data-start-date'));
         }
         // Railpass case
-        if (css.hasClass(input, 'railpass-date') > -1) {
+        if (css.hasClass(input, 'railpass-date')) {
           instanceOptions.dateMin = date.railpassMin();
         }
         // Backward case
-        if (css.hasClass(input, 'datepicker-backwards') > -1) {
+        if (css.hasClass(input, 'datepicker-backwards')) {
           instanceOptions.dateMin = date.backward();
         }
         // Limit date range to 6 months in the future
-        if (css.hasClass(input, 'six-months-in-future') > -1) {
+        if (css.hasClass(input, 'six-months-in-future')) {
           instanceOptions.dateMax = date.sixMonthsFuture();
         }
         // Instantiate datepicker object
