@@ -1,5 +1,5 @@
+require('styles');
 var toolBox = require('toolbox');
-var styles = require('styles');
 var i18n = require('i18n');
 var date = require('date');
 var css = require('css');
@@ -340,16 +340,16 @@ module.exports = (function () {
         var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
         this.tbody.appendChild(this.renderDatepicker(date));
 
-        toolBox.emptyNode(this.monthNameSpan[0]).innerText = this.monthNames[firstMonth.getMonth()];
-        toolBox.emptyNode(this.yearNameSpan[0]).innerText = this.currentMonth.getFullYear();
+        toolBox.emptyNode(this.monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
+        toolBox.emptyNode(this.yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
         this.firstMonthAllowed(firstMonth);
 
         // Iterate to render next months
         if (this.nbCalendar > 1) {
           for (i = 1, l = this.nbCalendar; i < l; i++) {
             var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
-            toolBox.emptyNode(this.monthNameSpan[i]).innerText = this.monthNames[nextMonth.getMonth()];
-            toolBox.emptyNode(this.yearNameSpan[i]).innerText = nextMonth.getFullYear();
+            toolBox.emptyNode(this.monthNameSpan[i]).textContent = this.monthNames[nextMonth.getMonth()];
+            toolBox.emptyNode(this.yearNameSpan[i]).textContent = nextMonth.getFullYear();
             this.tbody.appendChild(this.renderDatepicker(nextMonth));
           }
         }
