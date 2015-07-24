@@ -59,6 +59,5 @@
     "beforeOpeningCurlyBrace": true
   },
   "validateIndentation": 2,
-  "validateLineBreaks": "LF",
   "validateQuoteMarks": "'"
 }
