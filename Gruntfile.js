@@ -131,17 +131,13 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js'
       },
       unit: {
-        singleRun: true,
+        singleRun: false,
         autoWatch: true,
-        reporters: ['html', 'junit', 'coverage']
-      },
-      unitWatch: {
-        autoWatch: true
+        browsers: ['Chrome']
       },
       // Continuous integration mode: run tests once in PhantomJS browser.
       continuous: {
-        singleRun: true,
-        browsers: ['PhantomJS']
+        reporters: ['html', 'junit', 'coverage']
       }
     },
     push: {
@@ -164,10 +160,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-push-release');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('build', ['jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean', 'watch']);
-  grunt.registerTask('default', ['jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'clean']);
-  grunt.registerTask('test', ['sass', 'postcss', 'browserify:dist', 'browserify:distMin', 'karma:unit', 'clean']);
-  grunt.registerTask('test:watch', ['karma:unitWatch']);
+  grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin']);
+  grunt.registerTask('build:watch', ['build', 'watch']);
+  grunt.registerTask('test', ['build', 'karma:unit']);
+  grunt.registerTask('test:ci', ['build', 'karma:continuous']);
+  grunt.registerTask('default', ['build']);
 };
 
 })();
