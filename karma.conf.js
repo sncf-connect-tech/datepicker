@@ -44,6 +44,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     //reporters: ['progress', 'junit', 'html'],
+    reporters: ['html', 'junit', 'coverage'],
 
     junitReporter: {
       outputFile: 'test-reports/TEST-js-unit-datepicker.Karma.xml'
@@ -78,7 +79,7 @@ module.exports = function (config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
@@ -88,6 +89,6 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: true
+    singleRun: false
   });
 };

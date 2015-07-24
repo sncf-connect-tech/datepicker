@@ -131,13 +131,15 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js'
       },
       unit: {
-        singleRun: false,
-        autoWatch: true,
-        browsers: ['Chrome']
+        singleRun: true
+      },
+      unitWatch: {
+        autoWatch: true
       },
       // Continuous integration mode: run tests once in PhantomJS browser.
       continuous: {
-        reporters: ['html', 'junit', 'coverage']
+        singleRun: true,
+        browsers: ['PhantomJS']
       }
     },
     push: {
@@ -163,6 +165,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'sass', 'postcss', 'browserify:dist', 'browserify:distMin']);
   grunt.registerTask('build:watch', ['build', 'watch']);
   grunt.registerTask('test', ['build', 'karma:unit']);
+  grunt.registerTask('test:watch', ['build', 'karma:unitWatch']);
   grunt.registerTask('test:ci', ['build', 'karma:continuous']);
   grunt.registerTask('default', ['build']);
 };
