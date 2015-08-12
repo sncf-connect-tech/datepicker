@@ -475,23 +475,15 @@ module.exports = (function () {
     /* jshint validthis: true */
     var dp = this;
 
-    if (!css.hasClass(dp.input, 'inward')) {
+    if (dp.dependingOnInput === null) {
       return;
     }
 
-    var parentForm = dp.input.parentNode;
-    var outward = null;
+    var outward = dp.dependingOnInput;
     var outwardDate = [];
     var inwardDate = [];
     var month = '';
     var day = '';
-
-    while (parentForm.parentNode !== null && parentForm.tagName !== 'FORM') {
-      parentForm = parentForm.parentNode;
-    }
-    if (parentForm !== null) {
-      outward = parentForm.querySelector('input.outward');
-    }
 
     dp.input.addEventListener('focus', inputFocusHandler);
 
@@ -1128,54 +1120,94 @@ module.exports = (function () {
   return {
     init: function (opt) {
 
-      var options = opt || {
+      this.options = opt || {
         lang: 'en'
       };
 
       // Langue par defaut si celle en option non prise en charge
-      if (typeof i18n[options.lang] === 'undefined') {
-        options.lang = 'en';
+      if (typeof i18n[this.options.lang] === 'undefined') {
+        this.options.lang = 'en';
       }
 
       // If back date is not defined, set it to current date
-      if (options.dateMin === undefined || options.dateMin === '') {
-        options.dateMin = date.current();
+      if (this.options.dateMin === undefined || this.options.dateMin === '') {
+        this.options.dateMin = date.current();
       }
 
       // If next date is not defined, set it to empty value
-      if (options.dateMax === undefined) {
-        options.dateMax = '';
+      if (this.options.dateMax === undefined) {
+        this.options.dateMax = '';
+      }
+    },
+    wrap: function () {
+      var dpBuilder = this;
+      // Browse datepickers fields to deal with specific behaviours
+      if (arguments.length === 0) {
+        return;
       }
 
-      // Browse datepickers fields to deal with specific behaviours
-      var datepickers = document.querySelectorAll('input.datepicker');
+      // Browse arguments
       var i = 0;
-      var l = 0;
-      var input = null;
-      var instanceOptions = {};
-      for (i = 0, l = datepickers.length; i < l; i++) {
-        input = datepickers[i];
+      for (i in arguments) {
+        setOutInward(arguments[i]);
+      }
 
-        // On clone les options avant de les surcharger et les passer a la prochaine instance du datepicker
-        toolBox.extendObject(instanceOptions, options);
+      // Set outward / inward with {outward: '.selector'[, inward: '#selector']} object
+      function setOutInward(outin) {
+        if (typeof outin !== 'object') {
+          return;
+        }
+        if (typeof outin.outward !== 'string') {
+          return;
+        }
+        var outward = document.querySelector(outin.outward);
+        if (outward === null) {
+          return;
+        }
+        var inward = null;
+        if (typeof outin.outward === 'string') {
+          inward = document.querySelector(outin.inward);
+        }
+        var datepickers = [];
+        datepickers.push({
+          input: outward,
+          dependingOnInput: null
+        });
+        if (inward !== null) {
+          datepickers.push({
+            input: inward,
+            dependingOnInput: outward
+          });
+        }
+        var i = 0;
+        var l = 0;
+        var input = null;
+        var instanceOptions = {};
+        for (i = 0, l = datepickers.length; i < l; i++) {
+          input = datepickers[i].input;
 
-        if (input.getAttribute('data-start-date')) {
-          options.dateMin = date.start(input.getAttribute('data-start-date'));
+          // On clone les options avant de les surcharger et les passer a la prochaine instance du datepicker
+          toolBox.extendObject(instanceOptions, dpBuilder.options);
+          toolBox.extendObject(instanceOptions, {dependingOnInput: datepickers[i].dependingOnInput});
+
+          if (input.getAttribute('data-start-date')) {
+            options.dateMin = date.start(input.getAttribute('data-start-date'));
+          }
+          // Railpass case
+          if (css.hasClass(input, 'railpass-date')) {
+            instanceOptions.dateMin = date.railpassMin();
+          }
+          // Backward case
+          if (css.hasClass(input, 'datepicker-backwards')) {
+            instanceOptions.dateMin = date.backward();
+          }
+          // Limit date range to 6 months in the future
+          if (css.hasClass(input, 'six-months-in-future')) {
+            instanceOptions.dateMax = date.sixMonthsFuture();
+          }
+          // Instantiate datepicker object
+          new VscDatePicker(input, instanceOptions);
         }
-        // Railpass case
-        if (css.hasClass(input, 'railpass-date')) {
-          instanceOptions.dateMin = date.railpassMin();
-        }
-        // Backward case
-        if (css.hasClass(input, 'datepicker-backwards')) {
-          instanceOptions.dateMin = date.backward();
-        }
-        // Limit date range to 6 months in the future
-        if (css.hasClass(input, 'six-months-in-future')) {
-          instanceOptions.dateMax = date.sixMonthsFuture();
-        }
-        // Instantiate datepicker object
-        new VscDatePicker(input, instanceOptions);
       }
     }
   };
