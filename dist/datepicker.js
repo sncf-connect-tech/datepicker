@@ -268,6 +268,11 @@ module.exports = (function () {
    * Constructor
    */
   function VscDatePicker(el, opts) {
+    // Has already been wrapped
+    if (css.hasClass(el.parentNode, 'datepicker-wrapper')) {
+      return;
+    }
+
     /* jshint validthis: true */
     if (typeof (opts) !== 'object') {
       opts = {
