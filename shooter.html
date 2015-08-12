@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><title>DATE PICKER</title>
+<head>
+  <title>DATE PICKER</title>
+  <link rel="stylesheet" type="text/css" href="../dist/datepicker.css">
 </head>
 <body>
-<div style="width: 100px; margin: auto;"><input class="datepicker outward"><input class="datepicker inward"></div>
-<script type="text/javascript" src="dist/datepicker.js"></script>
-<script type="text/javascript">datepicker.init();</script>
+  <div style="width: 200px; margin: auto; background-color: red;">
+    <input class="datepicker outward">
+    <input class="datepicker inward">
+  </div>
+  <div style="width: 200px; margin: auto; background-color: blue;">
+    <input class="datepicker titi">
+    <input class="datepicker tata">
+  </div>
+  <script type="text/javascript" src="../dist/datepicker.js"></script>
+  <script type="text/javascript">
+    datepicker.init();
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+  </script>
 </body>
 </html>
