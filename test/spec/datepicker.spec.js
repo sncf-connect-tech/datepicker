@@ -1,5 +1,6 @@
 var moment = require('moment');
 var $ = require('jquery');
+var sinon = require('sinon');
 
 describe('Date picker tests', function () {
 
@@ -18,7 +19,9 @@ describe('Date picker tests', function () {
   });
 
   it('Call date picker with default parameters', function () {
-    require('../../src/js/datepicker').init();
+    var DatePicker = require('../../src/js/datepicker');
+    DatePicker.init();
+    DatePicker.wrap({outward: '.datepicker'});
 
     // Verify today
     var formattedToday = moment().format('DD/MM/YYYY');
@@ -37,19 +40,29 @@ describe('Date picker tests', function () {
   });
 
   it('Display date picker for fr language', function () {
+    var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
     var lang = 'fr';
-    require('../../src/js/datepicker').init({lang: lang});
+    var DatePicker = require('../../src/js/datepicker');
+    DatePicker.init({lang: lang});
+    DatePicker.wrap({outward: '.datepicker'});
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Juillet');
+
+    clock.restore();
   });
 
   it('Display date picker for es language', function () {
+    var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
     var lang = 'es';
-    require('../../src/js/datepicker').init({lang: lang});
+    var DatePicker = require('../../src/js/datepicker');
+    DatePicker.init({lang: lang});
+    DatePicker.wrap({outward: '.datepicker'});
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Julio');
+
+    clock.restore();
   });
 
   it('Display date picker with min and max dates parameters', function () {
@@ -62,11 +75,13 @@ describe('Date picker tests', function () {
     var formattedDateMax = dateMax.format('DD/MM/YYYY');
     var formattedOneDayAfterMaxDate = dateMax.add(1, 'days').format('DD/MM/YYYY');
 
-    require('../../src/js/datepicker').init({
+    var DatePicker = require('../../src/js/datepicker');
+    DatePicker.init({
       lang: lang,
       dateMin: formattedDateMin,
       dateMax: formattedDateMax
     });
+    DatePicker.wrap({outward: '.datepicker'});
 
     // Verify that previous date is unselected
     var dateMinElement = $('.table-month-wrapper').find('[date="' + formattedDateMin + '"]');

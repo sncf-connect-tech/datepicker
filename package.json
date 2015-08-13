@@ -41,6 +41,7 @@
     "karma-firefox-launcher": "0.1.6",
     "karma-htmlfile-reporter": "0.1.2",
     "karma-jasmine": "^0.3.5",
+    "karma-jasmine-html-reporter": "^0.1.8",
     "karma-junit-reporter": "0.2.2",
     "karma-phantomjs-launcher": "~0.1.2",
     "minifyify": "~5.0.0",
@@ -48,6 +49,7 @@
     "postcss": "^4.1.16",
     "sassify": "^0.9.1",
     "sassr": "0.0.6",
+    "sinon": "^1.15.4",
     "time-grunt": "^1.1.0",
     "uglifyify": "^3.0.1",
     "watchify": "^3.2.3"

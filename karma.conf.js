@@ -14,7 +14,8 @@ module.exports = function (config) {
       'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-junit-reporter',
-      'karma-htmlfile-reporter'
+      'karma-htmlfile-reporter',
+      'karma-jasmine-html-reporter'
     ],
 
     // base path, that will be used to resolve files and exclude

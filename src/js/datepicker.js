@@ -10,19 +10,22 @@ module.exports = (function () {
    * Constructor
    */
   function VscDatePicker(el, opts) {
+    var options = opts || {};
     // Has already been wrapped
     if (css.hasClass(el.parentNode, 'datepicker-wrapper')) {
       return;
     }
 
     /* jshint validthis: true */
-    if (typeof (opts) !== 'object') {
-      opts = {
+    if (typeof (options) !== 'object') {
+      options = {
         lang: 'en'
       };
+    } else if (typeof options.lang === 'undefined' || typeof i18n[options.lang] === 'undefined') {
+      options.lang = 'en';
     }
 
-    toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), opts), i18n[opts.lang]);
+    toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), options), i18n[options.lang]);
 
     this.input = el;
     this.bindMethodsToObj('show', 'hide', 'hideIfClickOutside', 'keydownHandler', 'selectDate');
