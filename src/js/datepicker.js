@@ -890,16 +890,17 @@ module.exports = (function () {
       }
     },
     wrap: function () {
+      var args = Array.prototype.slice.call(arguments);
       var dpBuilder = this;
       // Browse datepickers fields to deal with specific behaviours
-      if (arguments.length === 0) {
+      if (args.length === 0) {
         return;
       }
 
       // Browse arguments
       var i = 0;
-      for (i in arguments) {
-        setOutInward(arguments[i]);
+      for (i in args) {
+        setOutInward(args[i]);
       }
 
       // Set outward / inward with {outward: '.selector'[, inward: '#selector']} object
