@@ -2,7 +2,7 @@ require('styles');
 var toolBox = require('toolbox');
 var i18n = require('i18n');
 var date = require('date');
-var css = require('css');
+var css = require('css-class-js');
 
 module.exports = (function () {
 

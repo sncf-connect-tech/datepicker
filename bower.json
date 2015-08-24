@@ -26,5 +26,8 @@
     "package.json",
     "shooter.html",
     "server.js"
-  ]
+  ],
+  "dependencies": {
+    "css-class-js": "git@gitlab.socrate.vsct.fr:VSH/css-class-js.git#master"
+  }
 }

@@ -38,126 +38,160 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(_dereq_,module,exports){
-(function () {
+(function (global){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.CSS = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+// CSS CLASS FUNCTIONS
+// To use on one or several elements
 
-  // CSS CLASS FUNCTIONS
-  // To use on one or several elements
-
-  exports.addClass = function (el, name) {
-    if (typeof el !== 'object') { return; }
-    if (el === null) { return; }
-    if (typeof name !== 'string') { return; }
-    if (name === null) { return; }
-
-    var i = 0;
-    var l = 0;
-
-    if (typeof el.className !== 'undefined') {
-      var regex = getRegex(name);
-      for (i = 0, l = regex.length; i < l; i++) {
-        if (el.className.match(regex[i])) {
-          return;
-        }
-      }
-      el.className = el.className + ' ' + name;
-    } else if (el[0] && el[0].className) {
-      for (i = 0, l = el.length; i < l; i++) {
-        this.addClass(el[i], name);
-      }
-    }
-  };
-
-  exports.removeClass = function (el, name) {
-    if (typeof el !== 'object') { return; }
-    if (el === null) { return; }
-    if (typeof name !== 'string') { return; }
-    if (name === null) { return; }
-
-    var i = 0;
-    var l = 0;
-
-    if (typeof el.className !== 'undefined') {
-      var regex = getRegex(name);
-      for (i = 0, l = regex.length; i < l; i++) {
-        el.className = el.className.replace(regex[i], ' ');
-      }
-    } else if (el[0] && el[0].className) {
-      for (i = 0, l = el.length; i < l; i++) {
-        this.removeClass(el[i], name);
-      }
-    }
-  };
-
-  exports.toggleClass = function (el, name) {
-    if (typeof el !== 'object') { return; }
-    if (el === null) { return; }
-    if (typeof name !== 'string') { return; }
-    if (name === null) { return; }
-
-    var i = 0;
-    var l = 0;
-
-    if (typeof el.className !== 'undefined') {
-      var regex = getRegex(name);
-      var match = false;
-      for (i = 0, l = regex.length; i < l; i++) {
-        if (el.className.match(regex[i])) {
-          match = true;
-          break;
-        }
-      }
-      if (match) {
-        this.removeClass(el, name);
-      } else {
-        this.addClass(el, name);
-      }
-    } else if (el[0] && el[0].className) {
-      for (i = 0, l = el.length; i < l; i++) {
-        this.toggleClass(el[i], name);
-      }
-    }
-  };
-
-  exports.hasClass = function (el, name) {
-    if (typeof el !== 'object') { return; }
-    if (el === null) { return; }
-    if (typeof name !== 'string') { return; }
-    if (name === null) { return; }
-
-    var i = 0;
-    var l = 0;
-    var hasClass = true;
-
-    if (typeof el.className !== 'undefined') {
-      hasClass = false;
-      var regex = getRegex(name);
-      for (i = 0, l = regex.length; i < l; i++) {
-        hasClass = el.className.match(regex[i]);
-        if (hasClass) {
-          break;
-        }
-      }
-    } else if (el[0] && el[0].className) {
-      for (i = 0, l = el.length; i < l; i++) {
-        hasClass = (this.hasClass(el[i], name));
-        if (!hasClass) {
-          break;
-        }
-      }
-    }
-
-    return hasClass;
-  };
-
-  function getRegex(name) {
-    var only = new RegExp('^' + name + '$');
-    var beginwith = new RegExp('^' + name + '\\s+');
-    var endwith = new RegExp('\\s+' + name + '$');
-    var middle = new RegExp('\\s+' + name + '\\s+');
-    return [only, beginwith, endwith, middle];
+exports.addClass = function (el, name) {
+  if (typeof el !== 'object') {
+    return;
   }
-})();
+  if (el === null) {
+    return;
+  }
+  if (typeof name !== 'string') {
+    return;
+  }
+  if (name === null) {
+    return;
+  }
 
+  var i = 0;
+  var l = 0;
+
+  if (typeof el.className !== 'undefined') {
+    var regex = this.getRegex(name);
+    for (i = 0, l = regex.length; i < l; i++) {
+      if (el.className.match(regex[i])) {
+        return;
+      }
+    }
+    el.className = el.className + ' ' + name;
+  } else if (el[0] && el[0].className) {
+    for (i = 0, l = el.length; i < l; i++) {
+      this.addClass(el[i], name);
+    }
+  }
+};
+
+exports.removeClass = function (el, name) {
+  if (typeof el !== 'object') {
+    return;
+  }
+  if (el === null) {
+    return;
+  }
+  if (typeof name !== 'string') {
+    return;
+  }
+  if (name === null) {
+    return;
+  }
+
+  var i = 0;
+  var l = 0;
+
+  if (typeof el.className !== 'undefined') {
+    var regex = this.getRegex(name);
+    for (i = 0, l = regex.length; i < l; i++) {
+      el.className = el.className.replace(regex[i], ' ');
+    }
+  } else if (el[0] && el[0].className) {
+    for (i = 0, l = el.length; i < l; i++) {
+      this.removeClass(el[i], name);
+    }
+  }
+};
+
+exports.toggleClass = function (el, name) {
+  if (typeof el !== 'object') {
+    return;
+  }
+  if (el === null) {
+    return;
+  }
+  if (typeof name !== 'string') {
+    return;
+  }
+  if (name === null) {
+    return;
+  }
+
+  var i = 0;
+  var l = 0;
+
+  if (typeof el.className !== 'undefined') {
+    var regex = this.getRegex(name);
+    var match = false;
+    for (i = 0, l = regex.length; i < l; i++) {
+      if (el.className.match(regex[i])) {
+        match = true;
+        break;
+      }
+    }
+    if (match) {
+      this.removeClass(el, name);
+    } else {
+      this.addClass(el, name);
+    }
+  } else if (el[0] && el[0].className) {
+    for (i = 0, l = el.length; i < l; i++) {
+      this.toggleClass(el[i], name);
+    }
+  }
+};
+
+exports.hasClass = function (el, name) {
+  if (typeof el !== 'object') {
+    return;
+  }
+  if (el === null) {
+    return;
+  }
+  if (typeof name !== 'string') {
+    return;
+  }
+  if (name === null) {
+    return;
+  }
+
+  var i = 0;
+  var l = 0;
+  var hasClass = true;
+
+  if (typeof el.className !== 'undefined') {
+    hasClass = false;
+    var regex = this.getRegex(name);
+    for (i = 0, l = regex.length; i < l; i++) {
+      hasClass = el.className.match(regex[i]);
+      if (hasClass) {
+        break;
+      }
+    }
+  } else if (el[0] && el[0].className) {
+    for (i = 0, l = el.length; i < l; i++) {
+      hasClass = (this.hasClass(el[i], name));
+      if (!hasClass) {
+        break;
+      }
+    }
+  }
+
+  return hasClass;
+};
+
+exports.getRegex = function (name) {
+  var only = new RegExp('^' + name + '$');
+  var beginwith = new RegExp('^' + name + '\\s+');
+  var endwith = new RegExp('\\s+' + name + '$');
+  var middle = new RegExp('\\s+' + name + '\\s+');
+  return [only, beginwith, endwith, middle];
+};
+
+},{}]},{},[1])(1)
+});
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(_dereq_,module,exports){
 /**
  * Return the current date
@@ -260,7 +294,7 @@ _dereq_('styles');
 var toolBox = _dereq_('toolbox');
 var i18n = _dereq_('i18n');
 var date = _dereq_('date');
-var css = _dereq_('css');
+var css = _dereq_('css-class-js');
 
 module.exports = (function () {
 
@@ -1222,7 +1256,7 @@ module.exports = (function () {
   };
 })();
 
-},{"css":2,"date":3,"i18n":5,"styles":7,"toolbox":6}],5:[function(_dereq_,module,exports){
+},{"css-class-js":2,"date":3,"i18n":5,"styles":7,"toolbox":6}],5:[function(_dereq_,module,exports){
 module.exports = {
   fr: {
     monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],

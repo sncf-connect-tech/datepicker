@@ -1,5 +1,5 @@
 node_modules
-src/vendors
+src/bower_components
 .idea
 build
 npm-debug.log
