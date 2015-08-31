@@ -59,7 +59,8 @@
     "toolbox": "./src/js/toolbox.js",
     "date": "./src/js/date.js",
     "styles": "./tmp/datepicker.css",
-    "css-class-js": "./src/bower_components/css-class-js/dist/css-class.js"
+    "css-class-js": "./src/bower_components/css-class-js/dist/css-class.js",
+    "datepicker": "./src/js/datepicker.js"
   },
   "browserify-shim": {
     "jquery": "$"
