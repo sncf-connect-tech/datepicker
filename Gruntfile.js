@@ -20,39 +20,39 @@ module.exports = function (grunt) {
           watch: false,
           browserifyOptions: {
             debug: false,
-            standalone: 'datepicker'
+            standalone: 'dp'
           },
           transform: ['cssify'],
           plugin: ['browserify-derequire']
         },
         files: {
-          'dist/datepicker.js': ['src/js/datepicker.js']
+          'dist/dp.js': ['src/js/dp.js']
         }
       },
       dist: {
         options: {
           browserifyOptions: {
             debug: false,
-            standalone: 'datepicker'
+            standalone: 'dp'
           },
           transform: ['cssify'],
           plugin: ['browserify-derequire']
         },
         files: {
-          'dist/datepicker.js': ['src/js/datepicker.js']
+          'dist/dp.js': ['src/js/dp.js']
         }
       },
       distMin: {
         options: {
           browserifyOptions: {
             debug: false,
-            standalone: 'datepicker'
+            standalone: 'dp'
           },
           plugin: ['browserify-derequire'],
           transform: ['sassr', 'uglifyify']
         },
         files: {
-          'dist/datepicker.min.js': ['src/js/datepicker.js']
+          'dist/dp.min.js': ['src/js/dp.js']
         }
       }
     },
