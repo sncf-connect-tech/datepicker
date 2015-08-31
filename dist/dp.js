@@ -1172,26 +1172,32 @@ var VscDatePicker = _dereq_('datepicker');
 
 module.exports = (function () {
 
+  var options = {
+    lang: 'en',
+    dateMin: date.current(),
+    dateMax: ''
+  };
+
   return {
     config: function (opt) {
 
-      this.options = opt || {
-        lang: 'en'
-      };
+      if (typeof opt === 'object') {
+        options = opt;
+      }
 
       // Langue par defaut si celle en option non prise en charge
-      if (typeof i18n[this.options.lang] === 'undefined') {
-        this.options.lang = 'en';
+      if (typeof i18n[options.lang] === 'undefined') {
+        options.lang = 'en';
       }
 
       // If back date is not defined, set it to current date
-      if (this.options.dateMin === undefined || this.options.dateMin === '') {
-        this.options.dateMin = date.current();
+      if (typeof options.dateMin !== 'string' || options.dateMin === '') {
+        options.dateMin = date.current();
       }
 
       // If next date is not defined, set it to empty value
-      if (this.options.dateMax === undefined) {
-        this.options.dateMax = '';
+      if (typeof options.dateMax !== 'string') {
+        options.dateMax = '';
       }
     },
     create: function (selector) {
@@ -1209,7 +1215,7 @@ module.exports = (function () {
       var instanceOptions = {};
 
       // On clone les options avant de les surcharger et les passer a la prochaine instance du datepicker
-      toolBox.extendObject(instanceOptions, dpBuilder.options);
+      toolBox.extendObject(instanceOptions, options);
       // Dependance vers un autre datepicker
       // toolBox.extendObject(instanceOptions, {dependingOnInput: datepickers[i].dependingOnInput});
 
