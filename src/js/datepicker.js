@@ -225,7 +225,7 @@ module.exports = (function () {
     /* jshint validthis: true */
     var dp = this;
 
-    if (dp.dependingOnInput === null) {
+    if (!(dp.dependingOnInput instanceof Element)) {
       return;
     }
 

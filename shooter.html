@@ -5,22 +5,22 @@
 </head>
 <body>
   <div style="width: 200px; margin: auto; background-color: red;">
-    <input class="datepicker outward">
-    <input class="datepicker inward">
+    <input class="outward">
+    <input class="inward">
   </div>
   <div style="width: 200px; margin: auto; background-color: blue;">
-    <input class="datepicker titi">
-    <input class="datepicker tata">
+    <input class="titi">
+    <input class="tata">
   </div>
   <script type="text/javascript" src="dist/dp.js"></script>
   <script type="text/javascript">
-    datepicker.init();
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
-    datepicker.wrap({outward: '.outward', inward: '.inward'}, {outward: '.titi', inward: '.tata'});
+    var redDpDeparture = dp.create('.outward');
+    var redDpReturn = dp.create('.inward');
+    var uselessRedDpDeparture = dp.create('.outward');
+    var uselessRedDpReturn = dp.create('.inward');
+    dp.config({lang: 'fr'});
+    var blueDpDeparture = dp.create('.titi');
+    var blueDpReturn = dp.create('.tata');
   </script>
 </body>
 </html>
