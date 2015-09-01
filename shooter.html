@@ -3,18 +3,37 @@
 <head>
   <title>DATE PICKER</title>
   <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial;
+    }
+    .datepicker-wrapper {
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
-  <div style="width: 200px; margin: auto; background-color: red;">
+  <div>
     <input class="outward">
+    <span class="red-d"></span>
+  </div>
+  <div>
     <input class="inward">
+    <span class="red-r"></span>
   </div>
-  <div style="width: 200px; margin: auto; background-color: blue;">
+  <div>
     <input class="titi">
-    <input class="tata">
+    <span class="blue-d"></span>
   </div>
-  <div style="width: 200px; margin: auto;">
+  <div>
+    <input class="tata">
+    <span class="blue-r"></span>
+  </div>
+  <div>
     <button type="button" onclick="setDateMin();">set dateMin to next month</button>
+  </div>
+  <div>
+    <button type="button" onclick="displaySelectedDate();">display selectedDate</button>
   </div>
   <script type="text/javascript" src="dist/dp.js"></script>
   <script type="text/javascript">
@@ -32,6 +51,12 @@
       redDpReturn.setDateMin(nextMonth);
       blueDpDeparture.setDateMin(nextMonth);
       blueDpReturn.setDateMin(nextMonth);
+    }
+    function displaySelectedDate() {
+      document.querySelector('.red-d').innerHTML = redDpDeparture.getSelectedDate();
+      document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
+      document.querySelector('.blue-d').innerHTML = blueDpDeparture.getSelectedDate();
+      document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
     }
   </script>
 </body>

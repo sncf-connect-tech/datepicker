@@ -56,6 +56,7 @@ module.exports = (function () {
     build: build,
     presetInward: presetInward,
     setDateMin: setDateMin,
+    getSelectedDate: getSelectedDate,
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
     selectMonth: selectMonth,
@@ -269,6 +270,10 @@ module.exports = (function () {
     }
     this.dateMin = date;
     this.selectDate(this.dateMin);
+  }
+
+  function getSelectedDate() {
+    return this.selectedDate;
   }
 
   function renderDatepicker(date) {
