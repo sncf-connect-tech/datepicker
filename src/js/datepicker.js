@@ -60,6 +60,8 @@ module.exports = (function () {
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
     selectMonth: selectMonth,
+    renderMonth: renderMonth,
+    renderSelectedDate: renderSelectedDate,
     selectDate: selectDate,
     isNewDateAllowed: isNewDateAllowed,
     isHoliday: isHoliday,
@@ -270,8 +272,16 @@ module.exports = (function () {
     if (!(date instanceof Date)) {
       return;
     }
+    if (this.daysBetween(this.dateMin, date) === 0) {
+      return;
+    }
     this.dateMin = date;
+    if (this.daysBetween(this.dateMin, this.selectedDate) < 0) {
+      this.selectedDate = this.dateMin;
+    }
     this.selectDate();
+    this.renderMonth(date);
+    this.renderSelectedDate();
   }
 
   function getSelectedDate() {
@@ -347,87 +357,95 @@ module.exports = (function () {
     var l = 0;
 
     if (this.isNewDateAllowed(newMonth)) {
+      // No current month
+      // Not the same month of the same year
       if (!this.currentMonth || !(this.currentMonth.getFullYear() === newMonth.getFullYear() && this.currentMonth.getMonth() === newMonth.getMonth())) {
-
-        toolBox.emptyNode(this.tbody);
-        this.currentMonth = newMonth;
-
-        // Render the current month
-        var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
-        this.tbody.appendChild(this.renderDatepicker(date));
-
-        toolBox.emptyNode(this.monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
-        toolBox.emptyNode(this.yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
-        this.firstMonthAllowed(firstMonth);
-
-        // Iterate to render next months
-        if (this.nbCalendar > 1) {
-          for (i = 1, l = this.nbCalendar; i < l; i++) {
-            var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
-            toolBox.emptyNode(this.monthNameSpan[i]).textContent = this.monthNames[nextMonth.getMonth()];
-            toolBox.emptyNode(this.yearNameSpan[i]).textContent = nextMonth.getFullYear();
-            this.tbody.appendChild(this.renderDatepicker(nextMonth));
-          }
-        }
-
-        var selectableDays = this.tbody.querySelectorAll('.selectable_day');
-        var selectableWeeks = this.tbody.querySelectorAll('.selectable_week');
-        var today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]');
-        var tr = this.tbody.querySelectorAll('tr');
-
-        if (this.selectWeek === 0) {
-          for (i = 0, l = selectableDays.length; i < l; i++) {
-            selectableDays[i].addEventListener('click', this.bindToObj(function (event) {
-              this.changeInput(event.target.getAttribute('date'));
-            }));
-          }
-        } else {
-          for (i = 0, l = selectableWeeks.length; i < l; i++) {
-            selectableWeeks[i].addEventListener('click', this.bindToObj(function (event) {
-              this.changeInput(event.target.parentNode.getAttribute('date'));
-            }));
-          }
-        }
-
-        if (today !== null) {
-          css.addClass(today, 'today');
-        }
-
-        var overHandler = function (elt, className) {
-          return function () {
-            css.addClass(elt, className);
-          };
-        };
-
-        var outHandler = function (elt, className) {
-          return function () {
-            css.removeClass(elt, className);
-          };
-        };
-
-        if (this.selectWeek === 1) {
-          for (i = 0, l = tr.length; i < l; i++) {
-            tr[i].onmouseover = overHandler(tr[i], 'hover');
-            tr[i].onmouseout = outHandler(tr[i], 'hover');
-          }
-        } else {
-          for (i = 0, l = selectableDays.length; i < l; i++) {
-            selectableDays[i].onmouseover = overHandler(selectableDays[i], 'hover');
-            selectableDays[i].onmouseout = outHandler(selectableDays[i], 'hover');
-          }
-        }
+        this.renderMonth(date);
       }
+      this.renderSelectedDate();
+    }
+  }
 
-      var prevSelected = this.tbody.querySelectorAll('.selected');
-      var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
-      for (i = 0, l = prevSelected.length; i < l; i++) {
-        css.removeClass(prevSelected[i], 'selected');
-        prevSelected[i].setAttribute('aria-selected', 'true');
+  function renderMonth(date) {
+    toolBox.emptyNode(this.tbody);
+    this.currentMonth = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+    // Render the current month
+    var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
+    this.tbody.appendChild(this.renderDatepicker(date));
+
+    toolBox.emptyNode(this.monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
+    toolBox.emptyNode(this.yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
+    this.firstMonthAllowed(firstMonth);
+
+    // Iterate to render next months
+    if (this.nbCalendar > 1) {
+      for (i = 1, l = this.nbCalendar; i < l; i++) {
+        var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
+        toolBox.emptyNode(this.monthNameSpan[i]).textContent = this.monthNames[nextMonth.getMonth()];
+        toolBox.emptyNode(this.yearNameSpan[i]).textContent = nextMonth.getFullYear();
+        this.tbody.appendChild(this.renderDatepicker(nextMonth));
       }
-      for (i = 0, l = currentSelected.length; i < l; i++) {
-        css.addClass(currentSelected[i], 'selected');
-        currentSelected[i].setAttribute('aria-selected', 'true');
+    }
+
+    var selectableDays = this.tbody.querySelectorAll('.selectable_day');
+    var selectableWeeks = this.tbody.querySelectorAll('.selectable_week');
+    var today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]');
+    var tr = this.tbody.querySelectorAll('tr');
+
+    if (this.selectWeek === 0) {
+      for (i = 0, l = selectableDays.length; i < l; i++) {
+        selectableDays[i].addEventListener('click', this.bindToObj(function (event) {
+          this.changeInput(event.target.getAttribute('date'));
+        }));
       }
+    } else {
+      for (i = 0, l = selectableWeeks.length; i < l; i++) {
+        selectableWeeks[i].addEventListener('click', this.bindToObj(function (event) {
+          this.changeInput(event.target.parentNode.getAttribute('date'));
+        }));
+      }
+    }
+
+    if (today !== null) {
+      css.addClass(today, 'today');
+    }
+
+    var overHandler = function (elt, className) {
+      return function () {
+        css.addClass(elt, className);
+      };
+    };
+
+    var outHandler = function (elt, className) {
+      return function () {
+        css.removeClass(elt, className);
+      };
+    };
+
+    if (this.selectWeek === 1) {
+      for (i = 0, l = tr.length; i < l; i++) {
+        tr[i].onmouseover = overHandler(tr[i], 'hover');
+        tr[i].onmouseout = outHandler(tr[i], 'hover');
+      }
+    } else {
+      for (i = 0, l = selectableDays.length; i < l; i++) {
+        selectableDays[i].onmouseover = overHandler(selectableDays[i], 'hover');
+        selectableDays[i].onmouseout = outHandler(selectableDays[i], 'hover');
+      }
+    }
+  }
+
+  function renderSelectedDate() {
+    var prevSelected = this.tbody.querySelectorAll('.selected');
+    var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
+    for (i = 0, l = prevSelected.length; i < l; i++) {
+      css.removeClass(prevSelected[i], 'selected');
+      prevSelected[i].setAttribute('aria-selected', 'true');
+    }
+    for (i = 0, l = currentSelected.length; i < l; i++) {
+      css.addClass(currentSelected[i], 'selected');
+      currentSelected[i].setAttribute('aria-selected', 'true');
     }
   }
 
@@ -452,6 +470,7 @@ module.exports = (function () {
       this.selectMonth(this.selectedDate);
     } else if ((this.dateMin) && this.daysBetween(this.dateMin, date) < 0) {
       this.selectedDate = this.dateMin;
+      this.selectedDateString = this.dateToString(this.selectedDate);
       this.selectMonth(this.dateMin);
       this.input.value = ' ';
     } else {
@@ -462,7 +481,15 @@ module.exports = (function () {
 
   function isNewDateAllowed(date) {
     /* jshint validthis: true */
-    return ((!this.dateMin) || this.daysBetween(this.dateMin, date) >= 0) && ((!this.dateMax) || this.daysBetween(date, this.dateMax) >= 0);
+    // No min or date >= min
+    if (this.dateMin && this.daysBetween(this.dateMin, date) < 0) {
+      return false;
+    }
+    // No max or date <= max
+    if (this.dateMax && this.daysBetween(date, this.dateMax) < 0) {
+      return false;
+    }
+    return true;
   }
 
   function isHoliday(date) {

@@ -25,7 +25,7 @@
       <span class="red-d"></span>
     </div>
     <div>
-      <input class="inward">
+      <input class="inward" onchange="onchangeInward(event);">
       <span class="red-r"></span>
     </div>
   </div>
@@ -69,7 +69,12 @@
       document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
     }
     function updateInward() {
-      redDpReturn.setDateMin(redDpDeparture.getSelectedDate());
+      setTimeout(function () {
+        redDpReturn.setDateMin(redDpDeparture.getSelectedDate());
+      }, 100);
+    }
+    function onchangeInward() {
+      document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
     }
   </script>
 </body>
