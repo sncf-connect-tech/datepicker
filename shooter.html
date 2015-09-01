@@ -5,29 +5,39 @@
   <meta charset="utf-8">
   <style>
     body {
+      margin: 0;
       font-family: Arial;
     }
     .datepicker-wrapper {
       display: inline-block;
     }
+    .outin {
+      background-color: #eee;
+      padding: 10px;
+      margin: 10px;
+    }
   </style>
 </head>
 <body>
-  <div>
-    <input class="outward">
-    <span class="red-d"></span>
+  <div class="outin">
+    <div>
+      <input class="outward" onchange="updateInward(event);">
+      <span class="red-d"></span>
+    </div>
+    <div>
+      <input class="inward">
+      <span class="red-r"></span>
+    </div>
   </div>
-  <div>
-    <input class="inward">
-    <span class="red-r"></span>
-  </div>
-  <div>
-    <input class="titi">
-    <span class="blue-d"></span>
-  </div>
-  <div>
-    <input class="tata">
-    <span class="blue-r"></span>
+  <div class="outin">
+    <div>
+      <input class="titi">
+      <span class="blue-d"></span>
+    </div>
+    <div>
+      <input class="tata">
+      <span class="blue-r"></span>
+    </div>
   </div>
   <div>
     <button type="button" onclick="setDateMin();">set dateMin to next month</button>
@@ -57,6 +67,9 @@
       document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
       document.querySelector('.blue-d').innerHTML = blueDpDeparture.getSelectedDate();
       document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
+    }
+    function updateInward() {
+      redDpReturn.setDateMin(redDpDeparture.getSelectedDate());
     }
   </script>
 </body>

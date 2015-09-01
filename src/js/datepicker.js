@@ -64,6 +64,7 @@ module.exports = (function () {
     isNewDateAllowed: isNewDateAllowed,
     isHoliday: isHoliday,
     changeInput: changeInput,
+    dispatchChangeEvent: dispatchChangeEvent,
     show: show,
     hide: hide,
     hideIfClickOutside: hideIfClickOutside,
@@ -108,9 +109,10 @@ module.exports = (function () {
     this.wrapp.appendChild(this.input);
 
     // Input
-    this.input.onchange = (this.bindToObj(function () {
+    this.inputChangeHandler = (this.bindToObj(function () {
       this.selectDate();
     }));
+    this.input.addEventListener('change', this.inputChangeHandler);
 
     // Date settings
     this.setDateFormat();
@@ -471,9 +473,20 @@ module.exports = (function () {
   function changeInput(dateString) {
     /* jshint validthis: true */
     this.input.value = dateString;
-    this.input.onchange();
+    this.dispatchChangeEvent();
     if (this.input.type !== 'hidden') {
       this.hide();
+    }
+  }
+
+  function dispatchChangeEvent() {
+    /* jshint validthis: true */
+    if ('createEvent' in document) {
+      var evt = document.createEvent('HTMLEvents');
+      evt.initEvent('change', false, true);
+      this.input.dispatchEvent(evt);
+    } else {
+      this.input.fireEvent('onchange');
     }
   }
 
