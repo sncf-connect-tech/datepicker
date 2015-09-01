@@ -13,6 +13,9 @@
     <input class="titi">
     <input class="tata">
   </div>
+  <div style="width: 200px; margin: auto;">
+    <button type="button" onclick="setDateMin();">set dateMin to next month</button>
+  </div>
   <script type="text/javascript" src="dist/dp.js"></script>
   <script type="text/javascript">
     var redDpDeparture = dp.create('.outward');
@@ -22,6 +25,14 @@
     dp.config({lang: 'fr'});
     var blueDpDeparture = dp.create('.titi');
     var blueDpReturn = dp.create('.tata');
+    function setDateMin() {
+      var nextMonth = new Date();
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      redDpDeparture.setDateMin(nextMonth);
+      redDpReturn.setDateMin(nextMonth);
+      blueDpDeparture.setDateMin(nextMonth);
+      blueDpReturn.setDateMin(nextMonth);
+    }
   </script>
 </body>
 </html>

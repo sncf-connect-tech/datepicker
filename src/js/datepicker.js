@@ -1,7 +1,6 @@
 require('styles');
 var toolBox = require('toolbox');
 var i18n = require('i18n');
-var date = require('date');
 var css = require('css-class-js');
 
 module.exports = (function () {
@@ -56,6 +55,7 @@ module.exports = (function () {
   VscDatePicker.prototype = {
     build: build,
     presetInward: presetInward,
+    setDateMin: setDateMin,
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
     selectMonth: selectMonth,
@@ -260,6 +260,15 @@ module.exports = (function () {
 
       dp.selectDate();
     }
+  }
+
+  function setDateMin(date) {
+    /* jshint validthis: true */
+    if (!(date instanceof Date)) {
+      return;
+    }
+    this.dateMin = date;
+    this.selectDate(this.dateMin);
   }
 
   function renderDatepicker(date) {

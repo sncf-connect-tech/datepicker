@@ -293,7 +293,6 @@ exports.start = function (days) {
 _dereq_('styles');
 var toolBox = _dereq_('toolbox');
 var i18n = _dereq_('i18n');
-var date = _dereq_('date');
 var css = _dereq_('css-class-js');
 
 module.exports = (function () {
@@ -348,6 +347,7 @@ module.exports = (function () {
   VscDatePicker.prototype = {
     build: build,
     presetInward: presetInward,
+    setDateMin: setDateMin,
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
     selectMonth: selectMonth,
@@ -552,6 +552,15 @@ module.exports = (function () {
 
       dp.selectDate();
     }
+  }
+
+  function setDateMin(date) {
+    /* jshint validthis: true */
+    if (!(date instanceof Date)) {
+      return;
+    }
+    this.dateMin = date;
+    this.selectDate(this.dateMin);
   }
 
   function renderDatepicker(date) {
@@ -1162,7 +1171,7 @@ module.exports = (function () {
   return VscDatePicker;
 })();
 
-},{"css-class-js":2,"date":3,"i18n":6,"styles":8,"toolbox":7}],5:[function(_dereq_,module,exports){
+},{"css-class-js":2,"i18n":6,"styles":8,"toolbox":7}],5:[function(_dereq_,module,exports){
 _dereq_('styles');
 var toolBox = _dereq_('toolbox');
 var i18n = _dereq_('i18n');
