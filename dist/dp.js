@@ -561,7 +561,7 @@ module.exports = (function () {
       return;
     }
     this.dateMin = date;
-    this.selectDate(this.dateMin);
+    this.selectDate();
   }
 
   function getSelectedDate() {
