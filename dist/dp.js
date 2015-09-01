@@ -348,6 +348,7 @@ module.exports = (function () {
     build: build,
     presetInward: presetInward,
     setDateMin: setDateMin,
+    setDateMax: setDateMax,
     getSelectedDate: getSelectedDate,
     renderDatepicker: renderDatepicker,
     clickEvent: clickEvent,
@@ -564,12 +565,29 @@ module.exports = (function () {
     if (!(date instanceof Date)) {
       return;
     }
-    if (this.daysBetween(this.dateMin, date) === 0) {
+    if (this.dateMin && this.daysBetween(this.dateMin, date) === 0) {
       return;
     }
     this.dateMin = date;
     if (this.daysBetween(this.dateMin, this.selectedDate) < 0) {
       this.selectedDate = this.dateMin;
+    }
+    this.selectDate();
+    this.renderMonth(date);
+    this.renderSelectedDate();
+  }
+
+  function setDateMax(date) {
+    /* jshint validthis: true */
+    if (!(date instanceof Date)) {
+      return;
+    }
+    if (this.dateMax && this.daysBetween(date, this.dateMax) === 0) {
+      return;
+    }
+    this.dateMax = date;
+    if (this.daysBetween(this.selectedDate, this.dateMax) < 0) {
+      this.selectedDate = this.dateMax;
     }
     this.selectDate();
     this.renderMonth(date);

@@ -16,26 +16,38 @@
       padding: 10px;
       margin: 10px;
     }
+    label {
+      display: block;
+    }
   </style>
 </head>
 <body>
   <div class="outin">
     <div>
-      <input class="outward" onchange="updateInward(event);">
+      <label for="red-d">Departure</label>
+      <input id="red-d" onchange="onchangeRedDeparture(event);">
       <span class="red-d"></span>
     </div>
     <div>
-      <input class="inward" onchange="onchangeInward(event);">
+      <label for="red-r">Return</label>
+      <input id="red-r" onchange="onchangeRedReturn(event);">
       <span class="red-r"></span>
+    </div>
+    <div>
+      <label for="red-m">Max</label>
+      <input id="red-m" onchange="onchangeRedMax(event);">
+      <span class="red-m"></span>
     </div>
   </div>
   <div class="outin">
     <div>
-      <input class="titi">
+      <label for="blue-d">Departure</label>
+      <input id="blue-d" onchange="onchangeBlueDeparture(event);">
       <span class="blue-d"></span>
     </div>
     <div>
-      <input class="tata">
+      <label for="blue-r">Return</label>
+      <input id="blue-r" onchange="onchangeBlueReturn(event);">
       <span class="blue-r"></span>
     </div>
   </div>
@@ -47,13 +59,17 @@
   </div>
   <script type="text/javascript" src="dist/dp.js"></script>
   <script type="text/javascript">
-    var redDpDeparture = dp.create('.outward');
-    var redDpReturn = dp.create('.inward');
-    var uselessRedDpDeparture = dp.create('.outward');
-    var uselessRedDpReturn = dp.create('.inward');
+    var redDpDeparture = dp.create('#red-d');
+    var redDpReturn = dp.create('#red-r');
+    var redDpMax = dp.create('#red-m');
+    var uselessRedDpDeparture = dp.create('#red-d');
+    var uselessRedDpReturn = dp.create('#red-r');
+    var uselessRedDpMax = dp.create('#red-m');
+
     dp.config({lang: 'fr'});
-    var blueDpDeparture = dp.create('.titi');
-    var blueDpReturn = dp.create('.tata');
+    var blueDpDeparture = dp.create('#blue-d');
+    var blueDpReturn = dp.create('#blue-r');
+
     function setDateMin() {
       var nextMonth = new Date();
       nextMonth.setMonth(nextMonth.getMonth() + 1);
@@ -62,19 +78,43 @@
       blueDpDeparture.setDateMin(nextMonth);
       blueDpReturn.setDateMin(nextMonth);
     }
+
     function displaySelectedDate() {
       document.querySelector('.red-d').innerHTML = redDpDeparture.getSelectedDate();
       document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
+      document.querySelector('.red-m').innerHTML = redDpMax.getSelectedDate();
       document.querySelector('.blue-d').innerHTML = blueDpDeparture.getSelectedDate();
       document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
     }
-    function updateInward() {
+
+    function onchangeRedDeparture() {
       setTimeout(function () {
         redDpReturn.setDateMin(redDpDeparture.getSelectedDate());
+        document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
       }, 100);
     }
-    function onchangeInward() {
-      document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
+    function onchangeRedReturn() {
+      setTimeout(function () {
+        document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
+      }, 100);
+    }
+    function onchangeRedMax() {
+      setTimeout(function () {
+        redDpReturn.setDateMax(redDpMax.getSelectedDate());
+        document.querySelector('.red-r').innerHTML = redDpReturn.getSelectedDate();
+      }, 100);
+    }
+
+    function onchangeBlueDeparture() {
+      setTimeout(function () {
+        blueDpReturn.setDateMin(blueDpDeparture.getSelectedDate());
+        document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
+      }, 100);
+    }
+    function onchangeBlueReturn() {
+      setTimeout(function () {
+        document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
+      }, 100);
     }
   </script>
 </body>
