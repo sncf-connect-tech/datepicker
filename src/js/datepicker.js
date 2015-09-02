@@ -21,8 +21,8 @@ module.exports = (function () {
     if (typeof options !== 'object') {
       options = {
         lang: 'en',
-        dateMin: currentDate(),
-        dateMax: ''
+        dateMin: new Date(),
+        dateMax: null
       };
     }
 
@@ -32,13 +32,13 @@ module.exports = (function () {
     }
 
     // Minimum date
-    if (typeof options.dateMin !== 'string') {
-      options.dateMin = currentDate();
+    if (typeof options.dateMin === 'undefined' || !(options.dateMin instanceof Date)) {
+      options.dateMin = new Date();
     }
 
     // Maximum date
-    if (typeof options.dateMax !== 'string') {
-      options.dateMax = '';
+    if (typeof options.dateMax === 'undefined' || !(options.dateMax instanceof Date)) {
+      options.dateMax = null;
     }
 
     toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), options), i18n[options.lang]);
@@ -65,8 +65,8 @@ module.exports = (function () {
     selectWeek: 0,
     weekLabel: '',
     nbCalendar: 2,
-    dateMin: '',
-    dateMax: ''
+    dateMin: null,
+    dateMax: null
   };
 
   VscDatePicker.prototype = {
@@ -137,16 +137,12 @@ module.exports = (function () {
     // Date settings
     this.setDateFormat();
 
-    if (this.dateMax !== '' && this.dateMax.match(this.reg)) {
-      this.dateMax = this.dateDecode(this.dateMax.match(this.reg));
-    } else {
-      this.dateMax = '';
+    if (typeof this.dateMax === 'undefined' || !(this.dateMax instanceof Date)) {
+      this.dateMax = null;
     }
 
-    if (this.dateMin !== '' && this.dateMin.match(this.reg)) {
-      this.dateMin = this.dateDecode(this.dateMin.match(this.reg));
-    } else {
-      this.dateMin = '';
+    if (typeof this.dateMin === 'undefined' || !(this.dateMin instanceof Date)) {
+      this.dateMin = null;
     }
 
     // Nav

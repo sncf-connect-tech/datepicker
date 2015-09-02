@@ -165,8 +165,8 @@ describe('Date picker tests', function () {
 
       dp.config({
         lang: lang,
-        dateMin: formattedDateMin,
-        dateMax: formattedDateMax
+        dateMin: dateMin.toDate(),
+        dateMax: dateMax.toDate()
       });
       var datepicker = dp.create('.datepicker');
 
@@ -193,8 +193,8 @@ describe('Date picker tests', function () {
 
       dp.config({
         lang: lang,
-        dateMin: formattedDateMin,
-        dateMax: formattedDateMax
+        dateMin: dateMin.toDate(),
+        dateMax: dateMax.toDate()
       });
       var datepicker = dp.create('.datepicker');
 

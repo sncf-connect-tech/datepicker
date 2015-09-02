@@ -22,13 +22,13 @@ module.exports = (function () {
       }
 
       // If back date is not defined, set it to current date
-      if (typeof options.dateMin !== 'string' || options.dateMin === '') {
-        options.dateMin = date.current();
+      if (typeof options.dateMin === 'undefined' || !(options.dateMin instanceof Date)) {
+        options.dateMin = new Date();
       }
 
       // If next date is not defined, set it to empty value
-      if (typeof options.dateMax !== 'string') {
-        options.dateMax = '';
+      if (typeof options.dateMax === 'undefined' || !(options.dateMax instanceof Date)) {
+        options.dateMax = null;
       }
     },
     create: function (selector) {

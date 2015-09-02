@@ -38,8 +38,14 @@
       <input id="red-m" onchange="onchangeRedMax(event);">
       <span class="red-m"></span>
     </div>
+    <div>
+      <button type="button" onclick="setRedDateMin();">set dateMin to next month</button>
+    </div>
   </div>
   <div class="outin">
+    <div>
+      J-5 à J+5
+    </div>
     <div>
       <label for="blue-d">Departure</label>
       <input id="blue-d" onchange="onchangeBlueDeparture(event);">
@@ -50,9 +56,6 @@
       <input id="blue-r" onchange="onchangeBlueReturn(event);">
       <span class="blue-r"></span>
     </div>
-  </div>
-  <div>
-    <button type="button" onclick="setDateMin();">set dateMin to next month</button>
   </div>
   <div>
     <button type="button" onclick="displaySelectedDate();">display selectedDate</button>
@@ -66,17 +69,24 @@
     var uselessRedDpReturn = dp.create('#red-r');
     var uselessRedDpMax = dp.create('#red-m');
 
-    dp.config({lang: 'fr'});
+    var dateMin = new Date();
+    var dateMax = new Date();
+    dateMin.setDate(dateMin.getDate() - 5);
+    dateMax.setDate(dateMax.getDate() + 5);
+    dp.config({
+      lang: 'fr',
+      dateMin: dateMin,
+      dateMax: dateMax
+    });
     var blueDpDeparture = dp.create('#blue-d');
     var blueDpReturn = dp.create('#blue-r');
 
-    function setDateMin() {
+    function setRedDateMin() {
       var nextMonth = new Date();
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       redDpDeparture.setDateMin(nextMonth);
       redDpReturn.setDateMin(nextMonth);
-      blueDpDeparture.setDateMin(nextMonth);
-      blueDpReturn.setDateMin(nextMonth);
+      redDpMax.setDateMin(nextMonth);
     }
 
     function displaySelectedDate() {
