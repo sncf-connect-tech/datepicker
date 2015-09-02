@@ -581,6 +581,9 @@ module.exports = (function () {
     if (this.dateMin && this.daysBetween(this.dateMin, date) === 0) {
       return;
     }
+
+    var prevSelectedDate = this.selectedDate;
+
     this.dateMin = date;
     if (this.daysBetween(this.dateMin, this.selectedDate) < 0) {
       this.selectedDate = this.dateMin;
@@ -588,6 +591,10 @@ module.exports = (function () {
     this.selectDate();
     this.renderMonth(date);
     this.renderSelectedDate();
+
+    if (prevSelectedDate !== this.selectedDate) {
+      this.dispatchChangeEvent();
+    }
   }
 
   function setDateMax(date) {
@@ -598,6 +605,9 @@ module.exports = (function () {
     if (this.dateMax && this.daysBetween(date, this.dateMax) === 0) {
       return;
     }
+
+    var prevSelectedDate = this.selectedDate;
+
     this.dateMax = date;
     if (this.daysBetween(this.selectedDate, this.dateMax) < 0) {
       this.selectedDate = this.dateMax;
@@ -605,6 +615,10 @@ module.exports = (function () {
     this.selectDate();
     this.renderMonth(date);
     this.renderSelectedDate();
+
+    if (prevSelectedDate !== this.selectedDate) {
+      this.dispatchChangeEvent();
+    }
   }
 
   function getSelectedDate() {
