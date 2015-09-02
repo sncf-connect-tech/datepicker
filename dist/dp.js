@@ -301,19 +301,36 @@ module.exports = (function () {
    * Constructor
    */
   function VscDatePicker(el, opts) {
-    var options = opts || {};
+    /* jshint validthis: true */
     // Has already been wrapped
     if (css.hasClass(el.parentNode, 'datepicker-wrapper')) {
       return;
     }
 
-    /* jshint validthis: true */
-    if (typeof (options) !== 'object') {
+    // Options
+    var options = opts || {};
+
+    if (typeof options !== 'object') {
       options = {
-        lang: 'en'
+        lang: 'en',
+        dateMin: currentDate(),
+        dateMax: ''
       };
-    } else if (typeof options.lang === 'undefined' || typeof i18n[options.lang] === 'undefined') {
+    }
+
+    // Lang
+    if (typeof options.lang === 'undefined' || typeof i18n[options.lang] === 'undefined') {
       options.lang = 'en';
+    }
+
+    // Minimum date
+    if (typeof options.dateMin !== 'string') {
+      options.dateMin = currentDate();
+    }
+
+    // Maximum date
+    if (typeof options.dateMax !== 'string') {
+      options.dateMax = '';
     }
 
     toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), options), i18n[options.lang]);
@@ -1244,11 +1261,7 @@ var VscDatePicker = _dereq_('datepicker');
 
 module.exports = (function () {
 
-  var options = {
-    lang: 'en',
-    dateMin: date.current(),
-    dateMax: ''
-  };
+  var options = {};
 
   return {
     config: function (opt) {

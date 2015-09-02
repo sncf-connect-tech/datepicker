@@ -7,11 +7,7 @@ var VscDatePicker = require('datepicker');
 
 module.exports = (function () {
 
-  var options = {
-    lang: 'en',
-    dateMin: date.current(),
-    dateMax: ''
-  };
+  var options = {};
 
   return {
     config: function (opt) {
