@@ -5,6 +5,7 @@ var sinon = require('sinon');
 describe('Date picker tests', function () {
 
   var currentDate;
+
   // Inject the HTML input for the tests
   beforeEach(function () {
     currentDate = new Date();
@@ -18,33 +19,107 @@ describe('Date picker tests', function () {
     $('.date-selector').remove();
   });
 
-  it('Call date picker with default parameters', function () {
-    var DatePicker = require('../../src/js/datepicker');
-    DatePicker.init();
-    DatePicker.wrap({outward: '.datepicker'});
+  describe('Call date picker with default parameters', function () {
+    describe('common behaviours', function () {
+      var dp = require('../../src/js/dp');
+      var datepicker;
+      var today;
+      var formattedToday;
+      var todayCell;
+      var todayRow;
+      var formattedYesterday;
+      var yesterdayCell;
 
-    // Verify today
-    var formattedToday = moment().format('DD/MM/YYYY');
-    var dpToday = $('div.date-selector .today').attr('date');
-    expect(dpToday).toBe(formattedToday);
+      beforeEach(function () {
+        datepicker = dp.create('.datepicker');
+        today = moment();
+        formattedToday = today.format('DD/MM/YYYY');
+        todayCell = $('div.date-selector .today');
+        todayRow = todayCell.parent();
+        formattedYesterday = today.clone();
+        formattedYesterday.subtract(1, 'days').format('DD/MM/YYYY');
+        yesterdayCell = $('td[date="' + formattedYesterday + '"]');
+      });
 
-    // Verify month name is in english
-    var currentMonthName = moment().format('MMMM');
-    var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
-    expect(dpCurrentMonth).toBe(currentMonthName);
+      it('should format today', function () {
+        expect(todayCell.attr('date')).toBe(formattedToday);
+      });
 
-    // Verify that previous date is unselected
-    var previousParentId = $('div.date-selector .today').parent().prev().attr('id');
-    var lastElement = $('#' + previousParentId + ' td:last-child');
-    expect(lastElement.attr('class')).toBe('unselected_month');
+      it('should display current month in english', function () {
+        var currentMonthName = moment().format('MMMM');
+        var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
+        expect(dpCurrentMonth).toBe(currentMonthName);
+      });
+    });
+
+    it('should not create previous date cell when the 1st is a monday', function () {
+      var clock = sinon.useFakeTimers(new Date('02/01/2016').getTime()); // February 1st
+
+      var dp = require('../../src/js/dp');
+      var datepicker = dp.create('.datepicker');
+      var today = moment();
+      var formattedToday = today.format('DD/MM/YYYY');
+      var todayCell = $('td[date="' + formattedToday + '"]');
+      var todayRow = todayCell.parent();
+      var yesterday = today.clone();
+      yesterday.subtract(1, 'days');
+      var formattedYesterday = yesterday.format('DD/MM/YYYY');
+      var yesterdayCell = $('td[date="' + formattedYesterday + '"]');
+
+      // Today is at 0;0 position
+      expect(todayCell.attr('id')).toBe('day0');
+      expect(todayRow.attr('id')).toBe('row0');
+
+      expect(yesterdayCell.length).toBe(0);
+
+      clock.restore();
+    });
+
+    it('should not display previous date cell when it is not in the same month', function () {
+      var clock = sinon.useFakeTimers(new Date('01/01/2016').getTime()); // January 1st
+
+      var dp = require('../../src/js/dp');
+      var datepicker = dp.create('.datepicker');
+      var today = moment();
+      var formattedToday = today.format('DD/MM/YYYY');
+      var todayCell = $('td[date="' + formattedToday + '"]');
+      var yesterday = today.clone();
+      yesterday.subtract(1, 'days');
+      var formattedYesterday = yesterday.format('DD/MM/YYYY');
+      var yesterdayCell = $('td[date="' + formattedYesterday + '"]');
+
+      // Today is the first day of the month
+      expect(yesterdayCell.hasClass('unselected_month')).toBeTruthy();
+      expect(yesterdayCell.hasClass('off_month')).toBeTruthy();
+
+      clock.restore();
+    });
+    it('should disable previous date cell when it is in the same month', function () {
+      var clock = sinon.useFakeTimers(new Date('01/02/2016').getTime()); // January 2nd
+
+      var dp = require('../../src/js/dp');
+      var datepicker = dp.create('.datepicker');
+      var today = moment();
+      var formattedToday = today.format('DD/MM/YYYY');
+      var todayCell = $('td[date="' + formattedToday + '"]');
+      var yesterday = today.clone();
+      yesterday.subtract(1, 'days');
+      var formattedYesterday = yesterday.format('DD/MM/YYYY');
+      var yesterdayCell = $('td[date="' + formattedYesterday + '"]');
+
+      expect(yesterdayCell.hasClass('unselected_month')).toBeTruthy();
+      expect(yesterdayCell.hasClass('off_month')).toBeFalsy();
+
+      clock.restore();
+    });
   });
 
-  it('Display date picker for fr language', function () {
+  it('should display \'Juillet\' for fr language', function () {
     var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
     var lang = 'fr';
-    var DatePicker = require('../../src/js/datepicker');
-    DatePicker.init({lang: lang});
-    DatePicker.wrap({outward: '.datepicker'});
+    var dp = require('../../src/js/dp');
+    dp.config({lang: lang});
+    dp.create('.datepicker');
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Juillet');
@@ -52,12 +127,13 @@ describe('Date picker tests', function () {
     clock.restore();
   });
 
-  it('Display date picker for es language', function () {
+  it('should display \'Julio\' for es language', function () {
     var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
+
     var lang = 'es';
-    var DatePicker = require('../../src/js/datepicker');
-    DatePicker.init({lang: lang});
-    DatePicker.wrap({outward: '.datepicker'});
+    var dp = require('../../src/js/dp');
+    dp.config({lang: lang});
+    var datepicker = dp.create('.datepicker');
 
     var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
     expect(dpCurrentMonth).toBe('Julio');
@@ -75,13 +151,13 @@ describe('Date picker tests', function () {
     var formattedDateMax = dateMax.format('DD/MM/YYYY');
     var formattedOneDayAfterMaxDate = dateMax.add(1, 'days').format('DD/MM/YYYY');
 
-    var DatePicker = require('../../src/js/datepicker');
-    DatePicker.init({
+    var dp = require('../../src/js/dp');
+    dp.config({
       lang: lang,
       dateMin: formattedDateMin,
       dateMax: formattedDateMax
     });
-    DatePicker.wrap({outward: '.datepicker'});
+    var datepicker = dp.create('.datepicker');
 
     // Verify that previous date is unselected
     var dateMinElement = $('.table-month-wrapper').find('[date="' + formattedDateMin + '"]');
