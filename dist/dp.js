@@ -809,10 +809,10 @@ module.exports = (function () {
       this.selectedDate = this.dateMin;
       this.selectedDateString = this.dateToString(this.selectedDate);
       this.selectMonth(this.dateMin);
-      this.input.value = ' ';
+      this.input.value = '';
     } else {
       this.selectMonth(this.dateMax);
-      this.input.value = ' ';
+      this.input.value = '';
     }
   }
 
