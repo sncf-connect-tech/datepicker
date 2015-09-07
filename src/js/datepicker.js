@@ -787,13 +787,9 @@ module.exports = (function () {
 
     // Enough space over input
     if (inputRect.top >= this.rootHeight) {
-      this.rootLayers.style.top = 'auto';
-      this.rootLayers.style.bottom = (inputRect.height + 15) + 'px';
       css.addClass(this.rootLayers, 'on-top');
       css.removeClass(this.rootLayers, 'under');
     } else {
-      this.rootLayers.style.top = (inputRect.height + 15) + 'px';
-      this.rootLayers.style.bottom = 'auto';
       css.addClass(this.rootLayers, 'under');
       css.removeClass(this.rootLayers, 'on-top');
     }

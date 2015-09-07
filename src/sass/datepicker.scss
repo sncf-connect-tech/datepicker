@@ -5,14 +5,17 @@
 @import "ico";
 
 .datepicker-wrapper {
-  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
   abbr[title] {
     border-bottom: none;
   }
   .date-selector {
     display: none;
     position: absolute;
+    top: calc(100% + 0.375em);
+    bottom: auto;
     background: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
     padding: em(10);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
     border-radius: 3px;
@@ -44,6 +47,8 @@
       z-index: 1;
     }
     &.on-top {
+      top: auto;
+      bottom: calc(100% + 0.375em);
       &:after {
         bottom: -0.54em;
         top: auto;
