@@ -98,6 +98,7 @@ module.exports = (function () {
     moveDateMonthBy: moveDateMonthBy,
     moveMonthBy: moveMonthBy,
     firstMonthAllowed: firstMonthAllowed,
+    nextMonthAllowed: nextMonthAllowed,
     monthName: monthName,
     getMonthSelect: getMonthSelect,
     bindToObj: bindToObj,
@@ -422,6 +423,7 @@ module.exports = (function () {
     toolBox.emptyNode(this.monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
     toolBox.emptyNode(this.yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
     this.firstMonthAllowed(firstMonth);
+    this.nextMonthAllowed(date);
 
     // Iterate to render next months
     if (this.nbCalendar > 1) {
@@ -829,6 +831,17 @@ module.exports = (function () {
       css.removeClass(this.prevBtn, 'stop');
     } else {
       css.addClass(this.prevBtn, 'stop');
+    }
+  }
+
+  function nextMonthAllowed(month) {
+    var nextMonth = new Date(month);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    nextMonth.setDate(1);
+    if (this.isNewDateAllowed(nextMonth)) {
+      css.removeClass(this.nextBtn, 'stop');
+    } else {
+      css.addClass(this.nextBtn, 'stop');
     }
   }
 
