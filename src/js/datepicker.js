@@ -780,18 +780,33 @@ module.exports = (function () {
   function setPosition() {
     /* jshint validthis: true */
     var inputRect = this.input.getBoundingClientRect();
-    if (this.rootHeight === 0) {
-      this.rootHeight = this.rootLayers.offsetHeight;
-    }
+    var rootRect = {
+      height: this.rootLayers.offsetHeight,
+      width: this.rootLayers.offsetWidth
+    };
 
-    // Enough space over input
-    if (inputRect.top >= this.rootHeight) {
+    // Vertical position
+    if (inputRect.top >= rootRect.height) {
+      // Enough space over input
       css.addClass(this.rootLayers, 'on-top');
       css.removeClass(this.rootLayers, 'under');
     } else {
+      // Not enough space over
       css.addClass(this.rootLayers, 'under');
       css.removeClass(this.rootLayers, 'on-top');
     }
+
+    // Horizontal position
+    // Center
+    var left = -(rootRect.width - inputRect.width) / 2;
+    if (inputRect.left + left < 0) {
+      // Left
+      left = -inputRect.left + 10;
+    } else if (inputRect.left + inputRect.width - left > document.body.offsetWidth) {
+      // Right
+      left = document.body.offsetWidth - (inputRect.left + rootRect.width) - 10;
+    }
+    this.rootLayers.style.left = left + 'px';
   }
 
   function moveDateBy(amount) {
