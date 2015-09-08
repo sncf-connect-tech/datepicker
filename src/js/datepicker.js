@@ -579,7 +579,7 @@ module.exports = (function () {
       dp.rootLayers.setAttribute('aria-hidden', 'true');
       dp.rootLayers.style.opacity = 0;
       setTimeout(function () {
-        if (dp.rootLayers.style.opacity === 0) {
+        if (dp.rootLayers.style.opacity === '0') {
           dp.rootLayers.style.display = 'none';
         }
       }, 200);
