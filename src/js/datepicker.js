@@ -577,10 +577,12 @@ module.exports = (function () {
     var dp = this;
     if (dp.input.type !== 'hidden') {
       dp.rootLayers.setAttribute('aria-hidden', 'true');
-      setTimeout(function () {
-        dp.rootLayers.style.display = 'none';
-      }, 200);
       dp.rootLayers.style.opacity = 0;
+      setTimeout(function () {
+        if (dp.rootLayers.style.opacity === 0) {
+          dp.rootLayers.style.display = 'none';
+        }
+      }, 200);
       document.removeEventListener(dp.clickEvent(), dp.hideIfClickOutside);
       dp.input.addEventListener('focus', dp.show);
       document.body.removeEventListener('keydown', dp.keydownHandler);
