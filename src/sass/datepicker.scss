@@ -22,8 +22,7 @@
     animation: dp-scale 0.12s ease-in;
     @extend %noSelect;
     z-index: 9000;
-    &:after {
-      content: "";
+    .date-selector-after {
       position: absolute;
       display: block;
       width: 1em;
@@ -35,8 +34,7 @@
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.33);
       z-index:0;
     }
-    &:before {
-      content: "";
+    .date-selector-before {
       position: absolute;
       display: block;
       width: 2em;
@@ -49,11 +47,11 @@
     &.on-top {
       top: auto;
       bottom: calc(100% + 0.375em);
-      &:after {
+      .date-selector-after {
         bottom: -0.54em;
         top: auto;
       }
-      &:before {
+      .date-selector-before {
         top: auto;
         bottom: 0;
         height: 0.9em;

@@ -210,12 +210,21 @@ module.exports = (function () {
       this.changeInput(this.currentDate());
     });
 
+    // Arrow
+    var before = toolBox.createElement('<span class="date-selector-before"></span>');
+    var after = toolBox.createElement('<span class="date-selector-after"></span>');
+    this.arrowBefore = before;
+    this.arrowAfter = after;
+
     // Date picker container
     var style = (this.input.type === 'hidden') ? ' style="display:block; position:static; margin:0 auto"' : '';
     this.dateSelector = toolBox.createElement('<div class="date-selector" aria-hidden="true"' + style + '></div>');
+    this.dateSelector.appendChild(before);
+    this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(nav);
     this.dateSelector.appendChild(tableShell);
     this.dateSelector.appendChild(todayDate);
+    this.dateSelector.appendChild(after);
     this.input.parentNode.appendChild(this.dateSelector);
     this.rootLayers = this.dateSelector;
     this.rootHeight = this.rootLayers.offsetHeight;
@@ -799,14 +808,22 @@ module.exports = (function () {
     // Horizontal position
     // Center
     var left = -(rootRect.width - inputRect.width) / 2;
+    var arrowBeforeLeft = (rootRect.width - this.arrowBefore.offsetWidth) / 2;
+    var arrowAfterLeft = (rootRect.width - this.arrowAfter.offsetWidth) / 2;
     if (inputRect.left + left < 0) {
       // Left
       left = -inputRect.left + 10;
+      arrowAfterLeft = -left + inputRect.width / 2 - 10;
+      arrowBeforeLeft = arrowAfterLeft - 10;
     } else if (inputRect.left + inputRect.width - left > document.body.offsetWidth) {
       // Right
       left = document.body.offsetWidth - (inputRect.left + rootRect.width) - 10;
+      arrowAfterLeft = -left + inputRect.width / 2 - 10;
+      arrowBeforeLeft = arrowAfterLeft - 10;
     }
     this.rootLayers.style.left = left + 'px';
+    this.arrowBefore.style.left = arrowBeforeLeft + 'px';
+    this.arrowAfter.style.left = arrowAfterLeft + 'px';
   }
 
   function moveDateBy(amount) {
