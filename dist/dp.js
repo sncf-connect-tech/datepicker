@@ -836,6 +836,8 @@ module.exports = (function () {
     this.input.value = dateString;
     this.dispatchChangeEvent();
     if (this.input.type !== 'hidden') {
+      this.input.blur();
+      this.input.focus();
       this.hide();
     }
   }
@@ -868,7 +870,6 @@ module.exports = (function () {
     /* jshint validthis: true */
     var dp = this;
     if (dp.input.type !== 'hidden') {
-      dp.input.blur();
       dp.rootLayers.setAttribute('aria-hidden', 'true');
       dp.rootLayers.style.opacity = 0;
       setTimeout(function () {
