@@ -550,12 +550,15 @@ module.exports = (function () {
 
   function changeInput(dateString) {
     /* jshint validthis: true */
+    var vm = this;
     this.input.value = dateString;
     this.dispatchChangeEvent();
     if (this.input.type !== 'hidden') {
       this.input.blur();
       this.input.focus();
-      this.hide();
+      setTimeout(function () {
+        vm.hide();
+      }, 100);
     }
   }
 
