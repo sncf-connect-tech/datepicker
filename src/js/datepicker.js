@@ -390,6 +390,12 @@ module.exports = (function () {
       }
     }
 
+    // Empty line to have always the same height
+    while (weekRow < 6) {
+      tableCells += '<tr id="row' + weekRow + '"><td class="unselected_month off_month">N</td></tr>';
+      weekRow++;
+    }
+
     tableCells += '</tr></table>';
     td.innerHTML = tableCells;
 
