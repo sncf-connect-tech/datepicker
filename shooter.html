@@ -47,12 +47,12 @@
       J-5 à J+5
     </div>
     <div>
-      <label for="blue-d">Departure</label>
+      <label for="blue-d">Departure (topMin: 95px)</label>
       <input id="blue-d" onchange="onchangeBlueDeparture(event);">
       <span class="blue-d"></span>
     </div>
     <div>
-      <label for="blue-r">Return</label>
+      <label for="blue-r">Return (topMin: 0px)</label>
       <input id="blue-r" onchange="onchangeBlueReturn(event);">
       <span class="blue-r"></span>
     </div>
@@ -76,6 +76,9 @@
       dateMax: dateMax
     });
     var blueDpDeparture = dp.create('#blue-d');
+    dp.config({
+      topMin: 0
+    });
     var blueDpReturn = dp.create('#blue-r');
 
     displaySelectedDate();

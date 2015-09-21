@@ -314,7 +314,8 @@ module.exports = (function () {
       options = {
         lang: 'en',
         dateMin: new Date(),
-        dateMax: null
+        dateMax: null,
+        topMin: 95
       };
     }
 
@@ -331,6 +332,11 @@ module.exports = (function () {
     // Maximum date
     if (typeof options.dateMax === 'undefined' || !(options.dateMax instanceof Date)) {
       options.dateMax = null;
+    }
+
+    // Top min
+    if (typeof options.topMin === 'undefined' || isNaN(options.topMin)) {
+      options.topMin = 95;
     }
 
     toolBox.extendObject(toolBox.extendObject(toolBox.extendObject(this, VscDatePicker.DEFAULT_OPTS), options), i18n[options.lang]);
@@ -1096,7 +1102,7 @@ module.exports = (function () {
     };
 
     // Vertical position
-    if (inputRect.top >= rootRect.height) {
+    if (inputRect.top >= rootRect.height + this.topMin) {
       // Enough space over input
       css.addClass(this.rootLayers, 'on-top');
       css.removeClass(this.rootLayers, 'under');
