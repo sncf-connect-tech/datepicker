@@ -860,7 +860,7 @@ module.exports = (function () {
     /* jshint validthis: true */
     var newMonth = null;
     if (amount < 0) {
-      newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount + 1, -1);
+      newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount + 1, 0);
     } else {
       newMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + amount, 1);
     }

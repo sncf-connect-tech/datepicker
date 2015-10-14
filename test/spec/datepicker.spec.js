@@ -77,6 +77,20 @@ describe('Date picker tests >', function () {
       clock.restore();
     });
 
+    it('should display August after move date August 31 by 1 day and back by a month', function () {
+      var clock = sinon.useFakeTimers(new Date('08/31/2016').getTime()); // August 31
+
+      var datepicker = dp.create('.datepicker');
+
+      datepicker.moveDateBy(1);
+      expect($('div.date-selector .month-name-0').text()).toBe('September');
+
+      datepicker.moveMonthBy(-1);
+      expect($('div.date-selector .month-name-0').text()).toBe('August');
+
+      clock.restore();
+    });
+
     it('should not display previous date cell when it is not in the same month', function () {
       var clock = sinon.useFakeTimers(new Date('01/01/2016').getTime()); // January 1st
 
