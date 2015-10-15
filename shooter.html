@@ -42,6 +42,11 @@
     <div>
       <button type="button" onclick="setRedDateMin();">set dateMin to next month</button>
     </div>
+    <div>
+      <button type="button" onclick="setNbCalendarRed(1);">setNbCalendarLarge(1)</button>
+      <button type="button" onclick="setNbCalendarRed(2);">setNbCalendarLarge(2)</button>
+      <button type="button" onclick="setNbCalendarRed(3);">setNbCalendarLarge(3)</button>
+    </div>
   </div>
   <div class="outin" style="margin-top: 300px">
     <div>
@@ -58,8 +63,24 @@
       <span class="blue-r"></span>
     </div>
   </div>
+  <div class="outin" style="margin-top: 300px">
+      <div>
+          <label for="large-cal">Large</label>
+          <input id="large-cal">
+          <span class="large-cal"></span>
+      </div>
+      <div>
+          <button type="button" onclick="setNbCalendar(1);">setNbCalendarLarge(1)</button>
+          <button type="button" onclick="setNbCalendar(2);">setNbCalendarLarge(2)</button>
+          <button type="button" onclick="setNbCalendar(3);">setNbCalendarLarge(3)</button>
+      </div>
+  </div>
   <script type="text/javascript" src="dist/dp.js"></script>
   <script type="text/javascript">
+    dp.config({ nbCalendar: 4 });
+    var largeCal = dp.create('#large-cal');
+    dp.config({});
+
     var redDpDeparture = dp.create('#red-d');
     var redDpReturn = dp.create('#red-r');
     var redDpMax = dp.create('#red-m');
@@ -90,6 +111,16 @@
       redDpDeparture.setDateMin(nextMonth);
       redDpReturn.setDateMin(nextMonth);
       redDpMax.setDateMin(nextMonth);
+    }
+
+    function setNbCalendarLarge(nb) {
+        largeCal.setNbCalendar(nb);
+    }
+
+    function setNbCalendarRed(nb) {
+        redDpDeparture.setNbCalendar(nb);
+        redDpReturn.setNbCalendar(nb);
+        redDpMax.setNbCalendar(nb);
     }
 
     function displaySelectedDate() {

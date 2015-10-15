@@ -30,6 +30,10 @@ module.exports = (function () {
       if (typeof options.dateMax === 'undefined' || !(options.dateMax instanceof Date)) {
         options.dateMax = null;
       }
+
+      if (!options.hasOwnProperty('nbCalendar')) {
+        options.nbCalendar = 'auto';
+      }
     },
     create: function (selector) {
       var dpBuilder = this;
@@ -64,6 +68,14 @@ module.exports = (function () {
       // Limit date range to 6 months in the future
       if (css.hasClass(input, 'six-months-in-future')) {
         instanceOptions.dateMax = date.sixMonthsFuture();
+      }
+
+      if (instanceOptions.nbCalendar === 'auto') {
+        var innerWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        instanceOptions.nbCalendar = 2;
+        if (innerWidth < 500) {
+          instanceOptions.nbCalendar = 1;
+        }
       }
 
       // Instantiate datepicker object

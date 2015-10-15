@@ -122,13 +122,13 @@ module.exports = (function () {
     isLastDayOfWeek: isLastDayOfWeek,
     showError: showError,
     adjustDays: adjustDays,
-    strpad: strpad
+    strpad: strpad,
+    setNbCalendar: setNbCalendar,
+    drawMonthHeads: drawMonthHeads
   };
 
   function build() {
     /* jshint validthis: true */
-    var i = 0;
-    var l = 0;
 
     // Wrapper
     this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
@@ -160,20 +160,7 @@ module.exports = (function () {
     nav.appendChild(this.errorMsg);
 
     // Heading
-    var monthHead = document.createElement('div');
-    var monthHeading = null;
-    this.monthNameSpan = [];
-    this.yearNameSpan = [];
-
-    for (i = 0, l = this.nbCalendar; i < l; i++) {
-      monthHeading = toolBox.createElement('<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '"></span> ');
-      this.monthNameSpan.push(toolBox.createElement('<span class="month-name month-name-' + i + '"></span> '));
-      this.yearNameSpan.push(toolBox.createElement('<span class="year-name year-name-' + i + '"></span>'));
-      monthHeading.appendChild(this.monthNameSpan[i]);
-      monthHeading.appendChild(toolBox.createElement('<span> </span>'));
-      monthHeading.appendChild(this.yearNameSpan[i]);
-      monthHead.appendChild(monthHeading);
-    }
+    var monthHead = this.drawMonthHeads();
 
     // Nav buttons
     var monthNav = toolBox.createElement('<p class="month-nav">' + '<span class="button prev idp-left" title="' + this.previous + ' [Page-Up]" role="button">' + this.previous + '</span>' + '<span class="button next idp-right" title="' + this.next + ' [Page-Down]" role="button">' + this.next + '</span></p>');
@@ -436,17 +423,23 @@ module.exports = (function () {
     var firstMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
     this.tbody.appendChild(this.renderDatepicker(date));
 
-    toolBox.emptyNode(this.monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
-    toolBox.emptyNode(this.yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
+    var monthNameSpan = this.dateSelector.querySelectorAll('.month-head span.month-name');
+    var yearNameSpan = this.dateSelector.querySelectorAll('.month-head span.year-name');
+
+    toolBox.emptyNode(monthNameSpan[0]).textContent = this.monthNames[firstMonth.getMonth()];
+    toolBox.emptyNode(yearNameSpan[0]).textContent = this.currentMonth.getFullYear();
     this.firstMonthAllowed(firstMonth);
     this.nextMonthAllowed(date);
 
     // Iterate to render next months
+    var i;
+    var l;
+
     if (this.nbCalendar > 1) {
       for (i = 1, l = this.nbCalendar; i < l; i++) {
-        var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + (this.nbCalendar - i), 1);
-        toolBox.emptyNode(this.monthNameSpan[i]).textContent = this.monthNames[nextMonth.getMonth()];
-        toolBox.emptyNode(this.yearNameSpan[i]).textContent = nextMonth.getFullYear();
+        var nextMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + i, 1);
+        toolBox.emptyNode(monthNameSpan[i]).textContent = this.monthNames[nextMonth.getMonth()];
+        toolBox.emptyNode(yearNameSpan[i]).textContent = nextMonth.getFullYear();
         this.tbody.appendChild(this.renderDatepicker(nextMonth));
       }
     }
@@ -684,6 +677,48 @@ module.exports = (function () {
       mm = '0' + mm;
     }
     return String(dd + '\/' + mm + '\/' + yyyy);
+  }
+
+  function setNbCalendar(newNbCalendar) {
+    /* jshint validthis: true */
+    this.nbCalendar = newNbCalendar;
+    this.drawMonthHeads();
+    this.selectDate();
+    this.renderMonth(this.currentMonth);
+    this.renderSelectedDate();
+  }
+
+  function drawMonthHeads() {
+    /* jshint validthis: true */
+    var monthHead;
+
+    if (this.dateSelector) {
+      monthHead = this.dateSelector.querySelector('.month-head-wrapper');
+      monthHead.innerHTML = '';
+    } else {
+      monthHead = toolBox.createElement('<div class="month-head-wrapper"></div>');
+    }
+
+    var monthHeading = null;
+    var i;
+    var l;
+    var headWidth = (100 / this.nbCalendar).toFixed(2) + '%';
+
+    this.monthNameSpan = [];
+    this.yearNameSpan = [];
+
+    for (i = 0, l = this.nbCalendar; i < l; i++) {
+      monthHeading = toolBox.createElement('<span role="heading" aria-atomic="true" aria-live="assertive" class="month-head month-head-' + i + '"></span> ');
+      this.monthNameSpan.push(toolBox.createElement('<span class="month-name month-name-' + i + '"></span> '));
+      this.yearNameSpan.push(toolBox.createElement('<span class="year-name year-name-' + i + '"></span>'));
+      monthHeading.appendChild(this.monthNameSpan[i]);
+      monthHeading.appendChild(toolBox.createElement('<span> </span>'));
+      monthHeading.appendChild(this.yearNameSpan[i]);
+      monthHeading.style.width = headWidth;
+      monthHead.appendChild(monthHeading);
+    }
+
+    return monthHead;
   }
 
   function setDateFormat() {
