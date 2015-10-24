@@ -2,7 +2,7 @@ Datepicker
 ===========================
 
 ```
-bower install git@gitlab.socrate.vsct.fr:VSH/datepicker.git
+bower install git@github.com:voyages-sncf-technologies/datepicker.git
 npm install
 grunt
 ```
