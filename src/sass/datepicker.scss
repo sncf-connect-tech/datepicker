@@ -48,7 +48,7 @@
       top: auto;
       bottom: calc(100% + 0.375em);
       .date-selector-after {
-        bottom: -0.54em;
+        bottom: -0.4em;
         top: auto;
       }
       .date-selector-before {
@@ -126,13 +126,14 @@
     vertical-align: top;
     td {
       border: 1px solid $border-light;
-      padding: em(11);
+      padding: 0.55em 0.75em;
+      font-size: 0.9em;
       text-align: center;
     }
     th {
       padding: em(11);
       font-weight: normal;
-      font-size: 0.9em;
+      font-size: 0.8em;
       border-bottom: 0;
     }
     .selectable_day {
