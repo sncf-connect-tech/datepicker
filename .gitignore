@@ -8,3 +8,4 @@ src/.sass-cache/
 .sass-cache/
 test-reports/
 tmp
+test-results.xml

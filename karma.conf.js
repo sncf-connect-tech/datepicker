@@ -36,7 +36,12 @@ module.exports = function (config) {
     browserify: {
       watch: true,
       debug: true,
-      transform: ['sassr']
+      transform: ['sassr', ['browserify-istanbul', {
+        instrumenterConfig: {
+          embedSource: true
+        },
+        ignore: [__dirname + '/**/bower_components/**', __dirname + '/**/*.hbs', __dirname + '/**/*.css']
+      }]]
     },
 
     // list of files to exclude
@@ -45,13 +50,20 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     //reporters: ['progress', 'junit', 'html'],
-    reporters: ['html', 'junit', 'coverage'],
+    reporters: ['progress', 'html', 'junit', 'coverage'],
 
     junitReporter: {
-      outputFile: 'test-reports/TEST-js-unit-datepicker.Karma.xml'
+      outputDir: 'test-reports/junit'
     },
 
     coverageReporter: {
+      reporters: [
+        {type: 'html'},
+        {type: 'clover'},
+        {type: 'cobertura'},
+        {type: 'text'},
+        {type: 'text-summary'}
+      ],
       dir: 'test-reports/coverage/'
     },
 
