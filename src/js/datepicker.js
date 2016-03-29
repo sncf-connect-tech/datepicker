@@ -130,10 +130,15 @@ module.exports = (function () {
   function build() {
     /* jshint validthis: true */
 
+    var self = this;
+
     // Wrapper
     this.wrapp = toolBox.createElement('<div class="datepicker-wrapper">');
     this.input.parentNode.insertBefore(this.wrapp, this.input);
     this.wrapp.appendChild(this.input);
+    this.input.addEventListener('click', function () {
+      self.show();
+    }, false);
 
     // Input
     this.inputChangeHandler = (this.bindToObj(function () {
@@ -580,6 +585,11 @@ module.exports = (function () {
 
   function show() {
     /* jshint validthis: true */
+
+    if (this.rootLayers.getAttribute('aria-hidden') === 'false') {
+      return;
+    }
+
     this.errorMsg.style.display = 'none';
     this.rootLayers.setAttribute('aria-hidden', 'false');
     this.rootLayers.style.display = 'block';
