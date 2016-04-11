@@ -38,12 +38,15 @@ module.exports = (function () {
     create: function (selector) {
       var dpBuilder = this;
 
-      if (typeof selector !== 'string') {
-        return;
+      var input;
+
+      if (typeof selector === 'string') {
+        input = document.querySelector(selector);
+      } else if (selector.nodeType && (selector.nodeType === document.ELEMENT_NODE)) {
+        input = selector;
       }
 
-      var input = document.querySelector(selector);
-      if (input === null) {
+      if (!input) {
         return;
       }
 
