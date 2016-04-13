@@ -572,15 +572,21 @@ module.exports = (function () {
     }
   }
 
+  function fireEvent (element, type, options) {
+    var event = document.createEvent('CustomEvent');
+    options = options || {};
+    event.initCustomEvent(type,
+      options.bubbles !== false,
+      options.cancelable !== false,
+      options.detail
+    );
+    if (options.baseEvent) inheritEvent(event, options.baseEvent);
+    element.dispatchEvent(event);
+  }
+
   function dispatchChangeEvent() {
     /* jshint validthis: true */
-    if ('createEvent' in document) {
-      var evt = document.createEvent('HTMLEvents');
-      evt.initEvent('change', false, true);
-      this.input.dispatchEvent(evt);
-    } else {
-      this.input.fireEvent('onchange');
-    }
+    fireEvent(this.input, 'change');
   }
 
   function show() {
