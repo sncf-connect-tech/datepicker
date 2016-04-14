@@ -572,7 +572,7 @@ module.exports = (function () {
     }
   }
 
-  function fireEvent (element, type, options) {
+  function fireEvent(element, type, options) {
     var event = document.createEvent('CustomEvent');
     options = options || {};
     event.initCustomEvent(type,
@@ -580,7 +580,9 @@ module.exports = (function () {
       options.cancelable !== false,
       options.detail
     );
-    if (options.baseEvent) inheritEvent(event, options.baseEvent);
+    if (options.baseEvent) {
+      inheritEvent(event, options.baseEvent);
+    }
     element.dispatchEvent(event);
   }
 
