@@ -520,14 +520,21 @@ module.exports = (function () {
     this.rootHeight = this.rootLayers.offsetHeight;
 
     // Keep focus on the editable element (prevent blur on the corresponding input)
-    this.dateSelector.onmousedown = function () {
+    this.dateSelector.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      e.returnValue = false;
       return false;
-    };
+    }, false);
 
     this.dateSelector.addEventListener(this.clickEvent(), function (e) {
       e.preventDefault();
       e.stopPropagation();
-    });
+      e.stopImmediatePropagation();
+      e.returnValue = false;
+      return false;
+    }, false);
 
     // Fill inwardDate with outwardDate
     this.presetInward();
@@ -746,19 +753,34 @@ module.exports = (function () {
     var today = this.tbody.querySelector('td[date="' + this.dateToString(new Date()) + '"]');
     var tr = this.tbody.querySelectorAll('tr');
 
+    /* jshint ignore:start */
+
     if (this.selectWeek === 0) {
       for (i = 0, l = selectableDays.length; i < l; i++) {
         selectableDays[i].addEventListener('click', this.bindToObj(function (event) {
           this.changeInput(event.target.getAttribute('date'));
+
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          event.returnValue = false;
+          return false;
         }));
       }
     } else {
       for (i = 0, l = selectableWeeks.length; i < l; i++) {
         selectableWeeks[i].addEventListener('click', this.bindToObj(function (event) {
           this.changeInput(event.target.parentNode.getAttribute('date'));
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          event.returnValue = false;
+          return false;
         }));
       }
     }
+
+    /* jshint ignore:end */
 
     if (today !== null) {
       css.addClass(today, 'today');
@@ -856,8 +878,6 @@ module.exports = (function () {
     this.input.value = dateString;
     this.dispatchChangeEvent();
     if (this.input.type !== 'hidden') {
-      this.input.blur();
-      this.input.focus();
       setTimeout(function () {
         vm.hide();
       }, 100);

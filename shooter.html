@@ -160,6 +160,14 @@
         document.querySelector('.blue-r').innerHTML = blueDpReturn.getSelectedDate();
       }, 100);
     }
+
+    document.addEventListener('focus', function (event) {
+        console.log(event.type + ', <' + event.target.tagName + '> ' + event.target.id + '  [' + event.target.className + ']');
+    }, true);
+    document.addEventListener('mousedown', function (event) {
+        console.log(event.type + ', <' + event.target.tagName + '> ' + event.target.id + '  [' + event.target.className + ']');
+    }, true);
+
   </script>
 </body>
 </html>
