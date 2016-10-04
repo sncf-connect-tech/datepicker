@@ -30,7 +30,7 @@ grunt build
 
 // Lancer les tests unitaires
 grunt test
- 
+
 // Incrémenter le numéro de version et pusher sur github
 grunt push
 ```
