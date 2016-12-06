@@ -1,3 +1,8 @@
+## v1.4.1
+
+* Add role=row
+* Remove aria-labelledby
+
 ## v1.4.0
 
 * Update grunt-sass & node-sass
