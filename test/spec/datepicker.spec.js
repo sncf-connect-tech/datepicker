@@ -69,8 +69,8 @@ describe('Date picker tests >', function () {
       var yesterdayCell = $('td[date="' + formattedYesterday + '"]');
 
       // Today is at 0;0 position
-      expect(todayCell.attr('id')).toBe('day0');
-      expect(todayRow.attr('id')).toBe('row0');
+      expect(todayCell.index()).toBe(0);
+      expect(todayRow.index()).toBe(1);
 
       expect(yesterdayCell.length).toBe(0);
 
