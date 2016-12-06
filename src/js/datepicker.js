@@ -360,7 +360,7 @@ module.exports = (function () {
     tableCells += '<table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
 
     for (i = 0, len = adjustShortDayNames.length; i < len; i++) {
-      tableCells += '<th id="' + adjustDayNames[i] + '"><abbr title="' + adjustDayNames[i] + '">' + adjustShortDayNames[i] + '</abbr></th>';
+      tableCells += '<th><abbr title="' + adjustDayNames[i] + '">' + adjustShortDayNames[i] + '</abbr></th>';
     }
 
     for (i = 0, len = numDays; i <= len; i++) {
@@ -370,9 +370,9 @@ module.exports = (function () {
 
       if (this.isFirstDayOfWeek(currentDay)) {
         if (this.selectWeek && this.isNewDateAllowed(firstDayOfWeek)) {
-          tableCells += '<tr id="row' + weekRow + '" date="' + this.dateToString(currentDay) + '" class="selectable_week">';
+          tableCells += '<tr date="' + this.dateToString(currentDay) + '" class="selectable_week">';
         } else {
-          tableCells += '<tr id="row' + weekRow + '">';
+          tableCells += '<tr>';
         }
         weekRow++;
         if (this.showWeek === 1) {
@@ -381,11 +381,11 @@ module.exports = (function () {
       }
 
       if ((this.selectWeek === 0 && currentDay.getMonth() === date.getMonth() && this.isNewDateAllowed(currentDay) && !this.isHoliday(currentDay)) || (this.selectWeek === 1 && currentDay.getMonth() === date.getMonth() && this.isNewDateAllowed(firstDayOfWeek))) {
-        tableCells += '<td id="day' + i + '" class="selectable_day" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
+        tableCells += '<td class="selectable_day" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
       } else if (currentDay.getMonth() === date.getMonth()) {
-        tableCells += '<td id="day' + i + '" class="unselected_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
+        tableCells += '<td class="unselected_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
       } else {
-        tableCells += '<td id="day' + i + '" class="unselected_month off_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
+        tableCells += '<td class="unselected_month off_month" date="' + this.dateToString(currentDay) + '" role="gridcell" aria-selected="false" headers="row' + weekRow + ' ' + adjustDayNames[firstDay] + '">' + currentDay.getDate() + '</td>';
       }
 
       firstDay++;
@@ -397,7 +397,7 @@ module.exports = (function () {
 
     // Empty line to have always the same height
     while (weekRow < 6) {
-      tableCells += '<tr id="row' + weekRow + '"><td class="unselected_month off_month">N</td></tr>';
+      tableCells += '<tr><td class="unselected_month off_month">N</td></tr>';
       weekRow++;
     }
 
