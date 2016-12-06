@@ -483,7 +483,7 @@ module.exports = (function () {
     nav.appendChild(monthNav);
 
     // Months grid
-    var tableShell = '<table role="grid" aria-labelledby="month-name" class="month-wrapper"><thead><tr>';
+    var tableShell = '<table role="grid" class="month-wrapper"><thead><tr>';
 
     if (this.showWeek === 1) {
       tableShell += '<th class="weekLabel">' + (this.weekLabel) + '</th>';
@@ -649,7 +649,7 @@ module.exports = (function () {
     var len = 0;
 
     css.addClass(td, 'table-month-wrapper');
-    tableCells += '<table role="grid" aria-labelledby="month-name" class="month-cal"><tr>';
+    tableCells += '<table role="grid" class="month-cal"><tr>';
 
     for (i = 0, len = adjustShortDayNames.length; i < len; i++) {
       tableCells += '<th><abbr title="' + adjustDayNames[i] + '">' + adjustShortDayNames[i] + '</abbr></th>';
@@ -662,9 +662,9 @@ module.exports = (function () {
 
       if (this.isFirstDayOfWeek(currentDay)) {
         if (this.selectWeek && this.isNewDateAllowed(firstDayOfWeek)) {
-          tableCells += '<tr date="' + this.dateToString(currentDay) + '" class="selectable_week">';
+          tableCells += '<tr role="row" date="' + this.dateToString(currentDay) + '" class="selectable_week">';
         } else {
-          tableCells += '<tr>';
+          tableCells += '<tr role="row">';
         }
         weekRow++;
         if (this.showWeek === 1) {
