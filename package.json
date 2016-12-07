@@ -49,6 +49,7 @@
     "minifyify": "~5.0.0",
     "moment": "^2.10.3",
     "node-sass": "^3.13.0",
+    "phantomjs-prebuilt": "^2.1.13",
     "postcss": "^4.1.16",
     "sassify": "^0.9.1",
     "sassr": "0.0.6",

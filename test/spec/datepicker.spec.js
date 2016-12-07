@@ -18,6 +18,14 @@ describe('Date picker tests >', function () {
     $('.date-selector').remove();
   });
 
+  describe('invalid parameters >', function () {
+    describe('common behaviours >', function () {
+      it('should do nothing', function () {
+        dp.create('.without-parameters');
+      });
+    });
+  });
+
   describe('default parameters >', function () {
     describe('common behaviours >', function () {
       var datepicker;
@@ -49,10 +57,147 @@ describe('Date picker tests >', function () {
         expect(dpCurrentMonth).toBe(currentMonthName);
       });
 
-      it('shoud disable previous month button', function () {
+      it('should disable previous month button', function () {
         var prevMonth = document.querySelector('.month-nav .prev');
         expect(prevMonth.className.indexOf('stop')).toBeGreaterThan(-1);
       });
+
+      it('should display the next month when `next button` is clicked', function () {
+        var dpCurrentMonth;
+
+        expect($('.date-selector .month-name')[0].textContent).toBe(moment().format('MMMM'));
+
+        $('.button.next').click();
+
+        expect($('.date-selector .month-name')[0].textContent).toBe(moment().add(1, 'month').format('MMMM'));
+      });
+
+      it('should display the prev month when `prev button` is clicked', function () {
+        $('.button.next').click();
+
+        expect($('.date-selector .month-name')[0].textContent).toBe(moment().add(1, 'month').format('MMMM'));
+
+        $('.button.prev').click();
+
+        expect($('.date-selector .month-name')[0].textContent).toBe(moment().format('MMMM'));
+      });
+
+      it('should do nothing when lightbox `click`', function () {
+        $('.date-selector').click();
+      });
+
+      it('should hide if `click` outside', function () {
+        expect($('.date-selector[aria-hidden="true"]').size()).toBe(1);
+
+        datepicker.show();
+
+        expect($('.date-selector[aria-hidden="true"]').size()).toBe(0);
+        $(document.body).click();
+
+        expect($('.date-selector[aria-hidden="true"]').size()).toBe(1);
+      });
+
+      it('should set date min', function () {
+        datepicker.setDateMin(moment().subtract(1, 'month').toDate());
+      });
+
+      it('should set date max', function () {
+        datepicker.setDateMax(moment().add(3, 'month').toDate());
+      });
+
+      it('should show it-self', function () {
+        datepicker.show();
+      });
+
+      it('should set the number of calendar', function () {
+        datepicker.setNbCalendar(5);
+
+        expect($('.month-head').size()).toBe(5);
+      });
+
+      it('should do nothing when getMonthSelect', function () {
+        datepicker.getMonthSelect();
+      });
+
+      it('should return number of week when getWeekNum', function () {
+        expect(datepicker.getWeekNum(new Date('Wed Dec 07 2016 15:35:00 GMT+0100'))).toBe(50);
+      });
+
+      it('should works when moveDateMonthBy', function () {
+        datepicker.moveDateMonthBy(3);
+
+        expect($('.date-selector .month-name')[0].textContent).toBe(moment().add(3, 'month').format('MMMM'));
+      });
+
+      describe('keyboard > ', function () {
+
+        it('Tab key (9)', function () {
+          datepicker.keydownHandler({ keyCode: 9, preventDefault: function () {} });
+        });
+
+        it('Ctrl key (27)', function () {
+          datepicker.keydownHandler({ keyCode: 27, preventDefault: function () {} });
+        });
+
+        it('Enter key (13)', function () {
+          datepicker.keydownHandler({ keyCode: 13, preventDefault: function () {} });
+        });
+
+        it('Enter key (33)', function () {
+          datepicker.keydownHandler({ keyCode: 33, preventDefault: function () {} });
+        });
+
+        it('Enter key (34)', function () {
+          datepicker.keydownHandler({ keyCode: 34, preventDefault: function () {} });
+        });
+
+        it('Enter key (38)', function () {
+          datepicker.keydownHandler({ keyCode: 38, preventDefault: function () {} });
+        });
+
+        it('Enter key (40)', function () {
+          datepicker.keydownHandler({ keyCode: 40, preventDefault: function () {} });
+        });
+
+        it('Enter key (37)', function () {
+          datepicker.keydownHandler({ keyCode: 37, preventDefault: function () {} });
+        });
+
+        it('Enter key (39)', function () {
+          datepicker.keydownHandler({ keyCode: 39, preventDefault: function () {} });
+        });
+      });
+
+      describe('setDateFormat() > ', function () {
+        it('format: `default`', function () {
+          datepicker.dateFormat = 'default';
+          datepicker.setDateFormat();
+        });
+
+        it('format: `FF dd YYYY`', function () {
+          datepicker.dateFormat = 'FF dd YYYY';
+          datepicker.setDateFormat();
+        });
+
+        it('format: `dd MM YYYY`', function () {
+          datepicker.dateFormat = 'dd MM YYYY';
+          datepicker.setDateFormat();
+        });
+
+        it('format: `MM dd YYYY`', function () {
+          datepicker.dateFormat = 'MM dd YYYY';
+          datepicker.setDateFormat();
+        });
+
+        it('format: `dd FF YYYY`', function () {
+          datepicker.dateFormat = 'dd FF YYYY';
+          datepicker.setDateFormat();
+        });
+      });
+    });
+
+    it('should be create with element', function () {
+      dp.create(document.querySelector('.datepicker'));
     });
 
     it('should not create previous date cell when the 1st is a monday', function () {
@@ -130,6 +275,18 @@ describe('Date picker tests >', function () {
   });
 
   describe('lang parameter >', function () {
+    it('should display \'July\' for undefined language', function () {
+      var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
+
+      dp.config();
+      dp.create('.datepicker');
+
+      var dpCurrentMonth = $('.date-selector .month-name')[0].textContent;
+      expect(dpCurrentMonth).toBe('July');
+
+      clock.restore();
+    });
+
     it('should display \'Juillet\' for fr language', function () {
       var clock = sinon.useFakeTimers(new Date('07/15/2015').getTime());
 
