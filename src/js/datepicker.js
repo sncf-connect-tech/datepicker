@@ -463,28 +463,31 @@ module.exports = (function () {
 
     /* jshint ignore:start */
 
+    var handleDaySelection = function (event) {
+      this.changeInput(event.target.getAttribute('date'));
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      event.returnValue = false;
+      return false;
+    };
+    var handleWeekDaySelection = function (event) {
+      this.changeInput(event.target.parentNode.getAttribute('date'));
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      event.returnValue = false;
+      return false;
+    };
     if (this.selectWeek === 0) {
       for (i = 0, l = selectableDays.length; i < l; i++) {
-        selectableDays[i].addEventListener('click', this.bindToObj(function (event) {
-          this.changeInput(event.target.getAttribute('date'));
-
-          event.preventDefault();
-          event.stopPropagation();
-          event.stopImmediatePropagation();
-          event.returnValue = false;
-          return false;
-        }));
+        selectableDays[i].addEventListener('click', this.bindToObj(handleDaySelection));
+        selectableDays[i].addEventListener('touchend', this.bindToObj(handleDaySelection));
       }
     } else {
       for (i = 0, l = selectableWeeks.length; i < l; i++) {
-        selectableWeeks[i].addEventListener('click', this.bindToObj(function (event) {
-          this.changeInput(event.target.parentNode.getAttribute('date'));
-          event.preventDefault();
-          event.stopPropagation();
-          event.stopImmediatePropagation();
-          event.returnValue = false;
-          return false;
-        }));
+        selectableWeeks[i].addEventListener('click', this.bindToObj(handleWeekDaySelection));
+        selectableWeeks[i].addEventListener('touchend', this.bindToObj(handleWeekDaySelection));
       }
     }
 

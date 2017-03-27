@@ -31,6 +31,12 @@ grunt build
 // Lancer les tests unitaires
 grunt test
 
-// Incrémenter le numéro de version et pusher sur github
-grunt push
+// Faire un patch (incrément automatique du numéro de version + commit) et pusher sur github
+grunt push:patch
+
+// Faire une version mineure (incrément automatique du numéro de version + commit) et pusher sur github
+grunt push:minor
+
+// Faire une version majeure (incrément automatique du numéro de version + commit) et pusher sur github
+grunt push:major
 ```

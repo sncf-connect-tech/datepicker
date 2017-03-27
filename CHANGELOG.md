@@ -1,3 +1,9 @@
+## v1.4.2
+
+* Fix date selection in iOS
+* Modified shooter listening port to 8000. 
+So it can be opened through the VSCT_DEV_MOBILE wifi.
+
 ## v1.4.1
 
 * Add role=row
