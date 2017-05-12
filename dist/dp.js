@@ -39,22 +39,6 @@ module.exports.byUrl = function(url) {
 
 },{}],2:[function(_dereq_,module,exports){
 (function (global){
-/*
- * Copyright (c) 2016 VSCT.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License.  
- * You may obtain a copy of the License at 
- *  
- * http://www.apache.org/licenses/LICENSE-2.0  
- *  
- * Unless required by applicable law or agreed to in writing, software  
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License.
- */
-
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.CSS = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 // CSS CLASS FUNCTIONS
 // To use on one or several elements
@@ -207,7 +191,6 @@ exports.getRegex = function (name) {
 
 },{}]},{},[1])(1)
 });
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(_dereq_,module,exports){
 /**
@@ -960,7 +943,7 @@ module.exports = (function () {
 
   function hideIfClickOutside(event) {
     /* jshint validthis: true */
-    if (event.target !== this.input && event.target !== this.dateSelector) {
+    if (event.target !== this.input && event.target !== this.dateSelector && event.target.type !== 'submit') {
       this.hide();
     }
   }

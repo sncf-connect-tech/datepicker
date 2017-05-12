@@ -651,7 +651,7 @@ module.exports = (function () {
 
   function hideIfClickOutside(event) {
     /* jshint validthis: true */
-    if (event.target !== this.input && event.target !== this.dateSelector) {
+    if (event.target !== this.input && event.target !== this.dateSelector && event.target.type !== 'submit') {
       this.hide();
     }
   }

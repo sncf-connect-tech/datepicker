@@ -1,3 +1,7 @@
+## v1.4.3
+
+* Fix hidden case for dp
+
 ## v1.4.2
 
 * Fix date selection in iOS
