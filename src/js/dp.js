@@ -2,7 +2,6 @@ require('styles');
 var toolBox = require('toolbox');
 var i18n = require('i18n');
 var date = require('date');
-var css = require('css-class-js');
 var VscDatePicker = require('datepicker');
 
 module.exports = (function () {
@@ -61,15 +60,15 @@ module.exports = (function () {
         options.dateMin = date.start(input.getAttribute('data-start-date'));
       }
       // Railpass case
-      if (css.hasClass(input, 'railpass-date')) {
+      if (input.classList.contains('railpass-date')) {
         instanceOptions.dateMin = date.railpassMin();
       }
       // Backward case
-      if (css.hasClass(input, 'datepicker-backwards')) {
+      if (input.classList.contains('datepicker-backwards')) {
         instanceOptions.dateMin = date.backward();
       }
       // Limit date range to 6 months in the future
-      if (css.hasClass(input, 'six-months-in-future')) {
+      if (input.classList.contains('six-months-in-future')) {
         instanceOptions.dateMax = date.sixMonthsFuture();
       }
 

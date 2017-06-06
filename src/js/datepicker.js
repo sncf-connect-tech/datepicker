@@ -1,7 +1,6 @@
 require('styles');
 var toolBox = require('toolbox');
 var i18n = require('i18n');
-var css = require('css-class-js');
 
 module.exports = (function () {
 
@@ -11,7 +10,7 @@ module.exports = (function () {
   function VscDatePicker(el, opts) {
     /* jshint validthis: true */
     // Has already been wrapped
-    if (css.hasClass(el.parentNode, 'datepicker-wrapper')) {
+    if (el.parentNode.classList.contains('datepicker-wrapper')) {
       return;
     }
 
@@ -276,7 +275,7 @@ module.exports = (function () {
       elt.value = outward.value;
 
       // Case classes are 'inward' AND 'one-day-after' : set date to selected date +1
-      if (css.hasClass(elt, 'one-day-after')) {
+      if (elt.classList.contains('one-day-after')) {
         outwardDate = outward.value;
         outwardDate = outwardDate.split('/');
         inwardDate = new Date(outwardDate[2] + ',' + outwardDate[1] + ',' + outwardDate[0]);
@@ -356,7 +355,7 @@ module.exports = (function () {
     var i = 0;
     var len = 0;
 
-    css.addClass(td, 'table-month-wrapper');
+    td.classList.add('table-month-wrapper');
     tableCells += '<table role="grid" class="month-cal"><tr>';
 
     for (i = 0, len = adjustShortDayNames.length; i < len; i++) {
@@ -494,18 +493,18 @@ module.exports = (function () {
     /* jshint ignore:end */
 
     if (today !== null) {
-      css.addClass(today, 'today');
+      today.classList.add('today');
     }
 
     var overHandler = function (elt, className) {
       return function () {
-        css.addClass(elt, className);
+        elt.classList.add(className);
       };
     };
 
     var outHandler = function (elt, className) {
       return function () {
-        css.removeClass(elt, className);
+        elt.classList.remove(className);
       };
     };
 
@@ -526,11 +525,11 @@ module.exports = (function () {
     var prevSelected = this.tbody.querySelectorAll('.selected');
     var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
     for (i = 0, l = prevSelected.length; i < l; i++) {
-      css.removeClass(prevSelected[i], 'selected');
+      prevSelected[i].classList.remove('selected');
       prevSelected[i].setAttribute('aria-selected', 'true');
     }
     for (i = 0, l = currentSelected.length; i < l; i++) {
-      css.addClass(currentSelected[i], 'selected');
+      currentSelected[i].classList.add('selected');
       currentSelected[i].setAttribute('aria-selected', 'true');
     }
   }
@@ -888,12 +887,12 @@ module.exports = (function () {
     // Vertical position
     if (inputRect.top >= rootRect.height + this.topMin) {
       // Enough space over input
-      css.addClass(this.rootLayers, 'on-top');
-      css.removeClass(this.rootLayers, 'under');
+      this.rootLayers.classList.add('on-top');
+      this.rootLayers.classList.remove('under');
     } else {
       // Not enough space over
-      css.addClass(this.rootLayers, 'under');
-      css.removeClass(this.rootLayers, 'on-top');
+      this.rootLayers.classList.add('under');
+      this.rootLayers.classList.remove('on-top');
     }
 
     // Horizontal position
@@ -946,9 +945,9 @@ module.exports = (function () {
   function firstMonthAllowed(firstMonth) {
     /* jshint validthis: true */
     if (this.isNewDateAllowed(firstMonth)) {
-      css.removeClass(this.prevBtn, 'stop');
+      this.prevBtn.classList.remove('stop');
     } else {
-      css.addClass(this.prevBtn, 'stop');
+      this.prevBtn.classList.add('stop');
     }
   }
 
@@ -957,9 +956,9 @@ module.exports = (function () {
     nextMonth.setMonth(nextMonth.getMonth() + 1);
     nextMonth.setDate(1);
     if (this.isNewDateAllowed(nextMonth)) {
-      css.removeClass(this.nextBtn, 'stop');
+      this.nextBtn.classList.remove('stop');
     } else {
-      css.addClass(this.nextBtn, 'stop');
+      this.nextBtn.classList.add('stop');
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "datepicker",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Date picker",
   "main": "dist/dp.js",
   "repository": {
@@ -63,7 +63,6 @@
     "toolbox": "./src/js/toolbox.js",
     "date": "./src/js/date.js",
     "styles": "./tmp/datepicker.css",
-    "css-class-js": "./src/bower_components/css-class-js/dist/css-class.js",
     "datepicker": "./src/js/datepicker.js"
   },
   "browserify-shim": {
@@ -78,7 +77,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "postinstall": "bower install",
     "test": "grunt test",
     "env": "env"
   }

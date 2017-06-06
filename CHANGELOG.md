@@ -1,3 +1,9 @@
+## v1.5.0
+
+* Remove bower since it is deprecated.
+* Remove css-class-js
+* WARNING : Stop support of ie9
+
 ## v1.4.3
 
 * Fix hidden case for dp

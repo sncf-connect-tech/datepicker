@@ -144,7 +144,7 @@ module.exports = function (grunt) {
     },
     push: {
       options: {
-        files: ['package.json', 'bower.json']
+        files: ['package.json']
       }
     }
   });

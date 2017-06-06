@@ -38,161 +38,6 @@ module.exports.byUrl = function(url) {
 };
 
 },{}],2:[function(_dereq_,module,exports){
-(function (global){
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.CSS = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
-// CSS CLASS FUNCTIONS
-// To use on one or several elements
-
-exports.addClass = function (el, name) {
-  if (typeof el !== 'object') {
-    return;
-  }
-  if (el === null) {
-    return;
-  }
-  if (typeof name !== 'string') {
-    return;
-  }
-  if (name === null) {
-    return;
-  }
-
-  var i = 0;
-  var l = 0;
-
-  if (typeof el.className !== 'undefined') {
-    var regex = this.getRegex(name);
-    for (i = 0, l = regex.length; i < l; i++) {
-      if (el.className.match(regex[i])) {
-        return;
-      }
-    }
-    el.className = el.className + ' ' + name;
-  } else if (el[0] && el[0].className) {
-    for (i = 0, l = el.length; i < l; i++) {
-      this.addClass(el[i], name);
-    }
-  }
-};
-
-exports.removeClass = function (el, name) {
-  if (typeof el !== 'object') {
-    return;
-  }
-  if (el === null) {
-    return;
-  }
-  if (typeof name !== 'string') {
-    return;
-  }
-  if (name === null) {
-    return;
-  }
-
-  var i = 0;
-  var l = 0;
-
-  if (typeof el.className !== 'undefined') {
-    var regex = this.getRegex(name);
-    for (i = 0, l = regex.length; i < l; i++) {
-      el.className = el.className.replace(regex[i], ' ');
-    }
-  } else if (el[0] && el[0].className) {
-    for (i = 0, l = el.length; i < l; i++) {
-      this.removeClass(el[i], name);
-    }
-  }
-};
-
-exports.toggleClass = function (el, name) {
-  if (typeof el !== 'object') {
-    return;
-  }
-  if (el === null) {
-    return;
-  }
-  if (typeof name !== 'string') {
-    return;
-  }
-  if (name === null) {
-    return;
-  }
-
-  var i = 0;
-  var l = 0;
-
-  if (typeof el.className !== 'undefined') {
-    var regex = this.getRegex(name);
-    var match = false;
-    for (i = 0, l = regex.length; i < l; i++) {
-      if (el.className.match(regex[i])) {
-        match = true;
-        break;
-      }
-    }
-    if (match) {
-      this.removeClass(el, name);
-    } else {
-      this.addClass(el, name);
-    }
-  } else if (el[0] && el[0].className) {
-    for (i = 0, l = el.length; i < l; i++) {
-      this.toggleClass(el[i], name);
-    }
-  }
-};
-
-exports.hasClass = function (el, name) {
-  if (typeof el !== 'object') {
-    return;
-  }
-  if (el === null) {
-    return;
-  }
-  if (typeof name !== 'string') {
-    return;
-  }
-  if (name === null) {
-    return;
-  }
-
-  var i = 0;
-  var l = 0;
-  var hasClass = true;
-
-  if (typeof el.className !== 'undefined') {
-    hasClass = false;
-    var regex = this.getRegex(name);
-    for (i = 0, l = regex.length; i < l; i++) {
-      hasClass = el.className.match(regex[i]);
-      if (hasClass) {
-        break;
-      }
-    }
-  } else if (el[0] && el[0].className) {
-    for (i = 0, l = el.length; i < l; i++) {
-      hasClass = (this.hasClass(el[i], name));
-      if (!hasClass) {
-        break;
-      }
-    }
-  }
-
-  return hasClass;
-};
-
-exports.getRegex = function (name) {
-  var only = new RegExp('^' + name + '$');
-  var beginwith = new RegExp('^' + name + '\\s+');
-  var endwith = new RegExp('\\s+' + name + '$');
-  var middle = new RegExp('\\s+' + name + '\\s+');
-  return [only, beginwith, endwith, middle];
-};
-
-},{}]},{},[1])(1)
-});
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(_dereq_,module,exports){
 /**
  * Return the current date
  */
@@ -289,11 +134,10 @@ exports.start = function (days) {
 
   return String(dd + '\/' + mm + '\/' + yyyy);
 };
-},{}],4:[function(_dereq_,module,exports){
+},{}],3:[function(_dereq_,module,exports){
 _dereq_('styles');
 var toolBox = _dereq_('toolbox');
 var i18n = _dereq_('i18n');
-var css = _dereq_('css-class-js');
 
 module.exports = (function () {
 
@@ -303,7 +147,7 @@ module.exports = (function () {
   function VscDatePicker(el, opts) {
     /* jshint validthis: true */
     // Has already been wrapped
-    if (css.hasClass(el.parentNode, 'datepicker-wrapper')) {
+    if (el.parentNode.classList.contains('datepicker-wrapper')) {
       return;
     }
 
@@ -568,7 +412,7 @@ module.exports = (function () {
       elt.value = outward.value;
 
       // Case classes are 'inward' AND 'one-day-after' : set date to selected date +1
-      if (css.hasClass(elt, 'one-day-after')) {
+      if (elt.classList.contains('one-day-after')) {
         outwardDate = outward.value;
         outwardDate = outwardDate.split('/');
         inwardDate = new Date(outwardDate[2] + ',' + outwardDate[1] + ',' + outwardDate[0]);
@@ -648,7 +492,7 @@ module.exports = (function () {
     var i = 0;
     var len = 0;
 
-    css.addClass(td, 'table-month-wrapper');
+    td.classList.add('table-month-wrapper');
     tableCells += '<table role="grid" class="month-cal"><tr>';
 
     for (i = 0, len = adjustShortDayNames.length; i < len; i++) {
@@ -786,18 +630,18 @@ module.exports = (function () {
     /* jshint ignore:end */
 
     if (today !== null) {
-      css.addClass(today, 'today');
+      today.classList.add('today');
     }
 
     var overHandler = function (elt, className) {
       return function () {
-        css.addClass(elt, className);
+        elt.classList.add(className);
       };
     };
 
     var outHandler = function (elt, className) {
       return function () {
-        css.removeClass(elt, className);
+        elt.classList.remove(className);
       };
     };
 
@@ -818,11 +662,11 @@ module.exports = (function () {
     var prevSelected = this.tbody.querySelectorAll('.selected');
     var currentSelected = this.tbody.querySelectorAll('td[date="' + this.selectedDateString + '"], tr[date="' + this.selectedDateString + '"]');
     for (i = 0, l = prevSelected.length; i < l; i++) {
-      css.removeClass(prevSelected[i], 'selected');
+      prevSelected[i].classList.remove('selected');
       prevSelected[i].setAttribute('aria-selected', 'true');
     }
     for (i = 0, l = currentSelected.length; i < l; i++) {
-      css.addClass(currentSelected[i], 'selected');
+      currentSelected[i].classList.add('selected');
       currentSelected[i].setAttribute('aria-selected', 'true');
     }
   }
@@ -1180,12 +1024,12 @@ module.exports = (function () {
     // Vertical position
     if (inputRect.top >= rootRect.height + this.topMin) {
       // Enough space over input
-      css.addClass(this.rootLayers, 'on-top');
-      css.removeClass(this.rootLayers, 'under');
+      this.rootLayers.classList.add('on-top');
+      this.rootLayers.classList.remove('under');
     } else {
       // Not enough space over
-      css.addClass(this.rootLayers, 'under');
-      css.removeClass(this.rootLayers, 'on-top');
+      this.rootLayers.classList.add('under');
+      this.rootLayers.classList.remove('on-top');
     }
 
     // Horizontal position
@@ -1238,9 +1082,9 @@ module.exports = (function () {
   function firstMonthAllowed(firstMonth) {
     /* jshint validthis: true */
     if (this.isNewDateAllowed(firstMonth)) {
-      css.removeClass(this.prevBtn, 'stop');
+      this.prevBtn.classList.remove('stop');
     } else {
-      css.addClass(this.prevBtn, 'stop');
+      this.prevBtn.classList.add('stop');
     }
   }
 
@@ -1249,9 +1093,9 @@ module.exports = (function () {
     nextMonth.setMonth(nextMonth.getMonth() + 1);
     nextMonth.setDate(1);
     if (this.isNewDateAllowed(nextMonth)) {
-      css.removeClass(this.nextBtn, 'stop');
+      this.nextBtn.classList.remove('stop');
     } else {
-      css.addClass(this.nextBtn, 'stop');
+      this.nextBtn.classList.add('stop');
     }
   }
 
@@ -1392,12 +1236,11 @@ module.exports = (function () {
   return VscDatePicker;
 })();
 
-},{"css-class-js":2,"i18n":6,"styles":8,"toolbox":7}],5:[function(_dereq_,module,exports){
+},{"i18n":5,"styles":7,"toolbox":6}],4:[function(_dereq_,module,exports){
 _dereq_('styles');
 var toolBox = _dereq_('toolbox');
 var i18n = _dereq_('i18n');
 var date = _dereq_('date');
-var css = _dereq_('css-class-js');
 var VscDatePicker = _dereq_('datepicker');
 
 module.exports = (function () {
@@ -1456,15 +1299,15 @@ module.exports = (function () {
         options.dateMin = date.start(input.getAttribute('data-start-date'));
       }
       // Railpass case
-      if (css.hasClass(input, 'railpass-date')) {
+      if (input.classList.contains('railpass-date')) {
         instanceOptions.dateMin = date.railpassMin();
       }
       // Backward case
-      if (css.hasClass(input, 'datepicker-backwards')) {
+      if (input.classList.contains('datepicker-backwards')) {
         instanceOptions.dateMin = date.backward();
       }
       // Limit date range to 6 months in the future
-      if (css.hasClass(input, 'six-months-in-future')) {
+      if (input.classList.contains('six-months-in-future')) {
         instanceOptions.dateMax = date.sixMonthsFuture();
       }
 
@@ -1482,7 +1325,7 @@ module.exports = (function () {
   };
 })();
 
-},{"css-class-js":2,"date":3,"datepicker":4,"i18n":6,"styles":8,"toolbox":7}],6:[function(_dereq_,module,exports){
+},{"date":2,"datepicker":3,"i18n":5,"styles":7,"toolbox":6}],5:[function(_dereq_,module,exports){
 module.exports = {
   fr: {
     monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
@@ -1563,7 +1406,7 @@ module.exports = {
   }
 };
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 exports.extendObject = function (initObj, obj) {
   var i = '';
   for (i in obj) {
@@ -1585,7 +1428,7 @@ exports.createElement = function (str) {
   return elt.firstChild;
 };
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 var css = ".datepicker-wrapper .date-selector{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.datepicker-wrapper .nav:after{content:\"\";display:table;clear:both}@-webkit-keyframes dp-scale{from{-webkit-transform:scale3d(0, 0, 0);transform:scale3d(0, 0, 0)}to{-webkit-transform:scale3d(1, 1, 1);transform:scale3d(1, 1, 1)}}@keyframes dp-scale{from{-webkit-transform:scale3d(0, 0, 0);transform:scale3d(0, 0, 0)}to{-webkit-transform:scale3d(1, 1, 1);transform:scale3d(1, 1, 1)}}@-webkit-keyframes dp-turn-month{0%{-webkit-transform:scale3d(0.6, 0.6, 0.6);transform:scale3d(0.6, 0.6, 0.6);background:rgba(0,136,206,0)}90%{-webkit-transform:scale3d(0.9, 0.9, 0.9);transform:scale3d(0.9, 0.9, 0.9);background:rgba(0,136,206,0.1)}100%{-webkit-transform:scale3d(0.7, 0.7, 0.7);transform:scale3d(0.7, 0.7, 0.7);background:rgba(0,136,206,0)}}@keyframes dp-turn-month{0%{-webkit-transform:scale3d(0.6, 0.6, 0.6);transform:scale3d(0.6, 0.6, 0.6);background:rgba(0,136,206,0)}90%{-webkit-transform:scale3d(0.9, 0.9, 0.9);transform:scale3d(0.9, 0.9, 0.9);background:rgba(0,136,206,0.1)}100%{-webkit-transform:scale3d(0.7, 0.7, 0.7);transform:scale3d(0.7, 0.7, 0.7);background:rgba(0,136,206,0)}}@font-face{font-family:'datepicker';src:url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SAysAAAC8AAAAYGNtYXAaVcxYAAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5Zmh5UyAAAAFwAAAAlGhlYWQFAVttAAACBAAAADZoaGVhBsoDxwAAAjwAAAAkaG10eAoAAg4AAAJgAAAAGGxvY2EAcgBIAAACeAAAAA5tYXhwAAgACQAAAogAAAAgbmFtZU5UBh8AAAKoAAABYHBvc3QAAwAAAAAECAAAACAAAwQAAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmAQPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAIOYB//3//wAAAAAAIOYA//3//wAB/+MaBAADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQEW/+0DCAOTAAYAACUXCQEHCQEBFlMBn/5hUwFc/qQ5TAHTAdNN/nr+eQABAPj/7QLqA5MABgAAJQcJARcJAQLqU/5hAZ9T/qQBXDlMAdMB003+ev55AAEAAAABAABROwp5Xw889QALBAAAAAAA0W0LeAAAAADRbQt4AAD/7QMIA5MAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAAwgAAQAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAACAAAABAABFgQAAPgAAAAAAAoAFAAeADQASgAAAAEAAAAGAAcAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAUAAAAAQAAAAAAAgAOAFwAAQAAAAAAAwAUACoAAQAAAAAABAAUAGoAAQAAAAAABQAWABQAAQAAAAAABgAKAD4AAQAAAAAACgA0AH4AAwABBAkAAQAUAAAAAwABBAkAAgAOAFwAAwABBAkAAwAUACoAAwABBAkABAAUAGoAAwABBAkABQAWABQAAwABBAkABgAUAEgAAwABBAkACgA0AH4AZABhAHQAZQBwAGkAYwBrAGUAcgBWAGUAcgBzAGkAbwBuACAAMQAuADAAZABhAHQAZQBwAGkAYwBrAGUAcmRhdGVwaWNrZXIAZABhAHQAZQBwAGkAYwBrAGUAcgBSAGUAZwB1AGwAYQByAGQAYQB0AGUAcABpAGMAawBlAHIARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgAuAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format(\"truetype\");font-weight:normal;font-style:normal}[class^=\"idp-\"],[class*=\" idp-\"]{font-family:'datepicker';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.idp-right:before{content:\"\\e600\"}.idp-left:before{content:\"\\e601\"}.datepicker-wrapper{position:relative}.datepicker-wrapper abbr[title]{border-bottom:none}.datepicker-wrapper .date-selector{display:none;position:absolute;top:calc(100% + 0.375em);bottom:auto;background:#FFF;font-family:Arial, Helvetica, sans-serif;font-size:0.875em;cursor:default;padding:.625em;box-shadow:0 0 8px rgba(0,0,0,0.33);border-radius:3px;-webkit-animation:dp-scale 0.12s ease-in;animation:dp-scale 0.12s ease-in;z-index:9000}.datepicker-wrapper .date-selector .date-selector-after{position:absolute;display:block;width:1em;height:1em;background:#FFF;top:-.375em;left:.875em;-webkit-transform:rotate(45deg);transform:rotate(45deg);box-shadow:0 0 8px rgba(0,0,0,0.33);z-index:0}.datepicker-wrapper .date-selector .date-selector-before{position:absolute;display:block;width:2em;height:1em;background:#FFF;top:0;left:.25em;z-index:1}.datepicker-wrapper .date-selector.on-top{top:auto;bottom:calc(100% + 0.375em)}.datepicker-wrapper .date-selector.on-top .date-selector-after{bottom:-0.4em;top:auto}.datepicker-wrapper .date-selector.on-top .date-selector-before{top:auto;bottom:0;height:1.1em}.datepicker-wrapper .nav{position:relative;padding:.5em .625em .625em .625em;z-index:1;color:#0088CE}.datepicker-wrapper .button{position:absolute;top:-0.25em;display:block;overflow:hidden;cursor:pointer;z-index:1;font-size:1.5em;height:2em;width:2em;line-height:1.875em;text-align:center}.datepicker-wrapper .button:before{display:block}.datepicker-wrapper .button:after{content:\"\";display:block;position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%}.datepicker-wrapper .button.prev{left:-0.35em}.datepicker-wrapper .button.next{right:-0.35em}.datepicker-wrapper .button.stop,.datepicker-wrapper .button.stop:hover{cursor:default;color:#d5d5d5}.datepicker-wrapper .button:active:after{-webkit-animation:dp-turn-month 0.5s ease;animation:dp-turn-month 0.5s ease}.datepicker-wrapper .month-nav{margin:0}.datepicker-wrapper .month-head{position:relative;float:left;width:50%;text-align:center}.datepicker-wrapper table.month-wrapper{border-collapse:separate;border-spacing:.9375em;margin:-.625em}.datepicker-wrapper table.month-cal{border-collapse:separate;border-spacing:2px;margin-top:-1.25em}.datepicker-wrapper .table-month-wrapper{vertical-align:top}.datepicker-wrapper .table-month-wrapper td{border:1px solid #E8E8E8;padding:0.6em;font-size:1em;text-align:center;color:#000}.datepicker-wrapper .table-month-wrapper th{padding:0.2em 0.6875em 0.3em 0.6875em;font-weight:normal;font-size:0.8em;border-bottom:0;color:#000}.datepicker-wrapper .table-month-wrapper .selectable_day{cursor:pointer}.datepicker-wrapper .table-month-wrapper .selectable_day.hover{position:relative;z-index:1;color:#0088CE}.datepicker-wrapper .table-month-wrapper .selectable_day.hover:before{content:\"\";display:block;position:absolute;top:0;right:0;left:0;bottom:0;border:1px solid #0088CE;z-index:-1}.datepicker-wrapper .table-month-wrapper .selectable_day.today{font-weight:bold;color:#0088CE;border:1px solid #0088CE}.datepicker-wrapper .table-month-wrapper .selectable_day.selected{color:#FFF;background:#0088CE}.datepicker-wrapper .table-month-wrapper .unselected_month{color:#D3D3D3;border-color:rgba(255,255,255,0)}.datepicker-wrapper .table-month-wrapper .off_month{color:rgba(255,255,255,0)}.datepicker-wrapper .today-date{display:none}"; (_dereq_("./../node_modules/cssify"))(css); module.exports = css;
-},{"./../node_modules/cssify":1}]},{},[5])(5)
+},{"./../node_modules/cssify":1}]},{},[4])(4)
 });

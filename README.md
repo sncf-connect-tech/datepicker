@@ -2,7 +2,6 @@
 
 ## Prérequis
  * node/npm
- * bower
 
 
 ## Installation
@@ -15,11 +14,9 @@ grunt
 
 ## Utiliser dans un projet
 
-Avec bower, ajouter la ligne suivante dans le bower.json
+Avec npm, lancer la commande suivante :
 ```
-"dependencies": {
-  "datepicker": "https://github.com/voyages-sncf-technologies/datepicker.git#1.3.10"
- }
+npm install --save css-class-js
 ```
 
 ## Tâches Grunt
@@ -40,3 +37,6 @@ grunt push:minor
 // Faire une version majeure (incrément automatique du numéro de version + commit) et pusher sur github
 grunt push:major
 ```
+
+## Publier sur npm
+Suivre le tuto https://wiki.vsct.fr/display/BUVSCIHM/NPM+Registry+interne
