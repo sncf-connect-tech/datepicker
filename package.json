@@ -1,7 +1,6 @@
 {
   "name": "datepicker",
-  "private": true,
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Date picker",
   "main": "dist/dp.js",
   "repository": {
