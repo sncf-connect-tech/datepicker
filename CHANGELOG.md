@@ -1,3 +1,7 @@
+## v1.6.0
+
+* Switch oui/vsc theme
+
 ## v1.5.0
 
 * Remove bower since it is deprecated.
