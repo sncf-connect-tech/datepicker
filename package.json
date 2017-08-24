@@ -1,5 +1,5 @@
 {
-  "name": "oui-datepicker",
+  "name": "datepicker",
   "version": "1.6.0",
   "description": "Date picker",
   "main": "dist/dp.js",
