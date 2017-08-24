@@ -65,7 +65,10 @@
     padding: em(8) em(10) em(10) em(10);
     @extend %clearFloat;
     z-index: 1;
-    color: $blueVSC;
+    color: $COLOR_PRIMARY;
+    @include vsc {
+      color: $blueVSC;
+    }
   }
   .button {
     position: absolute;
@@ -145,7 +148,10 @@
       &.hover {
         position: relative;
         z-index: 1;
-        color: $blueVSC;
+        color: $COLOR_PRIMARY;
+        @include vsc {
+          color: $blueVSC;
+        }
         &:before {
           content: "";
           display: block;
@@ -154,18 +160,28 @@
           right: 0;
           left: 0;
           bottom: 0;
-          border:1px solid $blueVSC;
+          border:1px solid $COLOR_PRIMARY;
+          @include vsc {
+            border:1px solid $blueVSC;
+          }
           z-index: -1;
         }
       }
       &.today {
         font-weight: bold;
-        color:$blueVSC;
-        border:1px solid $blueVSC;
+        color: $COLOR_PRIMARY;
+        border:1px solid $COLOR_PRIMARY;
+        @include vsc {
+          color: $blueVSC;
+          border:1px solid $blueVSC;
+        }
       }
       &.selected {
-        color: #FFF;
-        background: $blueVSC;
+        color: #FFF !important;
+        background: $COLOR_PRIMARY;
+        @include vsc {
+          background: $blueVSC;
+        }
       }
     }
     .unselected_month {

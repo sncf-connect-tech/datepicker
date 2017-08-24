@@ -13,3 +13,10 @@ $em-base: 16;
   }
   @return ($pxval / $base) * 1em;
 }
+
+// permet de créer un contexte .theme-vsc
+@mixin vsc {
+  @at-root .theme-vsc & {
+    @content;
+  }
+}
